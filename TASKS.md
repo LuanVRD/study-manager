@@ -11,17 +11,17 @@
 
 ## Etapa 2 — Tela de estudos
 
-- [ ] Task 02 — Implementar listagem e criação de estudos
-  - [ ] Criar a tela inicial (`StudiesView`).
-  - [ ] Exibir estudos cadastrados em formato de cards (com imagem/placeholder e percentual de conclusão).
-  - [ ] Implementar a modal `StudyDialog` para adicionar novos estudos.
-  - [ ] Implementar a seleção e cópia de imagem via `OpenFileDialog` salvando na pasta local com Guid único.
+- [x] Task 02 — Implementar listagem e criação de estudos
+  - [x] Criar a tela inicial (`StudiesView`).
+  - [x] Exibir estudos cadastrados em formato de cards (com imagem/placeholder e percentual de conclusão).
+  - [x] Implementar a modal `StudyDialog` para adicionar novos estudos.
+  - [x] Implementar a seleção e cópia de imagem via `OpenFileDialog` salvando na pasta local com Guid único.
 
-- [ ] Task 03 — Implementar edição e exclusão de estudos
-  - [ ] Permitir a edição de estudos (nome e imagem) por meio da modal.
-  - [ ] Implementar exclusão de estudos com mensagem de confirmação detalhada.
-  - [ ] Garantir que todas as alterações persistam no JSON.
-  - [ ] Configurar a navegação na `MainWindow` para permitir a abertura de um estudo.
+- [x] Task 03 — Implementar edição e exclusão de estudos
+  - [x] Permitir a edição de estudos (nome e imagem) por meio da modal.
+  - [x] Implementar exclusão de estudos com mensagem de confirmação detalhada.
+  - [x] Garantir que todas as alterações persistam no JSON.
+  - [x] Configurar a navegação na `MainWindow` para permitir a abertura de um estudo.
 
 ## Etapa 3 — Tela de tópicos e temas
 

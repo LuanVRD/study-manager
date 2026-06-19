@@ -1,12 +1,26 @@
-﻿<Window x:Class="StudyManager.MainWindow"
+<Window x:Class="StudyManager.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudyManager"
+        xmlns:vm="clr-namespace:StudyManager.ViewModels"
+        xmlns:views="clr-namespace:StudyManager.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Gerenciador de Estudos" Height="650" Width="960"
+        WindowStartupLocation="CenterScreen" Background="#1e1e24">
+    
+    <Window.Resources>
+        <!-- ViewMappings -->
+        <DataTemplate DataType="{x:Type vm:StudiesViewModel}">
+            <views:StudiesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StudyDetailsViewModel}">
+            <views:StudyDetailsView />
+        </DataTemplate>
+    </Window.Resources>
+    
     <Grid>
-
+        <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>
