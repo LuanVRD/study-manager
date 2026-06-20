@@ -9,7 +9,8 @@
         mc:Ignorable="d"
         Title="Gerenciador de Estudos" Height="650" Width="960"
         WindowStartupLocation="CenterScreen" Background="#1e1e24"
-        Icon="pack://application:,,,/StudyManager;component/StudyManager.ico">
+        Icon="pack://application:,,,/StudyManager;component/StudyManager.ico"
+        Closing="Window_Closing">
     
     <Window.Resources>
         <!-- ViewMappings -->

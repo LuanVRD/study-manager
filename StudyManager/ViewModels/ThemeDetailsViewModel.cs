@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using StudyManager.Models;
 using StudyManager.Views.Dialogs;
 
@@ -13,6 +14,28 @@ namespace StudyManager.ViewModels
         public Study Study { get; }
         public StudyTopic Topic { get; }
         public StudyTheme Theme { get; }
+
+        private DispatcherTimer? _saveTimer;
+        private string _notes = string.Empty;
+        private string _saveStatus = "Salvo";
+
+        public string Notes
+        {
+            get => _notes;
+            set
+            {
+                if (SetProperty(ref _notes, value))
+                {
+                    OnNotesChanged();
+                }
+            }
+        }
+
+        public string SaveStatus
+        {
+            get => _saveStatus;
+            set => SetProperty(ref _saveStatus, value);
+        }
 
         public ICommand BackCommand { get; }
         public ICommand AddLinkCommand { get; }
@@ -26,6 +49,7 @@ namespace StudyManager.ViewModels
             Study = study;
             Topic = topic;
             Theme = theme;
+            _notes = theme.Notes; // Set backing field directly to avoid triggering save timer on load
             
             BackCommand = new RelayCommand(GoBack);
             AddLinkCommand = new RelayCommand(AddLink);
@@ -37,6 +61,42 @@ namespace StudyManager.ViewModels
         private void GoBack()
         {
             _main.NavigateToStudyDetails(Study);
+        }
+
+        private void OnNotesChanged()
+        {
+            SaveStatus = "Salvando...";
+
+            if (_saveTimer == null)
+            {
+                _saveTimer = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromMilliseconds(600)
+                };
+                _saveTimer.Tick += SaveTimer_Tick;
+            }
+
+            _saveTimer.Stop();
+            _saveTimer.Start();
+        }
+
+        private void SaveTimer_Tick(object? sender, EventArgs e)
+        {
+            _saveTimer?.Stop();
+            Theme.Notes = Notes;
+            _main.SaveData();
+            SaveStatus = "Salvo";
+        }
+
+        public void SavePendingChanges()
+        {
+            if (_saveTimer != null && _saveTimer.IsEnabled)
+            {
+                _saveTimer.Stop();
+                Theme.Notes = Notes;
+                _main.SaveData();
+                SaveStatus = "Salvo";
+            }
         }
 
         private void AddLink()

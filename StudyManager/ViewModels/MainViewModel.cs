@@ -15,7 +15,14 @@ namespace StudyManager.ViewModels
         public ViewModelBase? CurrentViewModel
         {
             get => _currentViewModel;
-            set => SetProperty(ref _currentViewModel, value);
+            set
+            {
+                if (_currentViewModel is ThemeDetailsViewModel oldThemeVm)
+                {
+                    oldThemeVm.SavePendingChanges();
+                }
+                SetProperty(ref _currentViewModel, value);
+            }
         }
 
         public MainViewModel()

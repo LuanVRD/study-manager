@@ -13,4 +13,15 @@ public partial class MainWindow : Window
         InitializeComponent();
         DataContext = new MainViewModel();
     }
+
+    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+        if (DataContext is MainViewModel mainVm)
+        {
+            if (mainVm.CurrentViewModel is ThemeDetailsViewModel themeVm)
+            {
+                themeVm.SavePendingChanges();
+            }
+        }
+    }
 }

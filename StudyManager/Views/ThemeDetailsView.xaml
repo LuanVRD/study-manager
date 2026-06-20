@@ -165,15 +165,33 @@
 
                     <TextBlock Grid.Row="0" Text="Anotações" Style="{StaticResource TextTitle}" Margin="0,0,0,12"/>
 
-                    <TextBox Grid.Row="1" Text="{Binding Theme.Notes, Mode=TwoWay}"
+                    <TextBox Grid.Row="1" Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              AcceptsReturn="True" AcceptsTab="True"
                              TextWrapping="Wrap" VerticalContentAlignment="Top"
                              Background="#11121a" BorderBrush="{StaticResource BrushBorder}" BorderThickness="1"
-                             IsEnabled="False"
+                             IsEnabled="True" Padding="12" FontSize="14"
                              VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-                    <TextBlock Grid.Row="2" Text="📝 Anotações serão implementadas com salvamento automático na próxima etapa." 
-                               Style="{StaticResource TextBody}" Foreground="{StaticResource BrushTextMuted}" FontSize="11" Margin="0,8,0,0"/>
+                    <!-- Save Status Indicator -->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,8,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding SaveStatus}" FontSize="12" VerticalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBody}">
+                                    <Setter Property="Foreground" Value="{StaticResource BrushTextMuted}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SaveStatus}" Value="Salvando...">
+                                            <Setter Property="Foreground" Value="{StaticResource BrushAccent}"/>
+                                            <Setter Property="FontWeight" Value="SemiBold"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding SaveStatus}" Value="Salvo">
+                                            <Setter Property="Foreground" Value="{StaticResource BrushSuccess}"/>
+                                            <Setter Property="FontWeight" Value="Normal"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
                 </Grid>
             </Border>
         </Grid>

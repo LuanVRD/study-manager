@@ -15,15 +15,8 @@
               "id": "cd708b7b-e937-4fda-a5c7-20dec2e25c91",
               "name": "HTML sem\u00E2ntico",
               "isCompleted": false,
-              "notes": "",
-              "links": [
-                {
-                  "id": "effe7499-fe78-41a1-af1a-a99f2bb605a4",
-                  "name": "Domine as principais tags do HTML sem\u00E2ntico",
-                  "url": "https://www.youtube.com/watch?v=BjQvU8H_DKY",
-                  "type": "Video"
-                }
-              ]
+              "notes": "top",
+              "links": []
             },
             {
               "id": "232a9da6-0163-4708-8e6c-b30b9179cede",
@@ -42,7 +35,7 @@
             {
               "id": "c2ae50a0-d17f-4447-b437-d8df42c93753",
               "name": "CSS, especificidade, cascata, heran\u00E7a e unidades",
-              "isCompleted": false,
+              "isCompleted": true,
               "notes": "",
               "links": []
             },
