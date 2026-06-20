@@ -29,10 +29,14 @@
             <Grid>
                 <TextBlock Text="Gerenciador de estudos" Style="{StaticResource TextHeader}" VerticalAlignment="Center"/>
                 
-                <Button Content="Adicionar estudo" Command="{Binding AddStudyCommand}" 
-                        Style="{StaticResource PrimaryButton}"
-                        HorizontalAlignment="Right" VerticalAlignment="Center"
-                        Width="150" Height="36"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Content="Importar CSV" Command="{Binding ImportCsvCommand}" 
+                            Style="{StaticResource SecondaryButton}"
+                            Margin="0,0,10,0" Width="130" Height="36"/>
+                    <Button Content="Adicionar estudo" Command="{Binding AddStudyCommand}" 
+                            Style="{StaticResource PrimaryButton}"
+                            Width="150" Height="36"/>
+                </StackPanel>
             </Grid>
         </Border>
 

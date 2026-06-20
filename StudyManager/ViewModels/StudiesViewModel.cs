@@ -2,7 +2,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Win32;
 using StudyManager.Models;
+using StudyManager.Services;
 using StudyManager.Views.Dialogs;
 
 namespace StudyManager.ViewModels
@@ -18,6 +20,7 @@ namespace StudyManager.ViewModels
         public ICommand EditStudyCommand { get; }
         public ICommand DeleteStudyCommand { get; }
         public ICommand SyncStudiesCommand { get; }
+        public ICommand ImportCsvCommand { get; }
 
         public StudiesViewModel(MainViewModel main)
         {
@@ -30,6 +33,7 @@ namespace StudyManager.ViewModels
             EditStudyCommand = new RelayCommand(EditStudy);
             DeleteStudyCommand = new RelayCommand(DeleteStudy);
             SyncStudiesCommand = new RelayCommand(SyncStudies);
+            ImportCsvCommand = new RelayCommand(ImportCsv);
         }
 
         private void AddStudy()
@@ -155,6 +159,57 @@ namespace StudyManager.ViewModels
                 _main.AppData.Studies.Add(study);
             }
             _main.SaveData();
+        }
+
+        private void ImportCsv()
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Arquivos CSV (*.csv)|*.csv|Todos os arquivos (*.*)|*.*",
+                Title = "Selecionar arquivo CSV para importar estudos"
+            };
+
+            bool? dialogResult = Application.Current.MainWindow != null
+                ? openFileDialog.ShowDialog(Application.Current.MainWindow)
+                : openFileDialog.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                var importer = new CsvImportService();
+                var result = importer.ImportAll(openFileDialog.FileName, _main.AppData.Studies);
+
+                if (result.Success)
+                {
+                    // Refresh the observable collection to reflect added studies/topics/themes
+                    Studies.Clear();
+                    foreach (var study in _main.AppData.Studies)
+                    {
+                        Studies.Add(study);
+                    }
+
+                    _main.SaveData();
+
+                    // Display summary
+                    MessageBox.Show(
+                        $"Importação concluída.\n\n" +
+                        $"• {result.StudiesCreated} estudos criados.\n" +
+                        $"• {result.TopicsCreated} tópicos criados.\n" +
+                        $"• {result.ThemesAdded} temas adicionados.\n" +
+                        $"• {result.ThemesIgnored} temas ignorados por já existirem.\n" +
+                        $"• {result.InvalidLines} linhas inválidas ignoradas.",
+                        "Resumo da Importação",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        $"Falha na importação:\n{result.ErrorMessage}",
+                        "Erro de Importação",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+            }
         }
     }
 }
