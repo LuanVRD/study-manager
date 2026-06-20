@@ -18,6 +18,7 @@ namespace StudyManager.ViewModels
         private DispatcherTimer? _saveTimer;
         private string _notes = string.Empty;
         private string _saveStatus = "Salvo";
+        private bool _isNotesExpanded;
 
         public string Notes
         {
@@ -37,12 +38,19 @@ namespace StudyManager.ViewModels
             set => SetProperty(ref _saveStatus, value);
         }
 
+        public bool IsNotesExpanded
+        {
+            get => _isNotesExpanded;
+            set => SetProperty(ref _isNotesExpanded, value);
+        }
+
         public ICommand BackCommand { get; }
         public ICommand AddLinkCommand { get; }
         public ICommand EditLinkCommand { get; }
         public ICommand DeleteLinkCommand { get; }
         public ICommand OpenLinkCommand { get; }
         public ICommand SaveDataCommand { get; }
+        public ICommand ToggleNotesExpandedCommand { get; }
 
         public ThemeDetailsViewModel(MainViewModel main, Study study, StudyTopic topic, StudyTheme theme)
         {
@@ -58,6 +66,7 @@ namespace StudyManager.ViewModels
             DeleteLinkCommand = new RelayCommand(DeleteLink);
             OpenLinkCommand = new RelayCommand(OpenLink);
             SaveDataCommand = new RelayCommand(() => _main.SaveData());
+            ToggleNotesExpandedCommand = new RelayCommand(() => IsNotesExpanded = !IsNotesExpanded);
         }
 
         private void GoBack()

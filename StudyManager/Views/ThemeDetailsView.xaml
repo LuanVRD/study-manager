@@ -12,6 +12,71 @@
 
     <UserControl.Resources>
         <conv:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        
+        <!-- Premium Toolbar Button Style -->
+        <Style x:Key="ToolbarButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource BrushTextSecondary}"/>
+            <Setter Property="Width" Value="36"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="1,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="4" BorderThickness="1" BorderBrush="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
+                                <Setter Property="BorderBrush" Value="{StaticResource BrushBorder}"/>
+                                <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource BrushBorder}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Premium RichTextBox Style -->
+        <Style x:Key="RichNotesTextBoxStyle" TargetType="RichTextBox">
+            <Setter Property="Background" Value="#11121a"/>
+            <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BrushBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="CaretBrush" Value="White"/>
+            <Setter Property="SelectionBrush" Value="{StaticResource BrushPrimary}"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RichTextBox">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BrushTextSecondary}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
     <Grid Background="{StaticResource BrushWindowBg}">
@@ -49,117 +114,182 @@
         <!-- Main Content Area -->
         <Grid Grid.Row="2" Margin="20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition>
+                    <ColumnDefinition.Style>
+                        <Style TargetType="ColumnDefinition">
+                            <Setter Property="Width" Value="*"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsNotesExpanded}" Value="True">
+                                    <Setter Property="Width" Value="Auto"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ColumnDefinition.Style>
+                </ColumnDefinition>
+                <ColumnDefinition>
+                    <ColumnDefinition.Style>
+                        <Style TargetType="ColumnDefinition">
+                            <Setter Property="Width" Value="1.2*"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsNotesExpanded}" Value="True">
+                                    <Setter Property="Width" Value="*"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ColumnDefinition.Style>
+                </ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <!-- Column 0: Links Block -->
             <Grid Grid.Column="0" Margin="0,0,16,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                <!-- Full Links Block (Normal Mode) -->
+                <Grid Visibility="{Binding IsNotesExpanded, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=inverse}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <!-- Section Header -->
-                <Grid Grid.Row="0" Margin="0,0,0,16">
-                    <TextBlock Text="Links de Apoio" Style="{StaticResource TextTitle}" VerticalAlignment="Center"/>
-                    <Button Content="Adicionar Link" Command="{Binding AddLinkCommand}" Style="{StaticResource PrimaryButton}" Height="34" Padding="14,0" HorizontalAlignment="Right"/>
+                    <!-- Section Header -->
+                    <Grid Grid.Row="0" Margin="0,0,0,16">
+                        <TextBlock Text="Links de Apoio" Style="{StaticResource TextTitle}" VerticalAlignment="Center"/>
+                        <Button Content="Adicionar Link" Command="{Binding AddLinkCommand}" Style="{StaticResource PrimaryButton}" Height="34" Padding="14,0" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <!-- Links Content Grid -->
+                    <Grid Grid.Row="1">
+                        <!-- Empty State Message -->
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,40"
+                                    Visibility="{Binding Theme.Links.Count, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
+                            <TextBlock Text="🔗" FontSize="40" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                            <TextBlock Text="Nenhum link cadastrado." Foreground="{StaticResource BrushTextSecondary}" FontSize="15" HorizontalAlignment="Center" FontWeight="SemiBold"/>
+                            <TextBlock Text="Adicione vídeos ou artigos para estudar!" Foreground="{StaticResource BrushTextMuted}" FontSize="12" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                        </StackPanel>
+
+                        <!-- Links List -->
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Visibility="{Binding Theme.Links.Count, Converter={StaticResource NullToVisibilityConverter}}">
+                            <ItemsControl ItemsSource="{Binding Theme.Links}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <!-- Clickable Link Card -->
+                                        <Border BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.5" CornerRadius="8" Padding="14,12" Margin="0,0,0,10" Cursor="Hand" Background="Transparent"
+                                                local:DragDropBehavior.IsDragSource="True"
+                                                local:DragDropBehavior.IsDropTarget="True"
+                                                local:DragDropBehavior.DragGroup="Links"
+                                                local:DragDropBehavior.DropCommand="{Binding DataContext.SaveDataCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                local:DragDropBehavior.ClickCommand="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                local:DragDropBehavior.ClickCommandParameter="{Binding}">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
+                                                            <Setter Property="BorderBrush" Value="{StaticResource BrushBorderFocus}"/>
+                                                        </Trigger>
+                                                        <Trigger Property="local:DragDropBehavior.IsDragOverItem" Value="True">
+                                                            <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
+                                                            <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Link Icon -->
+                                                <TextBlock x:Name="IconText" FontSize="18" Foreground="{StaticResource BrushTextSecondary}" VerticalAlignment="Center" Margin="0,0,14,0"/>
+
+                                                <!-- Text Content -->
+                                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                     <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="14" TextTrimming="CharacterEllipsis" ToolTip="{Binding Name}">
+                                                         <TextBlock.Style>
+                                                             <Style TargetType="TextBlock" BasedOn="{StaticResource TextBody}">
+                                                                 <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
+                                                                 <Style.Triggers>
+                                                                     <Trigger Property="IsMouseOver" Value="True">
+                                                                         <Setter Property="TextDecorations" Value="Underline"/>
+                                                                     </Trigger>
+                                                                 </Style.Triggers>
+                                                             </Style>
+                                                         </TextBlock.Style>
+                                                     </TextBlock>
+                                                     <TextBlock Text="{Binding Url}" Style="{StaticResource TextBody}" FontSize="11" Foreground="{StaticResource BrushTextMuted}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis" ToolTip="{Binding Url}"/>
+                                                </StackPanel>
+
+                                                <!-- Edit / Delete actions -->
+                                                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0,0,0">
+                                                    <Button Command="{Binding DataContext.EditLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding}"
+                                                            Content="✏️" ToolTip="Editar Link" Style="{StaticResource IconButtonStyle}"/>
+                                                    <Button Command="{Binding DataContext.DeleteLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding}"
+                                                            Content="🗑️" ToolTip="Excluir Link" Style="{StaticResource IconButtonStyle}"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                        
+                                        <!-- Conditional icon based on LinkType -->
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding Type}" Value="Video">
+                                                <Setter TargetName="IconText" Property="Text" Value="🎥"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Type}" Value="Article">
+                                                <Setter TargetName="IconText" Property="Text" Value="📄"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
                 </Grid>
 
-                <!-- Links Content Grid -->
-                <Grid Grid.Row="1">
-                    <!-- Empty State Message -->
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,40"
-                                Visibility="{Binding Theme.Links.Count, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
-                        <TextBlock Text="🔗" FontSize="40" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                        <TextBlock Text="Nenhum link cadastrado." Foreground="{StaticResource BrushTextSecondary}" FontSize="15" HorizontalAlignment="Center" FontWeight="SemiBold"/>
-                        <TextBlock Text="Adicione vídeos ou artigos para estudar!" Foreground="{StaticResource BrushTextMuted}" FontSize="12" HorizontalAlignment="Center" Margin="0,4,0,0"/>
-                    </StackPanel>
+                <!-- Collapsed Links Block (Expanded Notes Mode) -->
+                <Border Visibility="{Binding IsNotesExpanded, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Background="{StaticResource BrushSurfaceBg}" BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.5" CornerRadius="8" Width="50" HorizontalAlignment="Center" Padding="0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <!-- Links List -->
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Visibility="{Binding Theme.Links.Count, Converter={StaticResource NullToVisibilityConverter}}">
-                        <ItemsControl ItemsSource="{Binding Theme.Links}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <!-- Clickable Link Card -->
-                                    <Border BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.5" CornerRadius="8" Padding="14,12" Margin="0,0,0,10" Cursor="Hand" Background="Transparent"
-                                            local:DragDropBehavior.IsDragSource="True"
-                                            local:DragDropBehavior.IsDropTarget="True"
-                                            local:DragDropBehavior.DragGroup="Links"
-                                            local:DragDropBehavior.DropCommand="{Binding DataContext.SaveDataCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                            local:DragDropBehavior.ClickCommand="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                            local:DragDropBehavior.ClickCommandParameter="{Binding}">
-                                        <Border.Style>
-                                            <Style TargetType="Border">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
-                                                        <Setter Property="BorderBrush" Value="{StaticResource BrushBorderFocus}"/>
-                                                    </Trigger>
-                                                    <Trigger Property="local:DragDropBehavior.IsDragOverItem" Value="True">
-                                                        <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
-                                                        <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Border.Style>
+                        <!-- Restore Button -->
+                        <Button Grid.Row="0" Command="{Binding ToggleNotesExpandedCommand}" ToolTip="Mostrar Painel de Links" Style="{StaticResource IconButtonStyle}" Height="34" Width="34" HorizontalAlignment="Center" Margin="0,0,0,10">
+                            <TextBlock Text="»" FontSize="20" FontWeight="Bold" Foreground="{StaticResource BrushPrimary}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,2"/>
+                        </Button>
 
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <!-- Link Icon -->
-                                            <TextBlock x:Name="IconText" FontSize="18" Foreground="{StaticResource BrushTextSecondary}" VerticalAlignment="Center" Margin="0,0,14,0"/>
-
-                                            <!-- Text Content -->
-                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                                 <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="14" TextTrimming="CharacterEllipsis" ToolTip="{Binding Name}">
-                                                     <TextBlock.Style>
-                                                         <Style TargetType="TextBlock" BasedOn="{StaticResource TextBody}">
-                                                             <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
-                                                             <Style.Triggers>
-                                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                                     <Setter Property="TextDecorations" Value="Underline"/>
-                                                                 </Trigger>
-                                                             </Style.Triggers>
-                                                         </Style>
-                                                     </TextBlock.Style>
-                                                 </TextBlock>
-                                                 <TextBlock Text="{Binding Url}" Style="{StaticResource TextBody}" FontSize="11" Foreground="{StaticResource BrushTextMuted}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis" ToolTip="{Binding Url}"/>
-                                            </StackPanel>
-
-                                            <!-- Edit / Delete actions -->
-                                            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0,0,0">
-                                                <Button Command="{Binding DataContext.EditLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="✏️" ToolTip="Editar Link" Style="{StaticResource IconButtonStyle}"/>
-                                                <Button Command="{Binding DataContext.DeleteLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="🗑️" ToolTip="Excluir Link" Style="{StaticResource IconButtonStyle}"/>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-                                    
-                                    <!-- Conditional icon based on LinkType -->
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Type}" Value="Video">
-                                            <Setter TargetName="IconText" Property="Text" Value="🎥"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Type}" Value="Article">
-                                            <Setter TargetName="IconText" Property="Text" Value="📄"/>
-                                        </DataTrigger>
-                                    </DataTemplate.Triggers>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </Grid>
+                        <!-- Simplified vertical list of icons -->
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                            <ItemsControl ItemsSource="{Binding Theme.Links}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource IconButtonStyle}" Height="34" Width="34" Margin="0,4" HorizontalAlignment="Center"
+                                                ToolTip="{Binding Name}">
+                                            <TextBlock x:Name="CollapsedIconText" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Button>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding Type}" Value="Video">
+                                                <Setter TargetName="CollapsedIconText" Property="Text" Value="🎥"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Type}" Value="Article">
+                                                <Setter TargetName="CollapsedIconText" Property="Text" Value="📄"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+                </Border>
             </Grid>
 
-            <!-- Column 1: Notes Block Placeholder (Task 07) -->
+            <!-- Column 1: Notes Block -->
             <Border Grid.Column="1" Background="{StaticResource BrushSurfaceBg}" BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.5" CornerRadius="8" Padding="20">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -168,14 +298,85 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Anotações" Style="{StaticResource TextTitle}" Margin="0,0,0,12"/>
+                    <Grid Grid.Row="0" Margin="0,0,0,12">
+                        <TextBlock Text="Anotações" Style="{StaticResource TextTitle}" VerticalAlignment="Center"/>
+                        
+                        <!-- Toggle Notes Expanded Button -->
+                        <Button Command="{Binding ToggleNotesExpandedCommand}" Height="30" Padding="10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource SecondaryButton}">
+                                    <Setter Property="Content" Value="Expandir Editor ↗"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsNotesExpanded}" Value="True">
+                                            <Setter Property="Content" Value="Recolher Editor ↙"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Grid>
 
-                    <TextBox Grid.Row="1" Text="{Binding Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             AcceptsReturn="True" AcceptsTab="True"
-                             TextWrapping="Wrap" VerticalContentAlignment="Top"
-                             Background="#11121a" BorderBrush="{StaticResource BrushBorder}" BorderThickness="1"
-                             IsEnabled="True" Padding="12" FontSize="14"
-                             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Formatting Toolbar -->
+                        <Border Grid.Row="0" BorderBrush="{StaticResource BrushBorder}" BorderThickness="0,0,0,1" Padding="0,0,0,8" Margin="0,0,0,8">
+                            <WrapPanel Orientation="Horizontal">
+                                <!-- Formatting buttons -->
+                                <Button Command="EditingCommands.ToggleBold" CommandTarget="{Binding ElementName=RichNotesTextBox}" ToolTip="Negrito (Ctrl+B)" Style="{StaticResource ToolbarButton}">
+                                    <TextBlock Text="B" FontWeight="Bold" FontSize="14"/>
+                                </Button>
+                                <Button Command="EditingCommands.ToggleItalic" CommandTarget="{Binding ElementName=RichNotesTextBox}" ToolTip="Itálico (Ctrl+I)" Style="{StaticResource ToolbarButton}">
+                                    <TextBlock Text="I" FontStyle="Italic" FontSize="14" FontFamily="Georgia"/>
+                                </Button>
+                                <Button Command="EditingCommands.ToggleUnderline" CommandTarget="{Binding ElementName=RichNotesTextBox}" ToolTip="Sublinhado (Ctrl+U)" Style="{StaticResource ToolbarButton}">
+                                    <TextBlock Text="U" TextDecorations="Underline" FontSize="14"/>
+                                </Button>
+
+                                <Border Width="1" Height="20" Background="{StaticResource BrushBorder}" Margin="6,0"/>
+
+                                <Button Command="EditingCommands.ToggleBullets" CommandTarget="{Binding ElementName=RichNotesTextBox}" ToolTip="Lista de Marcadores" Style="{StaticResource ToolbarButton}">
+                                    <TextBlock Text="• List" FontSize="12" FontWeight="Bold"/>
+                                </Button>
+                                <Button Click="CodeBlock_Click" ToolTip="Bloco de Código" Style="{StaticResource ToolbarButton}">
+                                    <TextBlock Text="&lt;/&gt;" FontSize="12" FontWeight="Bold" FontFamily="Consolas"/>
+                                </Button>
+
+                                <Border Width="1" Height="20" Background="{StaticResource BrushBorder}" Margin="6,0"/>
+
+                                <Button Click="Heading1_Click" ToolTip="Título Grande (H1)" Style="{StaticResource ToolbarButton}">
+                                    <TextBlock Text="H1" FontWeight="Bold" FontSize="13"/>
+                                </Button>
+                                <Button Click="Heading2_Click" ToolTip="Título Médio (H2)" Style="{StaticResource ToolbarButton}">
+                                    <TextBlock Text="H2" FontWeight="Bold" FontSize="13"/>
+                                </Button>
+                                <Button Click="NormalText_Click" ToolTip="Texto Normal" Style="{StaticResource ToolbarButton}">
+                                    <TextBlock Text="Tx" FontSize="13"/>
+                                </Button>
+
+                                <Border Width="1" Height="20" Background="{StaticResource BrushBorder}" Margin="6,0"/>
+
+                                <Button Click="InsertImage_Click" ToolTip="Inserir Imagem" Style="{StaticResource ToolbarButton}">
+                                    <TextBlock Text="🖼️" FontSize="14"/>
+                                </Button>
+                            </WrapPanel>
+                        </Border>
+
+                        <!-- RichTextBox Editor -->
+                        <RichTextBox x:Name="RichNotesTextBox" Grid.Row="1"
+                                     local:RichTextBoxHelper.DocumentXaml="{Binding Notes}"
+                                     AcceptsTab="True"
+                                     Style="{StaticResource RichNotesTextBoxStyle}">
+                            <RichTextBox.Resources>
+                                <Style TargetType="Paragraph">
+                                    <Setter Property="Margin" Value="0,0,0,6"/>
+                                </Style>
+                            </RichTextBox.Resources>
+                        </RichTextBox>
+                    </Grid>
 
                     <!-- Save Status Indicator -->
                     <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,8,0,0" VerticalAlignment="Center">
