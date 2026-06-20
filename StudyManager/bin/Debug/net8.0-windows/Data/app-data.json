@@ -8,19 +8,138 @@
       "updatedAt": "2026-06-20T06:46:43.4329933-03:00",
       "topics": [
         {
-          "id": "7456ac6a-6ade-494a-a766-815c0f4dca5e",
-          "name": "Teste",
+          "id": "8a3e5475-fa97-474d-8457-cc04d1223ee2",
+          "name": "1.1 Fundamentos da plataforma web",
           "themes": [
             {
-              "id": "09904523-35ed-4b4c-83a0-317064c80d94",
-              "name": "teste",
-              "isCompleted": true,
+              "id": "cd708b7b-e937-4fda-a5c7-20dec2e25c91",
+              "name": "HTML sem\u00E2ntico",
+              "isCompleted": false,
               "notes": "",
               "links": []
             },
             {
-              "id": "1870fe67-46ac-4582-8af0-32beb169e2a4",
-              "name": "teste 2",
+              "id": "232a9da6-0163-4708-8e6c-b30b9179cede",
+              "name": "Formul\u00E1rios HTML",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "24e640d9-04d0-4953-80b7-b33d64eead6a",
+              "name": "Acessibilidade nativa",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c2ae50a0-d17f-4447-b437-d8df42c93753",
+              "name": "CSS, especificidade, cascata, heran\u00E7a e unidades",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f9c9d560-54b2-4707-b058-24e805e4ddf9",
+              "name": "Flexbox e CSS Grid",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3e0bef68-ad89-4d20-bab9-272b58784540",
+              "name": "Design responsivo",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "128c13ee-259a-4516-b00a-73d0457ff506",
+              "name": "DOM e \u00E1rvore de elementos",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "62627161-0729-494b-b19d-45328fefceb9",
+              "name": "Eventos, propaga\u00E7\u00E3o, bubbling e capturing",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "67b6481e-3891-4518-9981-9a128d3f4fae",
+              "name": "Event loop, microtasks e macrotasks",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b4435c0e-b06a-4f5b-92ad-67b473305d72",
+              "name": "Promises e async/await",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "547f7cc8-80ce-4833-8f69-e3c4c6b9b1e3",
+              "name": "APIs do navegador",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b4a9b855-757b-4996-9da8-909516277a50",
+              "name": "Cookies, localStorage, sessionStorage e IndexedDB",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d842f1ce-955e-42dd-b387-a04cf6173850",
+              "name": "HTTP, HTTPS, cabe\u00E7alhos, m\u00E9todos e c\u00F3digos de status",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1241284b-571f-462d-91d3-d937fada413e",
+              "name": "CORS, preflight e same-origin policy",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "9c665597-7a82-49c2-9807-703e10dbadfe",
+              "name": "Cache do navegador",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "0838b107-5c2d-435c-be99-40261dde7beb",
+              "name": "WebSockets e Server-Sent Events",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f1f5f7f7-4604-46a6-9997-a488d38bdac7",
+              "name": "Performance de carregamento e renderiza\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e9cd3833-9cf3-4125-bd4b-dc44eb97032d",
+              "name": "Core Web Vitals",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d242d317-3cfd-465e-b00e-721e71b92fa7",
+              "name": "Seguran\u00E7a contra XSS, CSRF e clickjacking",
               "isCompleted": false,
               "notes": "",
               "links": []
@@ -28,9 +147,2537 @@
           ]
         },
         {
-          "id": "c733d0bc-dc00-4744-8d54-6607429b0b8d",
-          "name": "teste 2",
-          "themes": []
+          "id": "f82e8552-bbb1-4bd7-a9d9-054bdff516c2",
+          "name": "1.2 JavaScript e TypeScript avan\u00E7ados",
+          "themes": [
+            {
+              "id": "5a20e8df-f471-47c8-ae55-4accd3b13ec5",
+              "name": "JavaScript \u2014 Escopo l\u00E9xico",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d4c7b393-1f2c-45d6-9fde-9f9c1078b2ed",
+              "name": "JavaScript \u2014 Closures",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "888950fe-a2ff-4aa3-b4ec-ba7286c857c2",
+              "name": "JavaScript \u2014 Hoisting",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b3e0f330-e217-4d8a-8eb5-473d6dc9c539",
+              "name": "JavaScript \u2014 this",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e7ad143c-4f98-42f8-af97-9909a70b8544",
+              "name": "JavaScript \u2014 Prototype chain",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "88a14a38-4539-4dae-8a99-b6c8d10f7bd4",
+              "name": "JavaScript \u2014 Imutabilidade",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "da29bc23-9c84-42e9-9acc-944e44a13fa7",
+              "name": "JavaScript \u2014 Desestrutura\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5aace279-0556-468b-a661-c22cda245c89",
+              "name": "JavaScript \u2014 Spread e rest",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c7e2d6dd-7657-4d38-85c9-ea7c88a71bf2",
+              "name": "JavaScript \u2014 Fun\u00E7\u00F5es puras",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "465f8251-6eee-4d85-9ef7-fd27184ce6c4",
+              "name": "JavaScript \u2014 Higher-order functions",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "a737ef80-1487-4970-a388-afb662687419",
+              "name": "JavaScript \u2014 Programa\u00E7\u00E3o funcional",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "aa6704e4-f927-4497-a517-2ab24311fcee",
+              "name": "JavaScript \u2014 Tratamento de erros",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e9bcea24-7ed0-4b8e-8f6d-f4603e42c501",
+              "name": "JavaScript \u2014 M\u00F3dulos ES",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "44e91f37-cf93-49f2-b624-3920f1787d7a",
+              "name": "JavaScript \u2014 Igualdade por valor e refer\u00EAncia",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "09c7e65f-af17-412e-ac4b-32efd4354b32",
+              "name": "JavaScript \u2014 Garbage collection e refer\u00EAncias mantidas indevidamente",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ee752010-a83d-453b-87af-4e02dca1e992",
+              "name": "TypeScript \u2014 Tipos primitivos e estruturais",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "55aa2768-ea76-4360-bee8-489eaad55e02",
+              "name": "TypeScript \u2014 interface versus type",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c5b53f82-c1a9-401c-a016-a9272e9934f7",
+              "name": "TypeScript \u2014 Union e intersection types",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1834fac1-ec38-436c-b1ea-5c81c568f6d8",
+              "name": "TypeScript \u2014 Literal types",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ba6c868e-641b-4edf-b715-8586632a9282",
+              "name": "TypeScript \u2014 Enums e alternativas a enums",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f6d456ee-7b3e-4fb7-8d59-9adc18e32549",
+              "name": "TypeScript \u2014 Generics e constraints",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5cf537b8-f49c-43ed-ba8a-1423f601b5aa",
+              "name": "TypeScript \u2014 Type narrowing",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1f8ba7ba-88af-4f51-b5a8-b86cdaa3ffda",
+              "name": "TypeScript \u2014 Type guards",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "96ad5630-cf60-4d87-9e5c-72e7a7ba742e",
+              "name": "TypeScript \u2014 Discriminated unions",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "8dafa099-e935-4428-9097-13d20ceae2e3",
+              "name": "TypeScript \u2014 keyof, typeof, infer e as const",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f585716a-0c2d-4a98-9976-443d30e0f2b7",
+              "name": "TypeScript \u2014 Utility types: Partial, Pick, Omit, Record, Required, Readonly e ReturnType",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "524cffa9-474f-4edd-af01-6f55edb102a8",
+              "name": "TypeScript \u2014 Mapped types",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5d8dacb1-9745-4da2-8559-2a16728ee54c",
+              "name": "TypeScript \u2014 Conditional types",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "65bc9b0b-0e68-4a94-9417-74636dfddf64",
+              "name": "TypeScript \u2014 Template literal types",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "362100bd-cded-4d71-a280-88258951ee25",
+              "name": "TypeScript \u2014 Overloads",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "11977dbc-4b2e-4d4f-8b02-faaf6ea49757",
+              "name": "TypeScript \u2014 Decorators",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "9d7154c6-1027-47a7-aabe-017321f804e9",
+              "name": "TypeScript \u2014 Modules",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d35ca5af-d1cb-4b51-8b35-216b138ed05b",
+              "name": "TypeScript \u2014 Declaration files",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "7be50fc3-b7f3-4547-a08e-bcf4428de30f",
+              "name": "TypeScript \u2014 Tipagem de bibliotecas externas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "cb0b40dd-3a25-480c-bfb9-76c2bad49b6a",
+              "name": "TypeScript \u2014 Configura\u00E7\u00E3o do tsconfig",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "41b21bad-193f-446c-b46a-0b1e570f9e59",
+              "name": "TypeScript \u2014 strict, strictNullChecks e noImplicitAny",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "38e7d2bc-56a7-4b4c-a9ad-e17eae42fcbc",
+              "name": "TypeScript \u2014 Diferen\u00E7as entre any, unknown, never e void",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "dd9af9be-eee1-44e3-a5f9-e397876212bc",
+              "name": "TypeScript \u2014 Covari\u00E2ncia e contravari\u00E2ncia em cen\u00E1rios relevantes",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "675cdd49-4cc3-433a-b2df-b0170f71c83a",
+              "name": "TypeScript \u2014 Evitar type assertions desnecess\u00E1rias",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "9175eb14-7179-4427-a59a-153b3c928c4a",
+              "name": "TypeScript \u2014 Modelagem de tipos que impe\u00E7a estados inv\u00E1lidos",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "bb3db928-448d-49a6-86a9-281e89f2c497",
+          "name": "1.3 Fundamentos do Angular",
+          "themes": [
+            {
+              "id": "13271f39-4ba7-4541-914b-2ca8e79a9ac6",
+              "name": "Angular CLI e estrutura de um workspace",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "4a85035b-9174-4418-8e3e-09d532cfd9d8",
+              "name": "Bootstrap da aplica\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "583ddd71-2d52-4ab3-a79f-9d6696c8c389",
+              "name": "Componentes standalone",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f218c0f2-9b26-43de-a3dd-2703c0637d2f",
+              "name": "Compatibilidade e manuten\u00E7\u00E3o de aplica\u00E7\u00F5es baseadas em NgModule",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1b79afcb-e240-4d1f-815f-8002ec893c82",
+              "name": "Metadata de componentes",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "2565c924-0815-40af-98ae-6d00fa43b1de",
+              "name": "Templates",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "2c3d9e5a-82eb-4a32-a9cc-b18f6549a32e",
+              "name": "Interpola\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f7339f6a-47ff-4d61-a81d-7313d7dcf792",
+              "name": "Property binding",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "160ada56-325a-4278-8649-37eb280787d2",
+              "name": "Event binding",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "36e8fb5d-9475-40f0-95fa-063ef787d632",
+              "name": "Two-way binding",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ca2fcc53-b6c2-41c0-98c2-be71698ec2ca",
+              "name": "Diretivas estruturais e de atributo",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "31bbaf8b-8938-4916-b271-a0f741595865",
+              "name": "Novo control flow: @if, @for e @switch",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "6de96487-a9c9-4e2f-acfb-bd27ddffb29d",
+              "name": "Pipes puros e impuros",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "06579f41-c6d3-4a83-bf3d-7b5ad774a46f",
+              "name": "Pipes customizados",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f761ded6-4782-413d-879a-b6da376e69ea",
+              "name": "Content projection com ng-content",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "812d7c20-930e-4eb0-a2e5-83f52da4658d",
+              "name": "Template references",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d395184a-c9d7-405c-ac83-2db1d845cabd",
+              "name": "ng-template e ng-container",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "21a9376e-adf2-4645-bffa-fd6fbfe930f8",
+              "name": "Dynamic components",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "327c41a3-d7f8-42dd-86af-0bbf00e96881",
+              "name": "Inputs e outputs",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "720cf5ad-2e7c-48b9-a2e1-7e631abd4759",
+              "name": "Signal inputs, model inputs e outputs",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e7c43b65-465b-4287-867d-602a324af16c",
+              "name": "Queries de view e content",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b5341222-9984-40a2-a60b-8a4ae0d9b81b",
+              "name": "Host bindings",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b7c21811-2b7a-4147-9b16-85ca999c053b",
+              "name": "Host listeners",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "a55eeb04-bbf8-4729-b5a3-152b92f252b4",
+              "name": "Encapsulamento de estilos",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "942c937c-b368-439e-8a66-625baa1eb67c",
+              "name": "Ciclo de vida dos componentes",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "0bfdbc8e-4b51-4ff7-b3ad-f135a52e193a",
+              "name": "Destrui\u00E7\u00E3o e limpeza de recursos",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f303989d-2eb2-4558-8a19-f80bfb0a72a8",
+              "name": "DestroyRef",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "be7c1403-a78d-4e76-a5ab-a8ebdf14f1db",
+              "name": "Separa\u00E7\u00E3o entre l\u00F3gica de apresenta\u00E7\u00E3o e l\u00F3gica de neg\u00F3cio",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "7f81c827-fa40-44ba-aed0-02e7f84a6418",
+          "name": "1.4 Inje\u00E7\u00E3o de depend\u00EAncia",
+          "themes": [
+            {
+              "id": "7bd7d2a8-86d0-4f61-a640-d8354e6161c0",
+              "name": "inject()",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3b60f402-f60a-4fd0-b776-12d39712b96f",
+              "name": "Inje\u00E7\u00E3o por construtor",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "403cfc69-ab57-4204-a9f8-cfc8d40fcefb",
+              "name": "providedIn",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d3d0fba9-0221-46b2-a580-09a6c8f8bcaa",
+              "name": "Providers locais e globais",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "a5ebb532-2ea7-4524-a551-2236ed909f91",
+              "name": "InjectionToken",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "fe10be1f-b5b9-4531-81a1-8c95d9c4e469",
+              "name": "Factory providers",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "6d8cb918-476b-411f-aebf-17ce234b295c",
+              "name": "Value providers",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e848859e-a261-47bb-bfff-56e869d7e4f0",
+              "name": "Class providers",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c4a0f96b-30ac-4e6a-b3ca-a85080a06366",
+              "name": "Multi providers",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1e358dc1-a9db-4061-be0c-b4faae443936",
+              "name": "Hierarquia de injectors",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b46d86ea-0f5e-429a-98b3-db97896a8f03",
+              "name": "Escopo e tempo de vida de servi\u00E7os",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "01b8cf45-ee65-4e00-be84-967c24c34f06",
+              "name": "Providers em componentes, rotas e aplica\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ca0f92c3-3900-401b-bccd-087788575790",
+              "name": "Tree-shakable providers",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "6551bf2e-e728-4a2a-902e-0d7305c17428",
+              "name": "Contexto de inje\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d4d3b1b9-69f1-4e68-be37-a3cd0679eb6d",
+              "name": "Evitar service locator e depend\u00EAncias ocultas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "00834072-f3fa-4280-a6c1-99a310070df1",
+              "name": "Saber quando um servi\u00E7o deve ou n\u00E3o manter estado",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "f0e8cc43-f6e7-404d-b31f-019b855ed51f",
+          "name": "1.5 Signals e reatividade",
+          "themes": [
+            {
+              "id": "a6b7989d-50af-4e7b-8b1c-c6c30958a569",
+              "name": "signal",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "a305ca84-246a-43a4-92e8-818cac7351af",
+              "name": "computed",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e2409590-2069-48a4-a72c-b0f86c6a6485",
+              "name": "effect",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "cfea97e6-df01-48b6-bfa3-481a28f229b8",
+              "name": "linkedSignal",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "85c6de7d-8b5a-43a7-ae4f-21e416a77de0",
+              "name": "Atualiza\u00E7\u00F5es com set e update",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "9a53ba26-651a-4f39-9a8b-fa47cf0c0a77",
+              "name": "Igualdade e compara\u00E7\u00E3o de valores",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e42f42d0-17a9-4b65-bb88-d81445c05426",
+              "name": "Depend\u00EAncias reativas din\u00E2micas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c1463cf4-b824-4aba-91ae-ca11d4e8bd64",
+              "name": "Interopera\u00E7\u00E3o entre Signals e RxJS",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "520d5bdd-94b5-4874-898a-d9bc06b0406e",
+              "name": "Signal inputs",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "00de287d-ca05-4e07-925e-b5a7fe72e0ce",
+              "name": "Estado derivado",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "032db41a-9c81-416a-aca8-866ae0ddbf79",
+              "name": "Evitar efeitos para propagar estado desnecessariamente",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ecbc026e-ca76-4d5f-846d-1a0d1f6b82fc",
+              "name": "Evitar ciclos reativos",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "a637a195-0a7f-4bbd-99b3-7983eaaf4f3c",
+              "name": "Saber diferenciar estado s\u00EDncrono de fluxo ass\u00EDncrono",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ef7f3d85-da72-4401-b234-1853d9029b0e",
+              "name": "Resource APIs para carregamento ass\u00EDncrono, quando apropriado",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "61aedaac-0e2f-4b0e-acc3-8b52681323c9",
+              "name": "Modelagem imut\u00E1vel de estado",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "5d4fdb6e-2f3c-4103-832c-0d89767ac190",
+          "name": "1.6 RxJS",
+          "themes": [
+            {
+              "id": "246647cc-5ef5-4568-a3c1-10350e38d5d6",
+              "name": "Observable",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "285e553d-b0b5-4909-83dc-95591cf4f151",
+              "name": "Observer",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1c551774-8100-4dd9-8eb6-baac30c4c87c",
+              "name": "Subscription",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "a913e2cb-c3ad-467e-af95-ba8fdffafed3",
+              "name": "Observables cold e hot",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "13607b7b-360e-49c9-a5ea-a8ff138ca26d",
+              "name": "Unicast e multicast",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "92923272-65e7-49e5-8d18-cd5ec3b13c56",
+              "name": "Subject",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f583d925-1e56-449b-8b98-bf0a9f32b418",
+              "name": "BehaviorSubject",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ee79a8aa-cd52-463f-87ac-0b72c11b4396",
+              "name": "ReplaySubject",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "54d58609-0ec2-4be1-9d4f-f82f37a612b8",
+              "name": "Operadores de cria\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "01264715-083b-4d55-8d40-1030a8b7a3d6",
+              "name": "Operadores de transforma\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "81667dfe-10a2-4612-b7af-6dff79cd192c",
+              "name": "Operadores de filtragem",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "83f255c6-2e01-4481-87c7-62f30a80d725",
+              "name": "Operadores de combina\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b40b3664-b324-47b2-bbb5-68e798c53e00",
+              "name": "Operadores de erro",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "4a55c4ff-3078-4cfd-9550-892fde27b5f7",
+              "name": "Operadores de multicasting",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "7dfb41a6-0047-4d3e-b1cc-fe980a1568d0",
+              "name": "map, filter, tap e scan",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "48a9cddd-03ba-4e6f-afcd-aad84dcd48ca",
+              "name": "switchMap, mergeMap, concatMap e exhaustMap",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c591ce8f-6de2-4d3d-b275-42ebb03362ef",
+              "name": "combineLatest, forkJoin, zip e withLatestFrom",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3e41ffe0-673b-4046-ae2a-d36a3224a362",
+              "name": "catchError, retry e finalize",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "7dc59a53-2a6d-438a-904d-e2eedbd1ef0a",
+              "name": "debounceTime e distinctUntilChanged",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "25872752-592a-46e0-bb19-a06f6036defb",
+              "name": "take, takeUntil e takeUntilDestroyed",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "4440f66b-2309-428a-832c-c144a22dee7c",
+              "name": "share e shareReplay",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3c475598-56f2-4707-86c7-bbf31762bf51",
+              "name": "Backpressure em cen\u00E1rios aplic\u00E1veis",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c5a01545-3fa1-427b-8b00-e5364e5e4fce",
+              "name": "Cancelamento de requisi\u00E7\u00F5es",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "223e8566-f1c3-4fda-915e-814d676e7cbc",
+              "name": "Tratamento correto de erros",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "60a9dedc-c39b-4422-a3a0-3d66e0dc4560",
+              "name": "Evitar subscriptions aninhadas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "0b46ef67-68f7-4aee-9f31-29b0139732da",
+              "name": "Evitar memory leaks",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ac9f16fc-c22a-4dbb-85bb-387f7c622021",
+              "name": "Uso do async pipe",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "4d38e6f3-f267-44ce-b2dc-a359daaf31be",
+              "name": "Testes de fluxos ass\u00EDncronos",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "da7577e4-ca18-481c-8060-af31ab887fc0",
+              "name": "Saber quando RxJS \u00E9 excessivo",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "fc1d78ef-c656-4bb2-ad6a-a06681a6c08a",
+          "name": "1.7 Change detection e renderiza\u00E7\u00E3o",
+          "themes": [
+            {
+              "id": "61620273-b0e5-43de-80ba-c26c36f1670f",
+              "name": "Como o Angular verifica bindings",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "500881c3-417d-4d35-aea1-6538cf68e7f6",
+              "name": "Estrat\u00E9gia padr\u00E3o de detec\u00E7\u00E3o de mudan\u00E7as",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "30b03f00-f778-487b-98d0-787b7102a459",
+              "name": "ChangeDetectionStrategy.OnPush",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "4cd1f2e9-dc17-4cf8-860f-b5b77396bfe6",
+              "name": "Rela\u00E7\u00E3o entre Signals e OnPush",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ca801b0c-045a-4988-9bc7-e26effb8cf47",
+              "name": "Imutabilidade e refer\u00EAncias",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f152cfda-fa17-4cdc-8264-ae92d2dfcfa1",
+              "name": "markForCheck",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f8f7bd3f-5d22-4ea8-b527-52f62b62a56b",
+              "name": "detectChanges",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e536c8f5-067d-46ba-abc7-61ec651ecb31",
+              "name": "ChangeDetectorRef",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "59f25b1a-9616-4cea-9f15-ece7735f16fc",
+              "name": "Renderiza\u00E7\u00E3o de listas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "75cf7edd-61d4-4021-83a1-6f79e05f7d26",
+              "name": "Identidade de elementos com track",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "532234c2-9806-4e8e-99e5-019210de3476",
+              "name": "Evitar fun\u00E7\u00F5es custosas no template",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d7bf613d-960b-48c8-8dfa-ffc4e8eb7323",
+              "name": "Evitar getters pesados",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5187a0a4-a46d-41c1-b83b-f3aa17db97a3",
+              "name": "Detec\u00E7\u00E3o de mudan\u00E7as zoneless",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "960cd0ff-2ce9-4c09-af34-12bcd2b44811",
+              "name": "NgZone e runOutsideAngular",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "35156600-d98a-4fe6-b699-dfae28b6244a",
+              "name": "Causas de ExpressionChangedAfterItHasBeenCheckedError",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "da150d12-a9e4-4567-a0e6-0178bc3529ae",
+              "name": "Profiling de ciclos de detec\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "68ac14e9-c3ae-402e-a22b-791ffeb76412",
+              "name": "Evitar renderiza\u00E7\u00F5es desnecess\u00E1rias",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "a9687c91-7ebe-4389-a66e-dbde4618cc9d",
+          "name": "1.8 Componentiza\u00E7\u00E3o e arquitetura frontend",
+          "themes": [
+            {
+              "id": "e5128403-e8c2-4d60-980f-e79db74ffcba",
+              "name": "Arquitetura \u2014 Componentes pequenos com responsabilidade clara",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3329883a-c1bd-4566-9371-e6ddcd2a3247",
+              "name": "Arquitetura \u2014 Separa\u00E7\u00E3o entre componentes de apresenta\u00E7\u00E3o e orquestra\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "74ec033d-57bd-486c-a1f6-45387ec483c1",
+              "name": "Arquitetura \u2014 Feature-first architecture",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "32770654-9536-45f8-9e66-e1f5914610a9",
+              "name": "Arquitetura \u2014 Separa\u00E7\u00E3o entre dom\u00EDnio, infraestrutura e interface",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "fc060229-632e-42e7-abc7-6987b5f3e23c",
+              "name": "Arquitetura \u2014 Core, shared e features",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f5e0409c-9076-434a-9070-8709cb2d83d8",
+              "name": "Arquitetura \u2014 Limites claros entre features",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "676ffa4c-ee3f-4736-8157-6e30f4cc4ca0",
+              "name": "Arquitetura \u2014 Baixo acoplamento",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3a95d13c-c9ab-46c5-af15-9984f7ffd09f",
+              "name": "Arquitetura \u2014 Alta coes\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e96db6cd-3d4a-46d2-b523-1078db5755fb",
+              "name": "Arquitetura \u2014 Composi\u00E7\u00E3o em vez de heran\u00E7a",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e9a500fc-275c-48f8-bb74-9cead26caaee",
+              "name": "Arquitetura \u2014 Facades",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "7bd98ca5-5be8-4e2b-be0d-337477e8a549",
+              "name": "Arquitetura \u2014 Adapters",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "082490e6-80b4-4014-9531-b4d867386315",
+              "name": "Arquitetura \u2014 Repository/client no frontend, quando necess\u00E1rio",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ac2a0b50-3bde-44d2-9115-52a7688ec7ae",
+              "name": "Arquitetura \u2014 Design systems",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ee3bd091-a21c-4f3d-86d8-e0463d0d9cf7",
+              "name": "Arquitetura \u2014 Componentes reutiliz\u00E1veis",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ca82f2cb-2293-4c82-b77d-2714197bf804",
+              "name": "Arquitetura \u2014 Bibliotecas Angular",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f591a826-4e50-4bed-a49a-c2dc8b5c8419",
+              "name": "Arquitetura \u2014 APIs p\u00FAblicas de bibliotecas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "fff4fa10-d2c6-474b-9e0e-a3590c7174ca",
+              "name": "Arquitetura \u2014 Monorepos quando justificados",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "abf83a84-6add-4088-8ded-79a5be7583ec",
+              "name": "Arquitetura \u2014 Microfrontends somente quando a estrutura organizacional justificar",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "2c9026e1-d815-4fc4-9ed8-72157a9e4b98",
+              "name": "Arquitetura \u2014 Module Federation como solu\u00E7\u00E3o contextual, n\u00E3o padr\u00E3o autom\u00E1tico",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1587326c-10d8-414f-97f5-8899d16e3ca6",
+              "name": "Arquitetura \u2014 Preven\u00E7\u00E3o de depend\u00EAncias circulares",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "7270facf-f0e0-4e7f-9ac7-e702cb4bd11c",
+              "name": "Arquitetura \u2014 Regras de importa\u00E7\u00E3o entre camadas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "57d530a0-5db0-4c05-98f5-9a3fb39f0a2e",
+              "name": "Arquitetura \u2014 Estrutura sustent\u00E1vel para equipes grandes",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "a3983765-bc09-45b5-a659-15b4c7db1e18",
+              "name": "Gerenciamento de estado \u2014 Estado local no componente",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3bb36852-79ea-41e0-9178-0847cca033b8",
+              "name": "Gerenciamento de estado \u2014 Signals em servi\u00E7os",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5378b189-7176-494e-94e8-5ee221f178f0",
+              "name": "Gerenciamento de estado \u2014 RxJS em servi\u00E7os",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "10d43899-6f38-44f8-9797-496a9fcdb3aa",
+              "name": "Gerenciamento de estado \u2014 Facade services",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "43498501-6f69-4126-98e9-c2d10eb9217a",
+              "name": "Gerenciamento de estado \u2014 NgRx Store",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "757f3eaa-e9cf-4e2d-8d27-f290eff2c786",
+              "name": "Gerenciamento de estado \u2014 NgRx Effects",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "623a8777-e66a-4cbd-b103-64a184a834e1",
+              "name": "Gerenciamento de estado \u2014 NgRx Signal Store",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "6ee13919-aaae-425e-b277-5c040e33751e",
+              "name": "Gerenciamento de estado \u2014 Estado derivado da URL",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "9334aab2-f160-411f-b770-bf43947212d8",
+              "name": "Gerenciamento de estado \u2014 Estado persistido no navegador",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "4231216b-66d9-44cb-8b57-f1f4dbab6886",
+              "name": "Gerenciamento de estado \u2014 Estado retornado pelo servidor",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "81b32139-ec39-4e46-af22-411740b84fad",
+          "name": "1.9 Angular Router",
+          "themes": [
+            {
+              "id": "5c0bf8ab-40c3-4b8c-a498-3ce8e65d3df2",
+              "name": "Defini\u00E7\u00E3o de rotas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "810a7807-71d6-4882-af88-0a44d3ebd3a6",
+              "name": "Rotas filhas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "236a1ee2-07df-4b67-89bc-0a5638a5e945",
+              "name": "Rotas parametrizadas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d499971b-fa18-4518-b68c-a8edfe52fe14",
+              "name": "Query parameters",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "bc5250fb-3393-4e1b-b5cd-98062ad390b1",
+              "name": "Fragments",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f8353236-b920-4e47-b983-26916bfdc202",
+              "name": "Navega\u00E7\u00E3o program\u00E1tica",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e861cdcb-6919-4144-836c-a188779560ad",
+              "name": "Router links",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "6bb7c30f-6c26-4c53-9cca-a12aaa4778f0",
+              "name": "Lazy loading",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "599a4686-4c3c-4cec-b490-47a1c0943c63",
+              "name": "Route-level providers",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "62079433-060d-42cd-9550-f1ecdf878f1f",
+              "name": "Guards",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "cb519a57-4a55-4c6a-b23e-c84b6dae1463",
+              "name": "Resolvers",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5282203d-6654-482d-a333-06448b5dc995",
+              "name": "Redirects",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "a4faa9d5-7a55-444d-9b80-17855bb0f4a6",
+              "name": "Preloading strategies",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "aff7dd7e-2003-489d-9862-59ded6ac557d",
+              "name": "Route data",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c69d6191-9136-4ba5-9b17-23377a976cae",
+              "name": "Tratamento de erros de navega\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "7b396e8d-3a58-449a-9e11-e699b6160e7b",
+              "name": "Estado na URL",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "05ed1e45-b77e-419e-87d4-4156800c9c08",
+              "name": "Deep linking",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "15cf963a-a195-4d9e-8abb-e4cd3159f216",
+              "name": "Preserva\u00E7\u00E3o de query parameters",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "a0616156-9213-445f-a32c-63896ed025a6",
+              "name": "Autoriza\u00E7\u00E3o no frontend sem confundi-la com seguran\u00E7a do backend",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c31ffdbe-8d62-4bd9-ac90-bca08f0cb1d7",
+              "name": "Organiza\u00E7\u00E3o de rotas grandes",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1a59d341-25f7-4a5e-9a49-b31180bb834c",
+              "name": "Testes de navega\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "49be7ba9-83af-412a-95df-acf821b410e9",
+          "name": "1.10 Formul\u00E1rios",
+          "themes": [
+            {
+              "id": "b9cd70f7-0f8c-42a4-a3ed-569699169ac6",
+              "name": "Reactive Forms",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ee0ca699-fe2e-40c1-aed8-1db72423d51d",
+              "name": "Typed Forms",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ba120123-05cf-4e6c-ba0c-20cca8aa8b71",
+              "name": "Template-driven Forms",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "40314dd8-d7f6-453d-8868-477e23a4f4fd",
+              "name": "FormControl",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c15caef1-9d03-479a-ace8-90c319690dce",
+              "name": "FormGroup",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "030d832d-9580-4bb9-9bf5-76d75ab342fd",
+              "name": "FormArray",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5b85e8ff-f816-4a20-8d24-146f35899b14",
+              "name": "FormBuilder",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f8b1d305-6db6-46e5-97da-e1cc8f7227dd",
+              "name": "NonNullableFormBuilder",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1f5d13cc-71e4-4533-b9d7-a61990b93f80",
+              "name": "Validadores s\u00EDncronos",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5ddb256a-9704-42be-b12e-a09ebcf14b46",
+              "name": "Validadores ass\u00EDncronos",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "9a679d85-ef57-45ee-a7e4-9813ec467c5b",
+              "name": "Valida\u00E7\u00E3o entre campos",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "a7f81ffe-1e89-4110-a67d-6ba6088a9a46",
+              "name": "Formul\u00E1rios din\u00E2micos",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f7440f42-662d-42f7-b1f2-4ccc1a71f222",
+              "name": "Estados dirty, touched, valid e pending",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "73963078-9fc2-4577-bf36-546e5a4e7142",
+              "name": "Erros de valida\u00E7\u00E3o tipados",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "005142ff-c2f4-4a44-b59a-023a7773db4e",
+              "name": "Normaliza\u00E7\u00E3o de valores",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "59b95d0a-68ff-4690-842c-a92987cbff76",
+              "name": "ControlValueAccessor",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "82ee4da2-7208-44b1-a83f-2a689fb52546",
+              "name": "Controles customizados",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "4a906ca0-a687-4f12-822a-90c685d95201",
+              "name": "Upload de arquivos",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "8c50aee3-aba7-4bd3-9de1-25e37241024c",
+              "name": "Preven\u00E7\u00E3o de submiss\u00E3o duplicada",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "76f3e5fb-f3e1-4c98-8800-6875cb9ca95a",
+              "name": "Debounce em valida\u00E7\u00F5es remotas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "feabc174-578b-43bf-87c5-debda10b3145",
+              "name": "Testes de formul\u00E1rios",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "da817873-40cf-43f8-ab4f-8540d46f3a42",
+          "name": "1.11 Comunica\u00E7\u00E3o HTTP",
+          "themes": [
+            {
+              "id": "64bb6c47-d937-4815-b993-15f1cf749179",
+              "name": "HttpClient",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b58e1a76-37d8-47ad-8b8a-5b759d1d2d52",
+              "name": "Requisi\u00E7\u00F5es tipadas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5d12905f-08f7-4710-b081-6cfb7b20ed18",
+              "name": "Headers e query parameters",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "8e7a4735-af5f-449b-b9f8-cae5fd1a8641",
+              "name": "Upload e download",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ba2b3b68-b040-44ea-8c1f-9aab0cd08bec",
+              "name": "Observa\u00E7\u00E3o de eventos e progresso",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "8843525a-8a91-4b6c-a2c4-2ee7ff77f0de",
+              "name": "Cancelamento",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "02dc6940-e638-45e3-b66f-a2c9a294896d",
+              "name": "Tratamento centralizado de erros",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "670dbdee-750b-447f-940f-192fd77bd5c7",
+              "name": "Mapeamento de DTOs",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3e895e6c-0c82-4934-a42a-9dfdabf5f665",
+              "name": "Interceptors funcionais",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "65684590-5391-4433-aa6e-1d1295d5f2f0",
+              "name": "Interceptors baseados em DI",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "73a66b50-aaa8-4cce-af33-2c428b9b5117",
+              "name": "Autentica\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3b760cf9-4940-447d-8e59-261061a01a74",
+              "name": "Refresh token",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3a8fbf69-0a67-4f59-b152-8693c17d4ce5",
+              "name": "Retry com crit\u00E9rios seguros",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "8a8569d4-8e58-4ef2-b40a-0f35288eef1b",
+              "name": "Timeout",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d7203f98-5718-403f-8dfe-19e4a8fb1ae7",
+              "name": "Cache de requisi\u00E7\u00F5es",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "0808a942-452c-4d6f-a969-f22e3fc5e3bc",
+              "name": "Deduplica\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f6512a0d-533b-417f-b2dd-b5e6889dc5b5",
+              "name": "Correlation IDs",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "0d5a80b0-d09a-4e1e-8076-2f57436b9e3c",
+              "name": "Tratamento de 401, 403, 404, 409, 422, 429 e 500",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ae861a36-8ff4-403e-87e7-7ccba63a0b5c",
+              "name": "XSRF",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e54e49e3-c075-418c-8dfe-00b97ee8c13b",
+              "name": "Serializa\u00E7\u00E3o de datas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "4f074262-5d81-4bb8-942c-2f9b06d00c72",
+              "name": "Compatibilidade de contratos com o backend",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "0154f5b7-7868-498c-9a76-0a4153dab563",
+              "name": "Evitar retry em opera\u00E7\u00F5es n\u00E3o idempotentes sem prote\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "78d0e32d-4628-46a8-b1da-a74c30021c74",
+          "name": "1.12 Performance Angular",
+          "themes": [
+            {
+              "id": "8a4b7558-5a72-46ba-92f0-74f06a8a2b7f",
+              "name": "Lazy loading de rotas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "05d8c3e2-2928-4b70-8959-f52e797bb6a3",
+              "name": "Lazy loading de funcionalidades",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "0dc22413-8282-4ca0-8c81-984daafaa992",
+              "name": "@defer",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5b3f8bf0-40dc-4730-b5ff-0ea389aa2bd4",
+              "name": "OnPush",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "207bd1e0-d2cc-47e2-b0c5-c8b8ffcbb041",
+              "name": "Signals",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "8d2d0f76-911c-4ead-b938-ed5b5547d434",
+              "name": "Code splitting",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "68b2e150-5e9f-4075-8fe7-8965ab48e4d9",
+              "name": "Tree shaking",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "90e74743-1e10-4ebe-a1c3-879d861f35a9",
+              "name": "Bundle budgets",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "0ce9eed1-1d18-4649-8d89-6f39d0e55adf",
+              "name": "An\u00E1lise do bundle",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3382c494-21d5-4263-9903-e4a0a1758863",
+              "name": "Redu\u00E7\u00E3o de depend\u00EAncias",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "01bcde24-e437-4c8a-982a-ad1cc8619c17",
+              "name": "Virtual scrolling",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "7aca4e8a-a045-42d4-bae6-34d81e8119e2",
+              "name": "Pagina\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "4907e4eb-6f33-469b-a33e-068707826f55",
+              "name": "Imagens responsivas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "71bdd7f1-9f36-48a8-918f-8e405a8ec6e3",
+              "name": "Preload e prefetch",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "145d2938-a244-443c-a0f4-04e6e391354a",
+              "name": "SSR",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "000395f4-18e3-464f-ab4a-f4bfcd356d98",
+              "name": "SSG",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "6bf31401-97f5-4c3d-9fc8-bb589f0f0c31",
+              "name": "Hydration",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "fc8c8345-85e9-4b3d-9656-e1699f6bfa06",
+              "name": "Incremental hydration",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "16f65fba-b8d5-4721-9c5a-0544b883db8c",
+              "name": "Cache",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c0aff3c3-b609-4430-bac6-2ad5d6526734",
+              "name": "Service Worker e PWA, quando necess\u00E1rios",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c266a058-6ec2-41ef-a8ed-deae5efd692c",
+              "name": "Evitar manipula\u00E7\u00E3o manual incompat\u00EDvel com SSR",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "da963a4f-bc51-4f17-953f-9c4ddf7f0122",
+              "name": "Core Web Vitals",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5557244b-c9e4-4450-9512-14767177a6bb",
+              "name": "Profiling pelo Angular DevTools e Chrome DevTools",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1bda05a6-8e5c-491d-8eef-85bf9d2b516d",
+              "name": "Identifica\u00E7\u00E3o de memory leaks",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d2a24a3d-144e-4734-940c-e043ddeae7fc",
+              "name": "Medi\u00E7\u00E3o antes da otimiza\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "b5f84cc3-c521-4d55-a9d6-284ab294fd4c",
+          "name": "1.13 Testes Angular",
+          "themes": [
+            {
+              "id": "1098d02d-ba72-4e3a-934d-ac9120b1f5da",
+              "name": "Testes unit\u00E1rios",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "097b6a8e-3381-4737-86e2-425ce8a12899",
+              "name": "Testes de componentes",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5515b242-c195-40e1-8b0d-5ba40e053c7d",
+              "name": "Testes de integra\u00E7\u00E3o frontend",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "60e9145d-ecd0-4dc6-8d43-17fbca40df1a",
+              "name": "Testes end-to-end",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e4f743a2-ae38-4f53-8189-944fc4547ccc",
+              "name": "TestBed",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c74276bf-c5d1-4b5f-8f3a-2113e1563831",
+              "name": "ComponentFixture",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "96ecbb37-27f4-4c75-a221-6b593d9ecc26",
+              "name": "Test doubles",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "cbf061a2-0e80-493f-a912-003768be5fb1",
+              "name": "Mocks, stubs e fakes",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f5bbca8f-8764-438c-b67d-a09b2ae152ea",
+              "name": "Testes de servi\u00E7os",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "812c7015-a83f-4494-9736-9f4567e8adfe",
+              "name": "Testes de pipes",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "2e273ece-ef6f-47f5-8e39-2caf7c7c7804",
+              "name": "Testes de diretivas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1794f51f-5f8e-46cd-8cc5-bf266a8bf16d",
+              "name": "Testes de guards",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "2bdb9e91-9dd3-42d7-84c1-de5ffddb5637",
+              "name": "Testes de interceptors",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "048afa9d-a87c-49d4-af55-24235fa191ce",
+              "name": "Testes do Router",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "682623d4-3dea-4cec-b39e-13c8562caac5",
+              "name": "Testes de HttpClient",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "7d7cb3d8-6690-487a-9583-a38df0d58870",
+              "name": "Testes de Signals",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d349188b-d1ba-4468-a5c5-c18c457b8e2e",
+              "name": "Testes de Observables",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "fa93abe0-4071-4d46-a0e7-7b2096dd2a9c",
+              "name": "Component Harnesses",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "8c7cd261-4205-4edc-a18c-ce38ea7ebbb0",
+              "name": "Testes de acessibilidade",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1b245844-0ebd-4eac-8f98-2d26c19a2b89",
+              "name": "Testes visuais, quando aplic\u00E1veis",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "60585390-045f-4913-8e5d-31bf28e92738",
+              "name": "Evitar testes excessivamente acoplados \u00E0 implementa\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3a8d7de5-cd70-4018-bc25-900809104b67",
+              "name": "Pir\u00E2mide de testes",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "7b44166a-cb76-4112-a3a8-8e70eb238a19",
+              "name": "Flakiness",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "cd73ed92-347c-426d-b98c-675976b470a6",
+              "name": "Cobertura com significado, n\u00E3o apenas porcentagem",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "2eca9a7d-5aea-469b-8d12-fbff9b72be91",
+              "name": "Vitest",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ad0b370a-cd59-46d1-a1c0-50b954f9d227",
+              "name": "Playwright",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b8ac43f4-54c1-42dd-88de-d7bb0787ff39",
+              "name": "Cypress em projetos existentes",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "d2921f9b-99a8-4448-b8f3-46169fb19f0c",
+          "name": "1.14 Seguran\u00E7a Angular",
+          "themes": [
+            {
+              "id": "b584b499-4cc7-41de-a057-8db96de31196",
+              "name": "XSS",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "8711fcc4-7032-413d-ae50-343c8f0e0fef",
+              "name": "Sanitiza\u00E7\u00E3o autom\u00E1tica",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f02fb718-4b8c-4b6c-b990-95138f2602a7",
+              "name": "Contextos HTML, URL, resource URL e style",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b6cb0862-ec5c-4d39-ad62-3a17e380c107",
+              "name": "Perigos de innerHTML",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "895c31d7-4666-42c7-9936-cca8cb688f5b",
+              "name": "Perigos de bypassSecurityTrust...",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "51451e32-9293-4056-ade1-919b26ddc46e",
+              "name": "Content Security Policy",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "422a1271-63ad-40d4-a92e-40dfab6416ee",
+              "name": "Trusted Types",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "cb5f76f3-a9ad-4e2e-980e-8615be8b0d92",
+              "name": "Depend\u00EAncias vulner\u00E1veis",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ed26c59b-c53a-4da5-b55b-d827a830e3b1",
+              "name": "Exposi\u00E7\u00E3o de informa\u00E7\u00F5es no bundle",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "eb05e042-7bdb-4337-920e-782347e05003",
+              "name": "Nunca armazenar segredos no frontend",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1b172d81-7c19-42f9-9035-7172ca91d06c",
+              "name": "Autentica\u00E7\u00E3o versus autoriza\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "8ee313c4-7644-4a19-aba5-1a8387e86886",
+              "name": "Tokens em cookies versus storage",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "0a7fc1ac-9793-4675-a6d0-07f4bfe137d6",
+              "name": "CSRF/XSRF",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "cf9a7791-0fbd-4571-afc6-7115075fd981",
+              "name": "Open redirects",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ba7bf0df-6dc5-450e-ba1c-a9efa3f323d7",
+              "name": "Clickjacking",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "18c54a20-8e41-4817-83e8-27b5cc786384",
+              "name": "Manipula\u00E7\u00E3o segura de URLs",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "57f5a1c6-bd62-4def-9bbc-e378347ae206",
+              "name": "Valida\u00E7\u00E3o no frontend somente como conveni\u00EAncia",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b11cce53-00f7-4c16-b040-b19a9d388dbd",
+              "name": "Garantir valida\u00E7\u00E3o e autoriza\u00E7\u00E3o novamente no backend",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "54134047-6c2c-4cc6-bced-2cf16739b937",
+          "name": "1.15 Acessibilidade e internacionaliza\u00E7\u00E3o",
+          "themes": [
+            {
+              "id": "2215ecc2-f5cb-45e3-9c66-d71f4ea45e05",
+              "name": "HTML sem\u00E2ntico",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1742dd47-ce71-46a3-978c-1685fcb93443",
+              "name": "Navega\u00E7\u00E3o por teclado",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "4e9579ae-c111-453a-89f9-07ada8dd6bcb",
+              "name": "Gerenciamento de foco",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "febcd831-eaa3-4d8c-95b6-d72401f44c5c",
+              "name": "Leitores de tela",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "984c7185-fff1-437a-8461-f51a04171559",
+              "name": "Labels",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3c0e9b28-1091-44d5-9d18-3a76f8867430",
+              "name": "Descri\u00E7\u00F5es de erros",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "47a25c5a-414d-4a39-9b5e-9abebe5263b0",
+              "name": "ARIA somente quando HTML nativo n\u00E3o resolver",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "8847da5d-8b70-4482-9f21-865b775189f2",
+              "name": "Contraste",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "dfad7f44-27d8-4950-8973-97d4f8c361b3",
+              "name": "Estados visuais",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "99cc5349-7e5f-44c9-8f0a-f6cb4292173a",
+              "name": "An\u00FAncios de conte\u00FAdo din\u00E2mico",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b73568a0-c71f-4816-a153-e5057584c6ff",
+              "name": "Acessibilidade de modais",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "4a37cd1a-8eb5-485f-b1ad-bc7f031962b6",
+              "name": "Acessibilidade em conte\u00FAdo carregado com @defer",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "dc337186-ac47-4f65-9b16-9423378b7997",
+              "name": "Datas, moedas e n\u00FAmeros por locale",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "94541dd2-f443-4ded-8845-d911b51fdf7c",
+              "name": "Tradu\u00E7\u00F5es",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "37b36ca5-13dd-4285-b6f5-dea6111d2979",
+              "name": "Pluraliza\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "32223f18-3d81-4f16-bd55-9e481fd159df",
+              "name": "Layouts RTL",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e13e5cda-239d-466e-afc4-c7eb8c49ecb1",
+              "name": "Internacionaliza\u00E7\u00E3o da aplica\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "4ddebd3d-8659-47a8-8831-b79272cd094d",
+          "name": "1.16 Build e ferramentas Angular",
+          "themes": [
+            {
+              "id": "540dd579-4b59-4288-9aa7-26ee489c7828",
+              "name": "Angular CLI",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "98a10bbb-1ecb-41c6-a4d7-071522044759",
+              "name": "angular.json",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "06c730ac-c844-4187-94e6-4e128c8af11b",
+              "name": "Builders",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "537aa8be-0dc5-4ef4-a887-a64b5ebd6083",
+              "name": "Configura\u00E7\u00F5es por ambiente",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5bde907a-3c0d-42a5-8d8f-36ac7a6cee6a",
+              "name": "npm, pnpm ou Yarn",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "dd1e2131-96a5-4e9e-b6c1-89eee64a2dea",
+              "name": "Lockfiles",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "bc2319b5-64e2-4522-ab1b-a22f5e13e9bb",
+              "name": "Semantic Versioning",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b3ce32c9-9e1a-4cae-91e5-de1709003701",
+              "name": "Atualiza\u00E7\u00E3o de depend\u00EAncias",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "86d1d0d1-c5c2-4b1c-aedb-74fa02b3d0f0",
+              "name": "ng update",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c02e0624-1985-454c-9a19-5ea62b937b6d",
+              "name": "Migra\u00E7\u00F5es autom\u00E1ticas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "5016d66c-1b3b-462b-a3ad-992812860aeb",
+              "name": "ESLint",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "18079182-fc6b-4aa0-bab6-105207ccdd29",
+              "name": "Prettier",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "0d0e9263-b222-43b0-8967-81b3a879b578",
+              "name": "Source maps",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "de3de1ab-e162-449c-bf3e-b60f407af449",
+              "name": "Angular DevTools",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f924b1f1-8316-4bd1-8249-f72a5feb9b9e",
+              "name": "Chrome DevTools",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1e0ec558-c27c-49c4-a5e2-324a7b85158b",
+              "name": "Package auditing",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "bd087450-e166-469a-96c6-4201b7409b95",
+              "name": "Bibliotecas internas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "ee9aaaae-041c-4fc9-98e6-f3c66f0240fd",
+              "name": "CI para build, lint e testes",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "2c3378df-0de7-4d8a-bb8c-e618027080e4",
+              "name": "Cache de builds",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "38fea599-828b-437a-9544-701c9205106c",
+              "name": "Nx para monorepos complexos, quando justificado",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "54041bda-491b-4dfe-ab68-fae0694121fc",
+              "name": "Compatibilidade entre Angular, TypeScript, Node.js e bibliotecas",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
         }
       ]
     }

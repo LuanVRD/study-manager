@@ -32,11 +32,11 @@
   - [x] Implementar CRUD completo de Temas com confirmação na exclusão.
   - [x] Implementar a marcação/desmarcação de conclusão de temas, atualizando o progresso no JSON e na UI em tempo real.
 
-- [ ] Task 05 — Implementar importação de CSV
-  - [ ] Criar parser de CSV local suportando delimitadores `,` e `;` e aspas.
-  - [ ] Implementar o fluxo de importação evitando duplicidades case-insensitive por tópico.
-  - [ ] Exibir o resumo da importação com as estatísticas de linhas válidas, criadas, ignoradas e inválidas.
-  - [ ] Persistir no JSON as atualizações da importação.
+- [x] Task 05 — Implementar importação de CSV
+  - [x] Criar parser de CSV local suportando delimitadores `,` e `;` e aspas.
+  - [x] Implementar o fluxo de importação evitando duplicidades case-insensitive por tópico.
+  - [x] Exibir o resumo da importação com as estatísticas de linhas válidas, criadas, ignoradas e inválidas.
+  - [x] Persistir no JSON as atualizações da importação.
 
 ## Etapa 4 — Tela de detalhes do tema
 

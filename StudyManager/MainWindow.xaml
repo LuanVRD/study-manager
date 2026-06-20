@@ -8,7 +8,8 @@
         xmlns:views="clr-namespace:StudyManager.Views"
         mc:Ignorable="d"
         Title="Gerenciador de Estudos" Height="650" Width="960"
-        WindowStartupLocation="CenterScreen" Background="#1e1e24">
+        WindowStartupLocation="CenterScreen" Background="#1e1e24"
+        Icon="pack://application:,,,/StudyManager;component/StudyManager.ico">
     
     <Window.Resources>
         <!-- ViewMappings -->
