@@ -10,7 +10,9 @@ namespace StudyManager.Views.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool isNullOrEmpty = value == null || 
-                                (value is string s && string.IsNullOrWhiteSpace(s));
+                                 (value is string s && string.IsNullOrWhiteSpace(s)) ||
+                                 (value is int i && i == 0) ||
+                                 (value is System.Collections.ICollection col && col.Count == 0);
 
             bool inverse = parameter != null && parameter.ToString()?.ToLower() == "inverse";
 

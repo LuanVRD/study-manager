@@ -40,11 +40,11 @@
 
 ## Etapa 4 — Tela de detalhes do tema
 
-- [ ] Task 06 — Implementar links do tema
-  - [ ] Criar a tela `ThemeDetailsView` com navegação de volta.
-  - [ ] Implementar CRUD completo de links com a modal `LinkDialog` (nome, URL e tipo: Vídeo/Matéria).
-  - [ ] Adicionar validação básica da URL (deve iniciar com http/https).
-  - [ ] Implementar a abertura do link no navegador padrão com Process.Start e ShellExecute.
+- [x] Task 06 — Implementar links do tema
+  - [x] Criar a tela `ThemeDetailsView` com navegação de volta.
+  - [x] Implementar CRUD completo de links com a modal `LinkDialog` (nome, URL e tipo: Vídeo/Matéria).
+  - [x] Adicionar validação básica da URL (deve iniciar com http/https).
+  - [x] Implementar a abertura do link no navegador padrão com Process.Start e ShellExecute.
 
 - [ ] Task 07 — Implementar anotações com salvamento automático
   - [ ] Criar o TextBox multilinha para anotações livres.

@@ -34,3 +34,5 @@ E:\Projetos\study-manager\StudyManager\obj\Debug\net8.0-windows\Views\Dialogs\Th
 E:\Projetos\study-manager\StudyManager\obj\Debug\net8.0-windows\Views\Dialogs\TopicDialog.g.cs
 E:\Projetos\study-manager\StudyManager\obj\Debug\net8.0-windows\Views\ThemeDetailsView.g.cs
 E:\Projetos\study-manager\StudyManager\obj\Debug\net8.0-windows\Views\ThemeDetailsView.baml
+E:\Projetos\study-manager\StudyManager\obj\Debug\net8.0-windows\Views\Dialogs\LinkDialog.baml
+E:\Projetos\study-manager\StudyManager\obj\Debug\net8.0-windows\Views\Dialogs\LinkDialog.g.cs

@@ -4,13 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:StudyManager.ViewModels"
+             xmlns:conv="clr-namespace:StudyManager.Views.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=vm:ThemeDetailsViewModel}">
 
+    <UserControl.Resources>
+        <conv:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    </UserControl.Resources>
+
     <Grid Background="{StaticResource BrushWindowBg}">
         <Grid.RowDefinitions>
             <RowDefinition Height="64"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -24,13 +30,152 @@
             </Grid>
         </Border>
 
-        <!-- Placeholder Body -->
-        <Grid Grid.Row="1">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Text="🔗" FontSize="64" HorizontalAlignment="Center" Margin="0,0,0,16"/>
-                <TextBlock Text="{Binding Theme.Name}" Style="{StaticResource TextHeader}" HorizontalAlignment="Center"/>
-                <TextBlock Text="Links e Anotações em desenvolvimento (Task 06 e 07)" Style="{StaticResource TextBody}" Margin="0,8,0,0" HorizontalAlignment="Center"/>
+        <!-- Sub-Header Bar (Breadcrumbs & Title) -->
+        <Border Grid.Row="1" Background="#13141F" BorderBrush="{StaticResource BrushBorder}" BorderThickness="0,0,0,1.5" Padding="20,16">
+            <StackPanel VerticalAlignment="Center">
+                <!-- Breadcrumbs: Study > Topic -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                    <TextBlock Text="{Binding Study.Name}" Style="{StaticResource TextBody}" Foreground="{StaticResource BrushTextMuted}" FontSize="12" FontWeight="SemiBold"/>
+                    <TextBlock Text="  ›  " Style="{StaticResource TextBody}" Foreground="{StaticResource BrushTextMuted}" FontSize="12"/>
+                    <TextBlock Text="{Binding Topic.Name}" Style="{StaticResource TextBody}" Foreground="{StaticResource BrushTextMuted}" FontSize="12" FontWeight="SemiBold"/>
+                </StackPanel>
+                
+                <!-- Theme Name -->
+                <TextBlock Text="{Binding Theme.Name}" Style="{StaticResource TextHeader}" FontSize="20"/>
             </StackPanel>
+        </Border>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Row="2" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Column 0: Links Block -->
+            <Grid Grid.Column="0" Margin="0,0,16,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Section Header -->
+                <Grid Grid.Row="0" Margin="0,0,0,16">
+                    <TextBlock Text="Links de Apoio" Style="{StaticResource TextTitle}" VerticalAlignment="Center"/>
+                    <Button Content="Adicionar Link" Command="{Binding AddLinkCommand}" Style="{StaticResource PrimaryButton}" Height="34" Padding="14,0" HorizontalAlignment="Right"/>
+                </Grid>
+
+                <!-- Links Content Grid -->
+                <Grid Grid.Row="1">
+                    <!-- Empty State Message -->
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,40"
+                                Visibility="{Binding Theme.Links.Count, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
+                        <TextBlock Text="🔗" FontSize="40" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBlock Text="Nenhum link cadastrado." Foreground="{StaticResource BrushTextSecondary}" FontSize="15" HorizontalAlignment="Center" FontWeight="SemiBold"/>
+                        <TextBlock Text="Adicione vídeos ou artigos para estudar!" Foreground="{StaticResource BrushTextMuted}" FontSize="12" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                    </StackPanel>
+
+                    <!-- Links List -->
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Visibility="{Binding Theme.Links.Count, Converter={StaticResource NullToVisibilityConverter}}">
+                        <ItemsControl ItemsSource="{Binding Theme.Links}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <!-- Clickable Link Card -->
+                                    <Border BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.5" CornerRadius="8" Padding="14,12" Margin="0,0,0,10" Cursor="Hand" Background="Transparent">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
+                                                        <Setter Property="BorderBrush" Value="{StaticResource BrushBorderFocus}"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        
+                                        <Border.InputBindings>
+                                            <MouseBinding Gesture="LeftClick" 
+                                                          Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                          CommandParameter="{Binding}"/>
+                                        </Border.InputBindings>
+
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Link Icon -->
+                                            <TextBlock x:Name="IconText" FontSize="18" Foreground="{StaticResource BrushTextSecondary}" VerticalAlignment="Center" Margin="0,0,14,0"/>
+
+                                            <!-- Text Content -->
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="14" TextTrimming="CharacterEllipsis">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock" BasedOn="{StaticResource TextBody}">
+                                                            <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="TextDecorations" Value="Underline"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                                <TextBlock Text="{Binding Url}" Style="{StaticResource TextBody}" FontSize="11" Foreground="{StaticResource BrushTextMuted}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis"/>
+                                            </StackPanel>
+
+                                            <!-- Edit / Delete actions -->
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0,0,0">
+                                                <Button Command="{Binding DataContext.EditLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}"
+                                                        Content="✏️" ToolTip="Editar Link" Style="{StaticResource IconButtonStyle}"/>
+                                                <Button Command="{Binding DataContext.DeleteLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}"
+                                                        Content="🗑️" ToolTip="Excluir Link" Style="{StaticResource IconButtonStyle}"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                    
+                                    <!-- Conditional icon based on LinkType -->
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Type}" Value="Video">
+                                            <Setter TargetName="IconText" Property="Text" Value="🎥"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Type}" Value="Article">
+                                            <Setter TargetName="IconText" Property="Text" Value="📄"/>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+
+            <!-- Column 1: Notes Block Placeholder (Task 07) -->
+            <Border Grid.Column="1" Background="{StaticResource BrushSurfaceBg}" BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.5" CornerRadius="8" Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Anotações" Style="{StaticResource TextTitle}" Margin="0,0,0,12"/>
+
+                    <TextBox Grid.Row="1" Text="{Binding Theme.Notes, Mode=TwoWay}"
+                             AcceptsReturn="True" AcceptsTab="True"
+                             TextWrapping="Wrap" VerticalContentAlignment="Top"
+                             Background="#11121a" BorderBrush="{StaticResource BrushBorder}" BorderThickness="1"
+                             IsEnabled="False"
+                             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+                    <TextBlock Grid.Row="2" Text="📝 Anotações serão implementadas com salvamento automático na próxima etapa." 
+                               Style="{StaticResource TextBody}" Foreground="{StaticResource BrushTextMuted}" FontSize="11" Margin="0,8,0,0"/>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </UserControl>
