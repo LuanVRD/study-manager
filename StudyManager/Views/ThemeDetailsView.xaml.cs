@@ -161,6 +161,54 @@ namespace StudyManager.Views
 
         private void RichNotesTextBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
+            // 1. Direct Keyboard Shortcut: Ctrl+Shift+C
+            if (e.Key == System.Windows.Input.Key.C && 
+                (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) == System.Windows.Input.ModifierKeys.Control &&
+                (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Shift) == System.Windows.Input.ModifierKeys.Shift)
+            {
+                e.Handled = true;
+                var selection = RichNotesTextBox.Selection;
+                if (selection != null)
+                {
+                    var paragraph = selection.Start.Paragraph;
+                    if (paragraph != null)
+                    {
+                        ToggleCodeBlock(paragraph);
+                    }
+                }
+                return;
+            }
+
+            // 2. Text command trigger: typing "/code" and pressing Space or Enter (only when not already in a code block)
+            if (!IsInCodeBlock() && (e.Key == System.Windows.Input.Key.Space || e.Key == System.Windows.Input.Key.Enter))
+            {
+                var caret = RichNotesTextBox.CaretPosition;
+                var currentParagraph = caret.Paragraph;
+                if (currentParagraph != null)
+                {
+                    var start = currentParagraph.ContentStart;
+                    var range = new TextRange(start, caret);
+                    string textBeforeCaret = range.Text;
+
+                    if (textBeforeCaret.EndsWith("/code"))
+                    {
+                        e.Handled = true;
+
+                        // Find the "/code" text range and delete it
+                        TextPointer? deleteStart = FindTextPositionBackward(caret, "/code");
+                        if (deleteStart != null)
+                        {
+                            var rangeToDelete = new TextRange(deleteStart, caret);
+                            rangeToDelete.Text = "";
+                        }
+
+                        ToggleCodeBlock(currentParagraph);
+                        RichNotesTextBox.Focus();
+                        return;
+                    }
+                }
+            }
+
             if (IsInCodeBlock())
             {
                 if (e.Key == System.Windows.Input.Key.Enter)
@@ -260,6 +308,84 @@ namespace StudyManager.Views
             }
         }
 
+        private TextPointer? FindTextPositionBackward(TextPointer caret, string targetText)
+        {
+            if (caret == null || string.IsNullOrEmpty(targetText)) return null;
+
+            int targetLength = targetText.Length;
+            TextPointer current = caret;
+
+            while (current != null)
+            {
+                var range = new TextRange(current, caret);
+                string text = range.Text;
+                
+                if (text.Length == targetLength)
+                {
+                    if (text == targetText)
+                    {
+                        return current;
+                    }
+                    break;
+                }
+                else if (text.Length > targetLength)
+                {
+                    break;
+                }
+
+                TextPointer next = current.GetPositionAtOffset(-1, LogicalDirection.Forward);
+                if (next == null || next.CompareTo(current) == 0)
+                {
+                    break;
+                }
+                current = next;
+            }
+
+            return null;
+        }
+
+        private void ToggleCodeBlock(Paragraph paragraph)
+        {
+            if (paragraph == null) return;
+
+            // Check if it's already styled as code block
+            if (paragraph.FontFamily != null && paragraph.FontFamily.Source == "Consolas")
+            {
+                // Reset to normal text
+                paragraph.FontFamily = new FontFamily("Segoe UI, Roboto, Helvetica");
+                paragraph.Background = Brushes.Transparent;
+                paragraph.Padding = new Thickness(0);
+                paragraph.BorderThickness = new Thickness(0);
+                paragraph.ClearValue(TextElement.ForegroundProperty);
+                paragraph.ClearValue(TextElement.FontSizeProperty);
+            }
+            else
+            {
+                // Apply code block styling
+                paragraph.FontFamily = new FontFamily("Consolas");
+                paragraph.Background = new SolidColorBrush(Color.FromRgb(24, 25, 35)); // Dark slate background matching theme
+                paragraph.Foreground = new SolidColorBrush(Color.FromRgb(248, 250, 252)); // Light primary text
+                paragraph.FontSize = 13;
+                paragraph.Padding = new Thickness(12, 10, 12, 10);
+                paragraph.BorderBrush = (Brush)FindResource("BrushBorder");
+                paragraph.BorderThickness = new Thickness(1);
+
+                // Ensure there is always a normal line (paragraph) below the code block
+                if (paragraph.NextBlock == null)
+                {
+                    var nextParagraph = new Paragraph();
+                    nextParagraph.Margin = new Thickness(0, 0, 0, 6);
+                    nextParagraph.FontFamily = new FontFamily("Segoe UI, Roboto, Helvetica");
+                    nextParagraph.Background = Brushes.Transparent;
+                    nextParagraph.Padding = new Thickness(0);
+                    nextParagraph.BorderThickness = new Thickness(0);
+                    nextParagraph.Inlines.Add(new Run(""));
+
+                    paragraph.SiblingBlocks.InsertAfter(paragraph, nextParagraph);
+                }
+            }
+        }
+
         private void CodeBlock_Click(object sender, RoutedEventArgs e)
         {
             var selection = RichNotesTextBox.Selection;
@@ -268,42 +394,7 @@ namespace StudyManager.Views
                 var paragraph = selection.Start.Paragraph;
                 if (paragraph != null)
                 {
-                    // Check if it's already styled as code block
-                    if (paragraph.FontFamily != null && paragraph.FontFamily.Source == "Consolas")
-                    {
-                        // Reset to normal text
-                        paragraph.FontFamily = new FontFamily("Segoe UI, Roboto, Helvetica");
-                        paragraph.Background = Brushes.Transparent;
-                        paragraph.Padding = new Thickness(0);
-                        paragraph.BorderThickness = new Thickness(0);
-                        paragraph.ClearValue(TextElement.ForegroundProperty);
-                        paragraph.ClearValue(TextElement.FontSizeProperty);
-                    }
-                    else
-                    {
-                        // Apply code block styling
-                        paragraph.FontFamily = new FontFamily("Consolas");
-                        paragraph.Background = new SolidColorBrush(Color.FromRgb(24, 25, 35)); // Dark slate background matching theme
-                        paragraph.Foreground = new SolidColorBrush(Color.FromRgb(248, 250, 252)); // Light primary text
-                        paragraph.FontSize = 13;
-                        paragraph.Padding = new Thickness(12, 10, 12, 10);
-                        paragraph.BorderBrush = (Brush)FindResource("BrushBorder");
-                        paragraph.BorderThickness = new Thickness(1);
-
-                        // Ensure there is always a normal line (paragraph) below the code block
-                        if (paragraph.NextBlock == null)
-                        {
-                            var nextParagraph = new Paragraph();
-                            nextParagraph.Margin = new Thickness(0, 0, 0, 6);
-                            nextParagraph.FontFamily = new FontFamily("Segoe UI, Roboto, Helvetica");
-                            nextParagraph.Background = Brushes.Transparent;
-                            nextParagraph.Padding = new Thickness(0);
-                            nextParagraph.BorderThickness = new Thickness(0);
-                            nextParagraph.Inlines.Add(new Run(""));
-
-                            paragraph.SiblingBlocks.InsertAfter(paragraph, nextParagraph);
-                        }
-                    }
+                    ToggleCodeBlock(paragraph);
                 }
                 RichNotesTextBox.Focus();
             }
