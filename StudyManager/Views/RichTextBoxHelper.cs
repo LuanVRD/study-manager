@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace StudyManager.Views
 {
@@ -57,6 +58,7 @@ namespace StudyManager.Views
                             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(xaml)))
                             {
                                 var doc = (FlowDocument)XamlReader.Load(stream, context);
+                                EnsureNormalParagraphAfterCodeBlocks(doc);
                                 rtb.Document = doc;
                             }
                         }
@@ -84,16 +86,19 @@ namespace StudyManager.Views
             paragraph.Margin = new Thickness(0, 0, 0, 6);
             paragraph.Inlines.Add(new Run(text));
             doc.Blocks.Add(paragraph);
+            EnsureNormalParagraphAfterCodeBlocks(doc);
             rtb.Document = doc;
         }
 
         private static void RichTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (_isUpdating) return;
             if (sender is RichTextBox rtb)
             {
                 _isUpdating = true;
                 try
                 {
+                    EnsureNormalParagraphAfterCodeBlocks(rtb.Document);
                     using (var stream = new MemoryStream())
                     {
                         XamlWriter.Save(rtb.Document, stream);
@@ -119,6 +124,35 @@ namespace StudyManager.Views
                 {
                     _isUpdating = false;
                 }
+            }
+        }
+
+        private static void EnsureNormalParagraphAfterCodeBlocks(FlowDocument doc)
+        {
+            if (doc == null) return;
+
+            var blocks = doc.Blocks;
+            var current = blocks.FirstBlock;
+            while (current != null)
+            {
+                var next = current.NextBlock;
+                if (current is Paragraph paragraph && paragraph.FontFamily != null && paragraph.FontFamily.Source == "Consolas")
+                {
+                    if (next == null || (next is Paragraph nextPara && nextPara.FontFamily != null && nextPara.FontFamily.Source == "Consolas"))
+                    {
+                        var nextParagraph = new Paragraph();
+                        nextParagraph.Margin = new Thickness(0, 0, 0, 6);
+                        nextParagraph.FontFamily = new FontFamily("Segoe UI, Roboto, Helvetica");
+                        nextParagraph.Background = Brushes.Transparent;
+                        nextParagraph.Padding = new Thickness(0);
+                        nextParagraph.BorderThickness = new Thickness(0);
+                        nextParagraph.Inlines.Add(new Run(""));
+
+                        blocks.InsertAfter(paragraph, nextParagraph);
+                        next = nextParagraph;
+                    }
+                }
+                current = next;
             }
         }
     }

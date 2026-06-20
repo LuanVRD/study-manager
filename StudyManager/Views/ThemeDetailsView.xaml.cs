@@ -151,6 +151,115 @@ namespace StudyManager.Views
             }
         }
 
+        private bool IsInCodeBlock()
+        {
+            if (RichNotesTextBox == null) return false;
+            var caret = RichNotesTextBox.CaretPosition;
+            var paragraph = caret.Paragraph;
+            return paragraph != null && paragraph.FontFamily != null && paragraph.FontFamily.Source == "Consolas";
+        }
+
+        private void RichNotesTextBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (IsInCodeBlock())
+            {
+                if (e.Key == System.Windows.Input.Key.Enter)
+                {
+                    var caret = RichNotesTextBox.CaretPosition;
+                    var currentParagraph = caret.Paragraph;
+                    if (currentParagraph != null)
+                    {
+                        e.Handled = true;
+
+                        var start = currentParagraph.ContentStart;
+                        var range = new TextRange(start, caret);
+                        string textBeforeCaret = range.Text;
+                        
+                        string[] lines = textBeforeCaret.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+                        string currentLineText = lines.Length > 0 ? lines[lines.Length - 1] : "";
+
+                        // Auto-indentation
+                        int leadingWhitespaceCount = 0;
+                        for (int i = 0; i < currentLineText.Length; i++)
+                        {
+                            if (currentLineText[i] == ' ' || currentLineText[i] == '\t')
+                            {
+                                leadingWhitespaceCount++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        string leadingWhitespace = currentLineText.Substring(0, leadingWhitespaceCount);
+
+                        // Execute EnterLineBreak command to insert a line break and move caret to the new line
+                        System.Windows.Documents.EditingCommands.EnterLineBreak.Execute(null, RichNotesTextBox);
+
+                        // If there is leading whitespace, insert it at the new caret position
+                        if (!string.IsNullOrEmpty(leadingWhitespace))
+                        {
+                            RichNotesTextBox.Selection.Text = leadingWhitespace;
+                            RichNotesTextBox.CaretPosition = RichNotesTextBox.Selection.End;
+                        }
+                    }
+                }
+                else if (e.Key == System.Windows.Input.Key.Tab)
+                {
+                    e.Handled = true;
+                    if ((System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Shift) == System.Windows.Input.ModifierKeys.Shift)
+                    {
+                        // Shift+Tab: Reverse Indentation (remove up to 4 spaces from the start of the current line)
+                        var caret = RichNotesTextBox.CaretPosition;
+                        var currentParagraph = caret.Paragraph;
+                        if (currentParagraph != null)
+                        {
+                            var start = currentParagraph.ContentStart;
+                            var range = new TextRange(start, caret);
+                            string textBeforeCaret = range.Text;
+                            
+                            string[] lines = textBeforeCaret.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+                            string currentLineText = lines.Length > 0 ? lines[lines.Length - 1] : "";
+
+                            int spacesToRemove = 0;
+                            while (spacesToRemove < 4 && spacesToRemove < currentLineText.Length && currentLineText[spacesToRemove] == ' ')
+                            {
+                                spacesToRemove++;
+                            }
+                            if (spacesToRemove == 0 && currentLineText.Length > 0 && currentLineText[0] == '\t')
+                            {
+                                spacesToRemove = 1;
+                            }
+
+                            if (spacesToRemove > 0)
+                            {
+                                TextPointer lineStart = caret.GetPositionAtOffset(-currentLineText.Length, LogicalDirection.Forward);
+                                if (lineStart != null)
+                                {
+                                    TextPointer removeEnd = lineStart.GetPositionAtOffset(spacesToRemove, LogicalDirection.Forward);
+                                    if (removeEnd != null)
+                                    {
+                                        var rangeToRemove = new TextRange(lineStart, removeEnd);
+                                        rangeToRemove.Text = "";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Tab: Standard Indentation (insert 4 spaces)
+                        var selection = RichNotesTextBox.Selection;
+                        if (selection != null)
+                        {
+                            selection.Text = "    "; // 4 spaces
+                            RichNotesTextBox.CaretPosition = selection.End;
+                        }
+                    }
+                }
+            }
+        }
+
         private void CodeBlock_Click(object sender, RoutedEventArgs e)
         {
             var selection = RichNotesTextBox.Selection;
@@ -167,15 +276,33 @@ namespace StudyManager.Views
                         paragraph.Background = Brushes.Transparent;
                         paragraph.Padding = new Thickness(0);
                         paragraph.BorderThickness = new Thickness(0);
+                        paragraph.ClearValue(TextElement.ForegroundProperty);
+                        paragraph.ClearValue(TextElement.FontSizeProperty);
                     }
                     else
                     {
                         // Apply code block styling
                         paragraph.FontFamily = new FontFamily("Consolas");
                         paragraph.Background = new SolidColorBrush(Color.FromRgb(24, 25, 35)); // Dark slate background matching theme
-                        paragraph.Padding = new Thickness(10, 8, 10, 8);
+                        paragraph.Foreground = new SolidColorBrush(Color.FromRgb(248, 250, 252)); // Light primary text
+                        paragraph.FontSize = 13;
+                        paragraph.Padding = new Thickness(12, 10, 12, 10);
                         paragraph.BorderBrush = (Brush)FindResource("BrushBorder");
                         paragraph.BorderThickness = new Thickness(1);
+
+                        // Ensure there is always a normal line (paragraph) below the code block
+                        if (paragraph.NextBlock == null)
+                        {
+                            var nextParagraph = new Paragraph();
+                            nextParagraph.Margin = new Thickness(0, 0, 0, 6);
+                            nextParagraph.FontFamily = new FontFamily("Segoe UI, Roboto, Helvetica");
+                            nextParagraph.Background = Brushes.Transparent;
+                            nextParagraph.Padding = new Thickness(0);
+                            nextParagraph.BorderThickness = new Thickness(0);
+                            nextParagraph.Inlines.Add(new Run(""));
+
+                            paragraph.SiblingBlocks.InsertAfter(paragraph, nextParagraph);
+                        }
                     }
                 }
                 RichNotesTextBox.Focus();

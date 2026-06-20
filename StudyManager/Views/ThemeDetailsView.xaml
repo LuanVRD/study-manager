@@ -369,6 +369,7 @@
                         <RichTextBox x:Name="RichNotesTextBox" Grid.Row="1"
                                      local:RichTextBoxHelper.DocumentXaml="{Binding Notes}"
                                      AcceptsTab="True"
+                                     PreviewKeyDown="RichNotesTextBox_PreviewKeyDown"
                                      Style="{StaticResource RichNotesTextBoxStyle}">
                             <RichTextBox.Resources>
                                 <Style TargetType="Paragraph">
