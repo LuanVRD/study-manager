@@ -333,7 +333,16 @@ namespace StudyManager.Views
                     break;
                 }
 
-                TextPointer next = current.GetPositionAtOffset(-1, LogicalDirection.Forward);
+                TextPointer? next = null;
+                try
+                {
+                    next = current.GetPositionAtOffset(-1, LogicalDirection.Forward);
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    break;
+                }
+
                 if (next == null || next.CompareTo(current) == 0)
                 {
                     break;
@@ -412,6 +421,11 @@ namespace StudyManager.Views
             {
                 CopyAndInsertImage(openFileDialog.FileName);
             }
+        }
+
+        private void RichNotesTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            RichTextBoxHelper.HandleTextChanged(sender, e);
         }
     }
 }

@@ -39,43 +39,51 @@ namespace StudyManager.Views
             if (d is RichTextBox rtb)
             {
                 var xaml = e.NewValue as string;
-                rtb.TextChanged -= RichTextBox_TextChanged;
+                _isUpdating = true;
 
-                if (string.IsNullOrWhiteSpace(xaml))
+                try
                 {
-                    rtb.Document = new FlowDocument();
-                }
-                else
-                {
-                    try
+                    if (string.IsNullOrWhiteSpace(xaml))
                     {
-                        string trimmed = xaml.TrimStart();
-                        if (trimmed.StartsWith("<FlowDocument"))
+                        rtb.Document = new FlowDocument();
+                    }
+                    else
+                    {
+                        try
                         {
-                            var context = new ParserContext();
-                            context.BaseUri = new Uri(AppDomain.CurrentDomain.BaseDirectory, UriKind.Absolute);
-
-                            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(xaml)))
+                            string trimmed = xaml.TrimStart();
+                            if (trimmed.StartsWith("<FlowDocument"))
                             {
-                                var doc = (FlowDocument)XamlReader.Load(stream, context);
-                                EnsureNormalParagraphAfterCodeBlocks(doc);
-                                rtb.Document = doc;
+                                var context = new ParserContext();
+                                context.BaseUri = new Uri(AppDomain.CurrentDomain.BaseDirectory, UriKind.Absolute);
+
+                                using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(xaml)))
+                                {
+                                    var doc = (FlowDocument)XamlReader.Load(stream, context);
+                                    EnsureNormalParagraphAfterCodeBlocks(doc);
+                                    rtb.Document = doc;
+                                }
+                            }
+                            else
+                            {
+                                LoadPlainText(rtb, xaml);
                             }
                         }
-                        else
+                        catch (Exception)
                         {
-                            // Backward compatibility: Load plain text notes
+                            // Fallback: Load plain text notes if XAML parsing fails
                             LoadPlainText(rtb, xaml);
                         }
                     }
-                    catch (Exception)
-                    {
-                        // Fallback: Load plain text notes if XAML parsing fails
-                        LoadPlainText(rtb, xaml);
-                    }
                 }
-
-                rtb.TextChanged += RichTextBox_TextChanged;
+                catch (Exception)
+                {
+                    rtb.Document = new FlowDocument();
+                }
+                finally
+                {
+                    _isUpdating = false;
+                }
             }
         }
 
@@ -90,7 +98,7 @@ namespace StudyManager.Views
             rtb.Document = doc;
         }
 
-        private static void RichTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        public static void HandleTextChanged(object sender, TextChangedEventArgs e)
         {
             if (_isUpdating) return;
             if (sender is RichTextBox rtb)
@@ -131,28 +139,35 @@ namespace StudyManager.Views
         {
             if (doc == null) return;
 
-            var blocks = doc.Blocks;
-            var current = blocks.FirstBlock;
-            while (current != null)
+            try
             {
-                var next = current.NextBlock;
-                if (current is Paragraph paragraph && paragraph.FontFamily != null && paragraph.FontFamily.Source == "Consolas")
+                var blocks = doc.Blocks;
+                var current = blocks.FirstBlock;
+                while (current != null)
                 {
-                    if (next == null || (next is Paragraph nextPara && nextPara.FontFamily != null && nextPara.FontFamily.Source == "Consolas"))
+                    var next = current.NextBlock;
+                    if (current is Paragraph paragraph && paragraph.FontFamily != null && paragraph.FontFamily.Source == "Consolas")
                     {
-                        var nextParagraph = new Paragraph();
-                        nextParagraph.Margin = new Thickness(0, 0, 0, 6);
-                        nextParagraph.FontFamily = new FontFamily("Segoe UI, Roboto, Helvetica");
-                        nextParagraph.Background = Brushes.Transparent;
-                        nextParagraph.Padding = new Thickness(0);
-                        nextParagraph.BorderThickness = new Thickness(0);
-                        nextParagraph.Inlines.Add(new Run(""));
+                        if (next == null || (next is Paragraph nextPara && nextPara.FontFamily != null && nextPara.FontFamily.Source == "Consolas"))
+                        {
+                            var nextParagraph = new Paragraph();
+                            nextParagraph.Margin = new Thickness(0, 0, 0, 6);
+                            nextParagraph.FontFamily = new FontFamily("Segoe UI, Roboto, Helvetica");
+                            nextParagraph.Background = Brushes.Transparent;
+                            nextParagraph.Padding = new Thickness(0);
+                            nextParagraph.BorderThickness = new Thickness(0);
+                            nextParagraph.Inlines.Add(new Run(""));
 
-                        blocks.InsertAfter(paragraph, nextParagraph);
-                        next = nextParagraph;
+                            blocks.InsertAfter(paragraph, nextParagraph);
+                            next = nextParagraph;
+                        }
                     }
+                    current = next;
                 }
-                current = next;
+            }
+            catch (Exception)
+            {
+                // Silently ignore to prevent loading failures
             }
         }
     }
