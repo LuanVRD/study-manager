@@ -3,35 +3,236 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StudyManager.Views"
+             xmlns:conv="clr-namespace:StudyManager.Views.Converters"
              xmlns:vm="clr-namespace:StudyManager.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=vm:StudyDetailsViewModel}">
 
+    <UserControl.Resources>
+        <!-- Converters -->
+        <conv:PercentageToArcConverter x:Key="PercentageToArcConverter" />
+        <conv:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <conv:InitialsConverter x:Key="InitialsConverter" />
+        <conv:LocalImagePathConverter x:Key="LocalImagePathConverter" />
+        <conv:LinkCountConverter x:Key="LinkCountConverter" />
+        <conv:ThemeParamConverter x:Key="ThemeParamConverter" />
+    </UserControl.Resources>
+
     <Grid Background="{StaticResource BrushWindowBg}">
         <Grid.RowDefinitions>
             <RowDefinition Height="64"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Header Bar -->
+        <!-- Top Header Bar -->
         <Border Grid.Row="0" Background="{StaticResource BrushHeaderBg}" BorderBrush="{StaticResource BrushBorder}" BorderThickness="0,0,0,1.5" Padding="20,0,20,0">
             <Grid>
                 <!-- Back Button -->
                 <Button Content="← Voltar" Command="{Binding BackCommand}" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Height="36"/>
                 
-                <!-- Study Title -->
-                <TextBlock Text="{Binding Study.Name}" Style="{StaticResource TextHeader}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <!-- Center Title -->
+                <TextBlock Text="Gerenciador de estudos" Style="{StaticResource TextHeader}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
         </Border>
 
-        <!-- Placeholder Body -->
-        <Grid Grid.Row="1">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Text="📖" FontSize="64" HorizontalAlignment="Center" Margin="0,0,0,16"/>
-                <TextBlock Text="{Binding Study.Name}" Style="{StaticResource TextHeader}" HorizontalAlignment="Center"/>
-                <TextBlock Text="Tópicos e Temas em desenvolvimento (Task 04)" Style="{StaticResource TextBody}" Margin="0,8,0,0" HorizontalAlignment="Center"/>
-            </StackPanel>
-        </Grid>
+        <!-- Sub-Header Area: Study Progress Badge and Actions -->
+        <Border Grid.Row="1" Background="#13141F" BorderBrush="{StaticResource BrushBorder}" BorderThickness="0,0,0,1.5" Padding="20,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Study Summary Badge -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <!-- Study image/initials -->
+                    <Border Width="48" Height="48" Background="#11121a" CornerRadius="6" ClipToBounds="True" VerticalAlignment="Center">
+                        <Grid>
+                            <Image Source="{Binding Study.ImagePath, Converter={StaticResource LocalImagePathConverter}}" 
+                                   Stretch="UniformToFill"
+                                   Visibility="{Binding Study.ImagePath, Converter={StaticResource NullToVisibilityConverter}}"/>
+                            <Grid Background="{StaticResource BrushAccent}" Visibility="{Binding Study.ImagePath, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
+                                <TextBlock Text="{Binding Study.Name, Converter={StaticResource InitialsConverter}}" 
+                                           Foreground="White" FontWeight="Bold" FontSize="16"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    
+                    <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
+                        <!-- Study Name -->
+                        <TextBlock Text="{Binding Study.Name}" Style="{StaticResource TextHeader}" FontSize="18" Margin="0,0,0,2"/>
+                        <!-- Progress circle ring -->
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Viewbox Width="18" Height="18" VerticalAlignment="Center">
+                                <Canvas Width="28" Height="28">
+                                    <Ellipse Stroke="#15FFFFFF" StrokeThickness="2.5" Width="24" Height="24" Canvas.Left="2" Canvas.Top="2"/>
+                                    <Path Stroke="{StaticResource BrushPrimary}" StrokeThickness="2.5" 
+                                          Data="{Binding Study.ProgressPercentage, Converter={StaticResource PercentageToArcConverter}}"
+                                          StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                                </Canvas>
+                            </Viewbox>
+                            <TextBlock Text="{Binding Study.ProgressPercentage, StringFormat={}{0}% concluído}" FontSize="12" FontWeight="SemiBold"
+                                       Foreground="{StaticResource BrushTextSecondary}" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Actions (CSV & Add Topic) -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="Importar CSV" Command="{Binding ImportCsvCommand}" Style="{StaticResource SecondaryButton}" Height="36" Margin="0,0,10,0" Padding="20,0"/>
+                    <Button Content="Adicionar tópico" Command="{Binding AddTopicCommand}" Style="{StaticResource PrimaryButton}" Height="36" Padding="20,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Scrollable Area -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Padding="20">
+            <Grid>
+                <!-- Empty State Message -->
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,80,0,0"
+                            Visibility="{Binding Study.Topics.Count, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
+                    <TextBlock Text="📂" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                    <TextBlock Text="Nenhum tópico cadastrado." Foreground="{StaticResource BrushTextSecondary}" FontSize="16" HorizontalAlignment="Center" FontWeight="SemiBold"/>
+                    <TextBlock Text="Clique em 'Adicionar tópico' ou 'Importar CSV' para começar!" Foreground="{StaticResource BrushTextMuted}" FontSize="13" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                </StackPanel>
+
+                <!-- Topics list -->
+                <ItemsControl ItemsSource="{Binding Study.Topics}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!-- Styled Expander -->
+                            <Expander IsExpanded="True">
+                                <!-- Expander Header Template -->
+                                <Expander.Header>
+                                    <Grid Margin="0,0,10,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Topic Title -->
+                                        <TextBlock Text="{Binding Name}" Style="{StaticResource TextTitle}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+
+                                        <!-- Actions Stack (Edit, Delete, Add Theme) -->
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                            <!-- Edit Topic -->
+                                            <Button Command="{Binding DataContext.EditTopicCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}"
+                                                    Content="✏️" ToolTip="Editar Tópico" Style="{StaticResource IconButtonStyle}"/>
+                                            <!-- Delete Topic -->
+                                            <Button Command="{Binding DataContext.DeleteTopicCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}"
+                                                    Content="🗑️" ToolTip="Excluir Tópico" Style="{StaticResource IconButtonStyle}"/>
+                                            <!-- Add Theme -->
+                                            <Button Command="{Binding DataContext.AddThemeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}"
+                                                    Content="➕" ToolTip="Adicionar Tema" Style="{StaticResource IconButtonStyle}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Expander.Header>
+
+                                <!-- Expanded Content: List of Themes -->
+                                <Grid>
+                                    <!-- Empty Themes State -->
+                                    <Border Visibility="{Binding Themes.Count, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}" Padding="16">
+                                        <TextBlock Text="Nenhum tema cadastrado neste tópico. Clique no botão ➕ acima para adicionar!" 
+                                                   Style="{StaticResource TextBody}" Foreground="{StaticResource BrushTextMuted}" HorizontalAlignment="Center" FontSize="12"/>
+                                    </Border>
+
+                                    <!-- Themes ItemsControl -->
+                                    <ItemsControl ItemsSource="{Binding Themes}" Margin="0">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <!-- Clickable theme border -->
+                                                <Border BorderBrush="{StaticResource BrushBorder}" BorderThickness="0,0,0,1" Padding="12,10" Cursor="Hand" Background="Transparent">
+                                                    <!-- Hover Styles -->
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="#17FFFFFF"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                    
+                                                    <!-- Navigation click parameter binding -->
+                                                    <Border.InputBindings>
+                                                        <MouseBinding Gesture="LeftClick" 
+                                                                      Command="{Binding DataContext.OpenThemeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                                                            <MouseBinding.CommandParameter>
+                                                                <MultiBinding Converter="{StaticResource ThemeParamConverter}">
+                                                                    <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=Expander}"/>
+                                                                    <Binding />
+                                                                </MultiBinding>
+                                                            </MouseBinding.CommandParameter>
+                                                        </MouseBinding>
+                                                    </Border.InputBindings>
+
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <!-- Col 0: Checkbox conclusion -->
+                                                        <CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}"
+                                                                  Command="{Binding DataContext.ToggleThemeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                  CommandParameter="{Binding}"
+                                                                  VerticalAlignment="Center" Margin="0,0,12,0"/>
+
+                                                        <!-- Col 1: Theme Name (strikethrough when completed) -->
+                                                        <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center">
+                                                            <TextBlock.Style>
+                                                                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBody}">
+                                                                    <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding IsCompleted}" Value="True">
+                                                                            <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                                                            <Setter Property="Opacity" Value="0.4"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBlock.Style>
+                                                        </TextBlock>
+
+                                                        <!-- Col 2: Link Count -->
+                                                        <TextBlock Grid.Column="2" Text="{Binding Links, Converter={StaticResource LinkCountConverter}}" 
+                                                                   Style="{StaticResource TextBody}" Margin="12,0" VerticalAlignment="Center" FontSize="13"/>
+
+                                                        <!-- Col 3: Actions (Edit, Delete Theme) -->
+                                                        <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+                                                            <Button Command="{Binding DataContext.EditThemeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                    CommandParameter="{Binding}"
+                                                                    Content="✏️" ToolTip="Editar Tema" Style="{StaticResource IconButtonStyle}"/>
+                                                            
+                                                            <Button Command="{Binding DataContext.DeleteThemeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                    Content="🗑️" ToolTip="Excluir Tema" Style="{StaticResource IconButtonStyle}">
+                                                                <Button.CommandParameter>
+                                                                    <MultiBinding Converter="{StaticResource ThemeParamConverter}">
+                                                                        <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=Expander}"/>
+                                                                        <Binding />
+                                                                    </MultiBinding>
+                                                                </Button.CommandParameter>
+                                                            </Button>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                            </Expander>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </UserControl>

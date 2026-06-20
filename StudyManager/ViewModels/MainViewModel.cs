@@ -37,6 +37,11 @@ namespace StudyManager.ViewModels
             CurrentViewModel = new StudyDetailsViewModel(this, study);
         }
 
+        public void NavigateToThemeDetails(Study study, StudyTopic topic, StudyTheme theme)
+        {
+            CurrentViewModel = new ThemeDetailsViewModel(this, study, topic, theme);
+        }
+
         public void SaveData()
         {
             StorageService.Save(AppData);

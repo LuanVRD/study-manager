@@ -86,6 +86,7 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}"
                             CornerRadius="8">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
@@ -112,6 +113,7 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}"
                             CornerRadius="8">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
@@ -139,6 +141,7 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}"
                             CornerRadius="8">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
@@ -151,6 +154,57 @@
                 <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <!-- Custom CheckBox Style -->
+    <Style TargetType="CheckBox">
+        <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
+        <Setter Property="Background" Value="#1A1B26"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BrushBorder}"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <BulletDecorator Background="Transparent" SnapsToDevicePixels="true">
+                        <BulletDecorator.Bullet>
+                            <Border x:Name="bulletBorder"
+                                    Width="18" Height="18"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4"
+                                    SnapsToDevicePixels="true">
+                                <!-- CheckMark Path -->
+                                <Path x:Name="checkMark"
+                                      Data="M 3,8.5 L 6.5,12 L 12.5,4"
+                                      Stroke="White"
+                                      StrokeThickness="2"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round"
+                                      Width="12" Height="12"
+                                      Stretch="Uniform"
+                                      Visibility="Collapsed"/>
+                            </Border>
+                        </BulletDecorator.Bullet>
+                        <ContentPresenter Margin="8,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    </BulletDecorator>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter TargetName="bulletBorder" Property="Background" Value="{StaticResource BrushPrimary}"/>
+                            <Setter TargetName="bulletBorder" Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
+                            <Setter TargetName="checkMark" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="bulletBorder" Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!-- Custom TextBox Style -->
@@ -183,6 +237,127 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <!-- Custom Modern Expander Style -->
+    <Style TargetType="Expander">
+        <Setter Property="Background" Value="{StaticResource BrushSurfaceBg}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BrushBorder}"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="Margin" Value="0,0,0,12"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="true">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition x:Name="ContentRow" Height="0"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Header Toggle Button -->
+                            <ToggleButton x:Name="HeaderSite"
+                                          Content="{TemplateBinding Header}"
+                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                          FontFamily="{TemplateBinding FontFamily}"
+                                          FontSize="{TemplateBinding FontSize}"
+                                          FontWeight="{TemplateBinding FontWeight}"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          MinWidth="0" MinHeight="0" Padding="0" Cursor="Hand">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="Transparent" Padding="14,12">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                
+                                                <ContentPresenter Grid.Column="0" Content="{TemplateBinding Content}" VerticalAlignment="Center"/>
+                                                
+                                                <!-- Custom Chevron Arrow -->
+                                                <Path Grid.Column="1" x:Name="Arrow" Data="M 1,1.5 L 5,5.5 L 9,1.5" 
+                                                      Stroke="{StaticResource BrushTextSecondary}" StrokeThickness="2" 
+                                                      VerticalAlignment="Center" HorizontalAlignment="Right"
+                                                      Width="10" Height="7" Stretch="Uniform" RenderTransformOrigin="0.5,0.5" Margin="10,0,0,0">
+                                                    <Path.RenderTransform>
+                                                        <RotateTransform Angle="0"/>
+                                                    </Path.RenderTransform>
+                                                    <Path.Style>
+                                                        <Style TargetType="Path">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsExpanded, RelativeSource={RelativeSource AncestorType=Expander}}" Value="True">
+                                                                    <Setter Property="RenderTransform">
+                                                                        <Setter.Value>
+                                                                            <RotateTransform Angle="180"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                    <Setter Property="Stroke" Value="{StaticResource BrushPrimary}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Path.Style>
+                                                </Path>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+
+                            <!-- Expanded Content Area -->
+                            <Border Grid.Row="1" x:Name="ExpandSite" 
+                                    Background="#11121a" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="0,1.5,0,0" 
+                                    Visibility="Collapsed" 
+                                    CornerRadius="0,0,8,8">
+                                <ContentPresenter Content="{TemplateBinding Content}" Margin="0"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="true">
+                            <Setter TargetName="ContentRow" Property="Height" Value="*"/>
+                            <Setter TargetName="ExpandSite" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Flat style for small icon buttons (e.g. Edit/Delete emojis) -->
+    <Style x:Key="IconButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Width" Value="26"/>
+        <Setter Property="Height" Value="26"/>
+        <Setter Property="Margin" Value="2,0"/>
+        <Setter Property="Opacity" Value="0.8"/>
+        <Setter Property="Foreground" Value="{StaticResource BrushTextSecondary}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="4" Padding="2">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1.0"/>
+                <Setter Property="Background" Value="#15FFFFFF"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 using StudyManager.ViewModels;
 
@@ -39,7 +40,7 @@ namespace StudyManager.Models
             set => SetProperty(ref _updatedAt, value);
         }
 
-        public List<StudyTopic> Topics { get; set; } = new List<StudyTopic>();
+        public ObservableCollection<StudyTopic> Topics { get; set; } = new ObservableCollection<StudyTopic>();
 
         [JsonIgnore]
         public double ProgressPercentage

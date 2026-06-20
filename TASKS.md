@@ -25,12 +25,12 @@
 
 ## Etapa 3 — Tela de tópicos e temas
 
-- [ ] Task 04 — Implementar tópicos e temas
-  - [ ] Criar a tela `StudyDetailsView` com navegação de volta.
-  - [ ] Exibir os tópicos em blocos expansíveis (`Expander`).
-  - [ ] Implementar CRUD completo de Tópicos com confirmação na exclusão.
-  - [ ] Implementar CRUD completo de Temas com confirmação na exclusão.
-  - [ ] Implementar a marcação/desmarcação de conclusão de temas, atualizando o progresso no JSON e na UI em tempo real.
+- [x] Task 04 — Implementar tópicos e temas
+  - [x] Criar a tela `StudyDetailsView` com navegação de volta.
+  - [x] Exibir os tópicos em blocos expansíveis (`Expander`).
+  - [x] Implementar CRUD completo de Tópicos com confirmação na exclusão.
+  - [x] Implementar CRUD completo de Temas com confirmação na exclusão.
+  - [x] Implementar a marcação/desmarcação de conclusão de temas, atualizando o progresso no JSON e na UI em tempo real.
 
 - [ ] Task 05 — Implementar importação de CSV
   - [ ] Criar parser de CSV local suportando delimitadores `,` e `;` e aspas.

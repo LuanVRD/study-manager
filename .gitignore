@@ -1,0 +1,20 @@
+# Caches e arquivos temporários do Visual Studio
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Pastas de compilação (Build outputs)
+[Bb]in/
+[Oo]bj/
+StudyManager/bin/
+StudyManager/obj/
+
+# Pasta de dados locais do aplicativo (não deve ir para o Git)
+StudyManager/Data/
+Data/
+app-data.json
+app-data.backup.json
+app-data.tmp.json

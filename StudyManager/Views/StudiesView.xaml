@@ -129,47 +129,23 @@
                                             <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                                                 <Button Command="{Binding DataContext.EditStudyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                         CommandParameter="{Binding}"
-                                                        Content="✏️" ToolTip="Editar" FontSize="12" Margin="2,0" Width="24" Height="24"
-                                                        Background="Transparent" BorderBrush="Transparent" Foreground="{StaticResource BrushTextSecondary}" Cursor="Hand">
-                                                    <Button.Style>
-                                                        <Style TargetType="Button">
-                                                            <Setter Property="Opacity" Value="0.5"/>
-                                                            <Style.Triggers>
-                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter Property="Opacity" Value="1.0"/>
-                                                                </Trigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Button.Style>
-                                                </Button>
+                                                        Content="✏️" ToolTip="Editar" Style="{StaticResource IconButtonStyle}"/>
                                                 <Button Command="{Binding DataContext.DeleteStudyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                         CommandParameter="{Binding}"
-                                                        Content="🗑️" ToolTip="Excluir" FontSize="12" Margin="2,0" Width="24" Height="24"
-                                                        Background="Transparent" BorderBrush="Transparent" Foreground="{StaticResource BrushTextSecondary}" Cursor="Hand">
-                                                    <Button.Style>
-                                                        <Style TargetType="Button">
-                                                            <Setter Property="Opacity" Value="0.5"/>
-                                                            <Style.Triggers>
-                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter Property="Opacity" Value="1.0"/>
-                                                                </Trigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Button.Style>
-                                                </Button>
+                                                        Content="🗑️" ToolTip="Excluir" Style="{StaticResource IconButtonStyle}"/>
                                             </StackPanel>
                                         </Grid>
 
                                         <!-- Row 1: Circular Progress -->
                                         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
-                                            <Grid Width="28" Height="28">
+                                            <Canvas Width="28" Height="28">
                                                 <!-- Background ring -->
-                                                <Ellipse Stroke="#15FFFFFF" StrokeThickness="2.5" Width="24" Height="24"/>
+                                                <Ellipse Stroke="#15FFFFFF" StrokeThickness="2.5" Width="24" Height="24" Canvas.Left="2" Canvas.Top="2"/>
                                                 <!-- Foreground Arc -->
                                                 <Path Stroke="{StaticResource BrushPrimary}" StrokeThickness="2.5" 
                                                       Data="{Binding ProgressPercentage, Converter={StaticResource PercentageToArcConverter}}"
-                                                      StrokeStartLineCap="Round" StrokeEndLineCap="Round" Width="28" Height="28"/>
-                                            </Grid>
+                                                      StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                                            </Canvas>
                                             <TextBlock Text="{Binding ProgressPercentage, StringFormat={}{0}%}" FontSize="12" FontWeight="Bold"
                                                        Foreground="{StaticResource BrushTextPrimary}" Margin="8,0,0,0" VerticalAlignment="Center"/>
                                         </StackPanel>

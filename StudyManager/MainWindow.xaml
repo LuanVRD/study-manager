@@ -18,6 +18,9 @@
         <DataTemplate DataType="{x:Type vm:StudyDetailsViewModel}">
             <views:StudyDetailsView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ThemeDetailsViewModel}">
+            <views:ThemeDetailsView />
+        </DataTemplate>
     </Window.Resources>
     
     <Grid>

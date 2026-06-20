@@ -1,3 +1,38 @@
 {
-  "studies": []
+  "studies": [
+    {
+      "id": "3c0f3105-2b55-40d0-a57c-fb17ff263909",
+      "name": "Angular",
+      "imagePath": "Data\\Images\\3c0f3105-2b55-40d0-a57c-fb17ff263909.jpg",
+      "createdAt": "2026-06-20T06:46:43.4329606-03:00",
+      "updatedAt": "2026-06-20T06:46:43.4329933-03:00",
+      "topics": [
+        {
+          "id": "7456ac6a-6ade-494a-a766-815c0f4dca5e",
+          "name": "Teste",
+          "themes": [
+            {
+              "id": "09904523-35ed-4b4c-83a0-317064c80d94",
+              "name": "teste",
+              "isCompleted": true,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1870fe67-46ac-4582-8af0-32beb169e2a4",
+              "name": "teste 2",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "c733d0bc-dc00-4744-8d54-6607429b0b8d",
+          "name": "teste 2",
+          "themes": []
+        }
+      ]
+    }
+  ]
 }
