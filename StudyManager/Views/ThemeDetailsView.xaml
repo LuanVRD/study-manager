@@ -77,6 +77,64 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- Complete/Incomplete Toggle Button Style -->
+        <Style x:Key="CompleteThemeButtonStyle" TargetType="Button">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1.5"
+                                Padding="{TemplateBinding Padding}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!-- Default state: Not Completed -->
+                <DataTrigger Binding="{Binding Theme.IsCompleted}" Value="False">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource BrushBorder}"/>
+                    <Setter Property="Foreground" Value="{StaticResource BrushTextSecondary}"/>
+                    <Setter Property="Content" Value="Concluir Tema"/>
+                </DataTrigger>
+                <!-- Hover when Not Completed -->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Theme.IsCompleted}" Value="False"/>
+                        <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
+                    <Setter Property="Foreground" Value="{StaticResource BrushPrimary}"/>
+                </MultiDataTrigger>
+
+                <!-- State: Completed -->
+                <DataTrigger Binding="{Binding Theme.IsCompleted}" Value="True">
+                    <Setter Property="Background" Value="#1C2C24"/> <!-- Dark green background -->
+                    <Setter Property="BorderBrush" Value="{StaticResource BrushSuccess}"/>
+                    <Setter Property="Foreground" Value="{StaticResource BrushSuccess}"/>
+                    <Setter Property="Content" Value="✓ Concluído"/>
+                </DataTrigger>
+                <!-- Hover when Completed -->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Theme.IsCompleted}" Value="True"/>
+                        <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="#253D30"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource BrushSuccessHover}"/>
+                    <Setter Property="Foreground" Value="{StaticResource BrushSuccessHover}"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <Grid Background="{StaticResource BrushWindowBg}">
@@ -98,17 +156,27 @@
 
         <!-- Sub-Header Bar (Breadcrumbs & Title) -->
         <Border Grid.Row="1" Background="#13141F" BorderBrush="{StaticResource BrushBorder}" BorderThickness="0,0,0,1.5" Padding="20,16">
-            <StackPanel VerticalAlignment="Center">
-                <!-- Breadcrumbs: Study > Topic -->
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
-                    <TextBox Text="{Binding Study.Name, Mode=OneWay}" Style="{StaticResource SelectableTextBody}" Foreground="{StaticResource BrushTextMuted}" FontSize="12" FontWeight="SemiBold"/>
-                    <TextBlock Text="  ›  " Style="{StaticResource TextBody}" Foreground="{StaticResource BrushTextMuted}" FontSize="12"/>
-                    <TextBox Text="{Binding Topic.Name, Mode=OneWay}" Style="{StaticResource SelectableTextBody}" Foreground="{StaticResource BrushTextMuted}" FontSize="12" FontWeight="SemiBold"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <!-- Breadcrumbs: Study > Topic -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                        <TextBox Text="{Binding Study.Name, Mode=OneWay}" Style="{StaticResource SelectableTextBody}" Foreground="{StaticResource BrushTextMuted}" FontSize="12" FontWeight="SemiBold"/>
+                        <TextBlock Text="  ›  " Style="{StaticResource TextBody}" Foreground="{StaticResource BrushTextMuted}" FontSize="12"/>
+                        <TextBox Text="{Binding Topic.Name, Mode=OneWay}" Style="{StaticResource SelectableTextBody}" Foreground="{StaticResource BrushTextMuted}" FontSize="12" FontWeight="SemiBold"/>
+                    </StackPanel>
+                    
+                    <!-- Theme Name -->
+                    <TextBox Text="{Binding Theme.Name, Mode=OneWay}" Style="{StaticResource SelectableTextHeader}" FontSize="20"/>
                 </StackPanel>
-                
-                <!-- Theme Name -->
-                <TextBox Text="{Binding Theme.Name, Mode=OneWay}" Style="{StaticResource SelectableTextHeader}" FontSize="20"/>
-            </StackPanel>
+
+                <!-- Toggle Completion Button -->
+                <Button Grid.Column="1" Command="{Binding ToggleCompleteCommand}" Style="{StaticResource CompleteThemeButtonStyle}" VerticalAlignment="Center" Width="140"/>
+            </Grid>
         </Border>
 
         <!-- Main Content Area -->

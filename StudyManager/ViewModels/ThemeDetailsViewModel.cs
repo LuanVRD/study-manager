@@ -51,6 +51,7 @@ namespace StudyManager.ViewModels
         public ICommand OpenLinkCommand { get; }
         public ICommand SaveDataCommand { get; }
         public ICommand ToggleNotesExpandedCommand { get; }
+        public ICommand ToggleCompleteCommand { get; }
 
         public ThemeDetailsViewModel(MainViewModel main, Study study, StudyTopic topic, StudyTheme theme)
         {
@@ -67,11 +68,19 @@ namespace StudyManager.ViewModels
             OpenLinkCommand = new RelayCommand(OpenLink);
             SaveDataCommand = new RelayCommand(() => _main.SaveData());
             ToggleNotesExpandedCommand = new RelayCommand(() => IsNotesExpanded = !IsNotesExpanded);
+            ToggleCompleteCommand = new RelayCommand(ToggleComplete);
         }
 
         private void GoBack()
         {
             _main.NavigateToStudyDetails(Study);
+        }
+
+        private void ToggleComplete()
+        {
+            Theme.IsCompleted = !Theme.IsCompleted;
+            _main.SaveData();
+            Study.NotifyProgressChanged();
         }
 
         private void OnNotesChanged()
