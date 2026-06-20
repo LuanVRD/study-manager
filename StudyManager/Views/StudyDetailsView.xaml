@@ -129,7 +129,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <!-- Topic Title -->
-                                        <TextBlock Text="{Binding Name}" Style="{StaticResource TextTitle}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding Name}" Style="{StaticResource TextTitle}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" ToolTip="{Binding Name}"/>
 
                                         <!-- Actions Stack (Edit, Delete, Add Theme) -->
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">

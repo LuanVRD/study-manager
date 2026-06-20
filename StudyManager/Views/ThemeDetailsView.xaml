@@ -116,7 +116,7 @@
 
                                             <!-- Text Content -->
                                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="14" TextTrimming="CharacterEllipsis">
+                                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="14" TextTrimming="CharacterEllipsis" ToolTip="{Binding Name}">
                                                     <TextBlock.Style>
                                                         <Style TargetType="TextBlock" BasedOn="{StaticResource TextBody}">
                                                             <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
@@ -128,7 +128,7 @@
                                                         </Style>
                                                     </TextBlock.Style>
                                                 </TextBlock>
-                                                <TextBlock Text="{Binding Url}" Style="{StaticResource TextBody}" FontSize="11" Foreground="{StaticResource BrushTextMuted}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis"/>
+                                                <TextBlock Text="{Binding Url}" Style="{StaticResource TextBody}" FontSize="11" Foreground="{StaticResource BrushTextMuted}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis" ToolTip="{Binding Url}"/>
                                             </StackPanel>
 
                                             <!-- Edit / Delete actions -->

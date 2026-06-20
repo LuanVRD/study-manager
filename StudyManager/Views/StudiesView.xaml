@@ -138,7 +138,7 @@
 
                                             <TextBlock Text="{Binding Name}" Style="{StaticResource TextTitle}" 
                                                        TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                       MaxWidth="120"/>
+                                                       MaxWidth="120" ToolTip="{Binding Name}"/>
 
                                             <!-- Edit / Delete actions -->
                                             <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
