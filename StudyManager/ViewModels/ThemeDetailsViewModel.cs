@@ -42,6 +42,7 @@ namespace StudyManager.ViewModels
         public ICommand EditLinkCommand { get; }
         public ICommand DeleteLinkCommand { get; }
         public ICommand OpenLinkCommand { get; }
+        public ICommand SaveDataCommand { get; }
 
         public ThemeDetailsViewModel(MainViewModel main, Study study, StudyTopic topic, StudyTheme theme)
         {
@@ -56,6 +57,7 @@ namespace StudyManager.ViewModels
             EditLinkCommand = new RelayCommand(EditLink);
             DeleteLinkCommand = new RelayCommand(DeleteLink);
             OpenLinkCommand = new RelayCommand(OpenLink);
+            SaveDataCommand = new RelayCommand(() => _main.SaveData());
         }
 
         private void GoBack()

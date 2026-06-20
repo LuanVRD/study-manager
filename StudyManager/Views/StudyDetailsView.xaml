@@ -105,7 +105,21 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <!-- Styled Expander -->
-                            <Expander IsExpanded="True">
+                            <Expander IsExpanded="True"
+                                      local:DragDropBehavior.IsDragSource="True"
+                                      local:DragDropBehavior.IsDropTarget="True"
+                                      local:DragDropBehavior.DragGroup="Topics"
+                                      local:DragDropBehavior.DropCommand="{Binding DataContext.SaveDataCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                                <Expander.Style>
+                                    <Style TargetType="Expander" BasedOn="{StaticResource {x:Type Expander}}">
+                                        <Style.Triggers>
+                                            <Trigger Property="local:DragDropBehavior.IsDragOverItem" Value="True">
+                                                <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
+                                                <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Expander.Style>
                                 <!-- Expander Header Template -->
                                 <Expander.Header>
                                     <Grid Margin="0,0,10,0">
@@ -148,7 +162,18 @@
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <!-- Clickable theme border -->
-                                                <Border BorderBrush="{StaticResource BrushBorder}" BorderThickness="0,0,0,1" Padding="12,10" Cursor="Hand" Background="Transparent">
+                                                <Border BorderBrush="{StaticResource BrushBorder}" BorderThickness="0,0,0,1" Padding="12,10" Cursor="Hand" Background="Transparent"
+                                                        local:DragDropBehavior.IsDragSource="True"
+                                                        local:DragDropBehavior.IsDropTarget="True"
+                                                        local:DragDropBehavior.DragGroup="Themes"
+                                                        local:DragDropBehavior.DropCommand="{Binding DataContext.SaveDataCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        local:DragDropBehavior.ClickCommand="{Binding DataContext.OpenThemeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                                                    <local:DragDropBehavior.ClickCommandParameter>
+                                                        <MultiBinding Converter="{StaticResource ThemeParamConverter}">
+                                                            <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=Expander}"/>
+                                                            <Binding />
+                                                        </MultiBinding>
+                                                    </local:DragDropBehavior.ClickCommandParameter>
                                                     <!-- Hover Styles -->
                                                     <Border.Style>
                                                         <Style TargetType="Border">
@@ -156,22 +181,13 @@
                                                                 <Trigger Property="IsMouseOver" Value="True">
                                                                     <Setter Property="Background" Value="#17FFFFFF"/>
                                                                 </Trigger>
+                                                                <Trigger Property="local:DragDropBehavior.IsDragOverItem" Value="True">
+                                                                    <Setter Property="Background" Value="#25FFFFFF"/>
+                                                                    <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
+                                                                </Trigger>
                                                             </Style.Triggers>
                                                         </Style>
                                                     </Border.Style>
-                                                    
-                                                    <!-- Navigation click parameter binding -->
-                                                    <Border.InputBindings>
-                                                        <MouseBinding Gesture="LeftClick" 
-                                                                      Command="{Binding DataContext.OpenThemeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
-                                                            <MouseBinding.CommandParameter>
-                                                                <MultiBinding Converter="{StaticResource ThemeParamConverter}">
-                                                                    <Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=Expander}"/>
-                                                                    <Binding />
-                                                                </MultiBinding>
-                                                            </MouseBinding.CommandParameter>
-                                                        </MouseBinding>
-                                                    </Border.InputBindings>
 
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>

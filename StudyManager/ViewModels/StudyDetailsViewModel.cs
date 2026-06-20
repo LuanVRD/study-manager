@@ -36,6 +36,7 @@ namespace StudyManager.ViewModels
         public ICommand ToggleThemeCommand { get; }
         public ICommand OpenThemeCommand { get; }
         public ICommand ImportCsvCommand { get; }
+        public ICommand SaveDataCommand { get; }
 
         public StudyDetailsViewModel(MainViewModel main, Study study)
         {
@@ -52,6 +53,7 @@ namespace StudyManager.ViewModels
             ToggleThemeCommand = new RelayCommand(ToggleTheme);
             OpenThemeCommand = new RelayCommand(OpenTheme);
             ImportCsvCommand = new RelayCommand(ImportCsv);
+            SaveDataCommand = new RelayCommand(() => _main.SaveData());
         }
 
         private void GoBack()

@@ -46,17 +46,27 @@
   - [x] Adicionar validação básica da URL (deve iniciar com http/https).
   - [x] Implementar a abertura do link no navegador padrão com Process.Start e ShellExecute.
 
-- [ ] Task 07 — Implementar anotações com salvamento automático
-  - [ ] Criar o TextBox multilinha para anotações livres.
-  - [ ] Implementar mecanismo de debounce de 600ms após digitação para salvamento automático.
-  - [ ] Exibir indicação discreta de "Salvando..." e "Salvo".
-  - [ ] Garantir que alterações pendentes sejam salvas ao sair da tela ou fechar o app.
+- [x] Task 07 — Implementar anotações com salvamento automático
+  - [x] Criar o TextBox multilinha para anotações livres.
+  - [x] Implementar mecanismo de debounce de 600ms após digitação para salvamento automático.
+  - [x] Exibir indicação discreta de "Salvando..." e "Salvo".
+  - [x] Garantir que alterações pendentes sejam salvas ao sair da tela ou fechar o app.
 
 ## Etapa 5 — Revisão final
 
-- [ ] Task 08 — Revisar e testar o sistema completo
-  - [ ] Verificar todos os fluxos de CRUD (Estudo, Tópico, Tema, Link) e suas mensagens de confirmação de exclusão.
-  - [ ] Verificar navegação entre as três telas principales.
-  - [ ] Validar importação de CSV com arquivo de teste.
-  - [ ] Validar que o aplicativo inicializa e recupera dados mesmo na ausência do JSON ou com JSON corrompido (usando backup).
-  - [ ] Polimento de design escuro moderno e responsividade de textos longos.
+- [x] Task 08 — Revisar e testar o sistema completo
+  - [x] Verificar todos os fluxos de CRUD (Estudo, Tópico, Tema, Link) e suas mensagens de confirmação de exclusão.
+  - [x] Verificar navegação entre as três telas principales.
+  - [x] Validar importação de CSV com arquivo de teste.
+  - [x] Validar que o aplicativo inicializa e recupera dados mesmo na ausência do JSON ou com JSON corrompido (usando backup).
+  - [x] Polimento de design escuro moderno e responsividade de textos longos.
+
+## Etapa 6 — Reordenação por Arrastar e Soltar (Drag and Drop)
+
+- [x] Task 09 — Implementar reordenação por arrastar e soltar (Drag and Drop)
+  - [x] Criar Attached Behavior `DragDropBehavior` nativo para WPF.
+  - [x] Separar clique simples de arraste (Drag) com limite de distância e captura de mouse (`CaptureMouse`).
+  - [x] Integrar a reordenação em tempo real para Estudos na tela inicial.
+  - [x] Integrar a reordenação em tempo real para Tópicos e Temas na tela de detalhes do estudo.
+  - [x] Integrar a reordenação em tempo real para Links na tela de detalhes do tema.
+

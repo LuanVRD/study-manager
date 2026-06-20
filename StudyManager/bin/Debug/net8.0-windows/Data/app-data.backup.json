@@ -1,151 +1,20 @@
 {
   "studies": [
     {
+      "id": "6de758a6-c872-4a24-9bca-cbaf03dd1809",
+      "name": "teste",
+      "imagePath": null,
+      "createdAt": "2026-06-20T08:32:31.4062802-03:00",
+      "updatedAt": "2026-06-20T08:32:31.4062805-03:00",
+      "topics": []
+    },
+    {
       "id": "3c0f3105-2b55-40d0-a57c-fb17ff263909",
       "name": "Angular",
       "imagePath": "Data\\Images\\3c0f3105-2b55-40d0-a57c-fb17ff263909.jpg",
       "createdAt": "2026-06-20T06:46:43.4329606-03:00",
       "updatedAt": "2026-06-20T06:46:43.4329933-03:00",
       "topics": [
-        {
-          "id": "8a3e5475-fa97-474d-8457-cc04d1223ee2",
-          "name": "1.1 Fundamentos da plataforma web",
-          "themes": [
-            {
-              "id": "cd708b7b-e937-4fda-a5c7-20dec2e25c91",
-              "name": "HTML sem\u00E2ntico",
-              "isCompleted": false,
-              "notes": "top",
-              "links": []
-            },
-            {
-              "id": "232a9da6-0163-4708-8e6c-b30b9179cede",
-              "name": "Formul\u00E1rios HTML",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "24e640d9-04d0-4953-80b7-b33d64eead6a",
-              "name": "Acessibilidade nativa",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "c2ae50a0-d17f-4447-b437-d8df42c93753",
-              "name": "CSS, especificidade, cascata, heran\u00E7a e unidades",
-              "isCompleted": true,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "f9c9d560-54b2-4707-b058-24e805e4ddf9",
-              "name": "Flexbox e CSS Grid",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "3e0bef68-ad89-4d20-bab9-272b58784540",
-              "name": "Design responsivo",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "128c13ee-259a-4516-b00a-73d0457ff506",
-              "name": "DOM e \u00E1rvore de elementos",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "62627161-0729-494b-b19d-45328fefceb9",
-              "name": "Eventos, propaga\u00E7\u00E3o, bubbling e capturing",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "67b6481e-3891-4518-9981-9a128d3f4fae",
-              "name": "Event loop, microtasks e macrotasks",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "b4435c0e-b06a-4f5b-92ad-67b473305d72",
-              "name": "Promises e async/await",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "547f7cc8-80ce-4833-8f69-e3c4c6b9b1e3",
-              "name": "APIs do navegador",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "b4a9b855-757b-4996-9da8-909516277a50",
-              "name": "Cookies, localStorage, sessionStorage e IndexedDB",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "d842f1ce-955e-42dd-b387-a04cf6173850",
-              "name": "HTTP, HTTPS, cabe\u00E7alhos, m\u00E9todos e c\u00F3digos de status",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "1241284b-571f-462d-91d3-d937fada413e",
-              "name": "CORS, preflight e same-origin policy",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "9c665597-7a82-49c2-9807-703e10dbadfe",
-              "name": "Cache do navegador",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "0838b107-5c2d-435c-be99-40261dde7beb",
-              "name": "WebSockets e Server-Sent Events",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "f1f5f7f7-4604-46a6-9997-a488d38bdac7",
-              "name": "Performance de carregamento e renderiza\u00E7\u00E3o",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "e9cd3833-9cf3-4125-bd4b-dc44eb97032d",
-              "name": "Core Web Vitals",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            },
-            {
-              "id": "d242d317-3cfd-465e-b00e-721e71b92fa7",
-              "name": "Seguran\u00E7a contra XSS, CSRF e clickjacking",
-              "isCompleted": false,
-              "notes": "",
-              "links": []
-            }
-          ]
-        },
         {
           "id": "f82e8552-bbb1-4bd7-a9d9-054bdff516c2",
           "name": "1.2 JavaScript e TypeScript avan\u00E7ados",
@@ -426,6 +295,158 @@
             {
               "id": "9175eb14-7179-4427-a59a-153b3c928c4a",
               "name": "TypeScript \u2014 Modelagem de tipos que impe\u00E7a estados inv\u00E1lidos",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            }
+          ]
+        },
+        {
+          "id": "8a3e5475-fa97-474d-8457-cc04d1223ee2",
+          "name": "1.1 Fundamentos da plataforma web",
+          "themes": [
+            {
+              "id": "232a9da6-0163-4708-8e6c-b30b9179cede",
+              "name": "Formul\u00E1rios HTML",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "cd708b7b-e937-4fda-a5c7-20dec2e25c91",
+              "name": "HTML sem\u00E2ntico",
+              "isCompleted": false,
+              "notes": "top",
+              "links": [
+                {
+                  "id": "b3847aa2-113c-4736-bd5e-b3ff90cd6e07",
+                  "name": "teste",
+                  "url": "https://www.youtube.com/watch?v=BjQvU8H_DKY",
+                  "type": "Video"
+                },
+                {
+                  "id": "d1b4c2d0-93e7-49f7-813c-00ddb2b2d6f6",
+                  "name": "teste 2",
+                  "url": "https://www.youtube.com/watch?v=BjQvU8H_DKY",
+                  "type": "Video"
+                }
+              ]
+            },
+            {
+              "id": "24e640d9-04d0-4953-80b7-b33d64eead6a",
+              "name": "Acessibilidade nativa",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "c2ae50a0-d17f-4447-b437-d8df42c93753",
+              "name": "CSS, especificidade, cascata, heran\u00E7a e unidades",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f9c9d560-54b2-4707-b058-24e805e4ddf9",
+              "name": "Flexbox e CSS Grid",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "3e0bef68-ad89-4d20-bab9-272b58784540",
+              "name": "Design responsivo",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "128c13ee-259a-4516-b00a-73d0457ff506",
+              "name": "DOM e \u00E1rvore de elementos",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "62627161-0729-494b-b19d-45328fefceb9",
+              "name": "Eventos, propaga\u00E7\u00E3o, bubbling e capturing",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "67b6481e-3891-4518-9981-9a128d3f4fae",
+              "name": "Event loop, microtasks e macrotasks",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b4435c0e-b06a-4f5b-92ad-67b473305d72",
+              "name": "Promises e async/await",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "547f7cc8-80ce-4833-8f69-e3c4c6b9b1e3",
+              "name": "APIs do navegador",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "b4a9b855-757b-4996-9da8-909516277a50",
+              "name": "Cookies, localStorage, sessionStorage e IndexedDB",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d842f1ce-955e-42dd-b387-a04cf6173850",
+              "name": "HTTP, HTTPS, cabe\u00E7alhos, m\u00E9todos e c\u00F3digos de status",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "1241284b-571f-462d-91d3-d937fada413e",
+              "name": "CORS, preflight e same-origin policy",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "9c665597-7a82-49c2-9807-703e10dbadfe",
+              "name": "Cache do navegador",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "0838b107-5c2d-435c-be99-40261dde7beb",
+              "name": "WebSockets e Server-Sent Events",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "f1f5f7f7-4604-46a6-9997-a488d38bdac7",
+              "name": "Performance de carregamento e renderiza\u00E7\u00E3o",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "e9cd3833-9cf3-4125-bd4b-dc44eb97032d",
+              "name": "Core Web Vitals",
+              "isCompleted": false,
+              "notes": "",
+              "links": []
+            },
+            {
+              "id": "d242d317-3cfd-465e-b00e-721e71b92fa7",
+              "name": "Seguran\u00E7a contra XSS, CSRF e clickjacking",
               "isCompleted": false,
               "notes": "",
               "links": []

@@ -17,6 +17,7 @@ namespace StudyManager.ViewModels
         public ICommand OpenStudyCommand { get; }
         public ICommand EditStudyCommand { get; }
         public ICommand DeleteStudyCommand { get; }
+        public ICommand SyncStudiesCommand { get; }
 
         public StudiesViewModel(MainViewModel main)
         {
@@ -28,6 +29,7 @@ namespace StudyManager.ViewModels
             OpenStudyCommand = new RelayCommand(OpenStudy);
             EditStudyCommand = new RelayCommand(EditStudy);
             DeleteStudyCommand = new RelayCommand(DeleteStudy);
+            SyncStudiesCommand = new RelayCommand(SyncStudies);
         }
 
         private void AddStudy()
@@ -143,6 +145,16 @@ namespace StudyManager.ViewModels
                     _main.SaveData();
                 }
             }
+        }
+
+        private void SyncStudies()
+        {
+            _main.AppData.Studies.Clear();
+            foreach (var study in Studies)
+            {
+                _main.AppData.Studies.Add(study);
+            }
+            _main.SaveData();
         }
     }
 }

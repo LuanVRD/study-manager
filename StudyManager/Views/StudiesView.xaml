@@ -57,7 +57,14 @@
                     
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border CornerRadius="12" Background="{StaticResource BrushSurfaceBg}" BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.5" Width="260" Height="104" Margin="10" Padding="12" Cursor="Hand">
+                            <Border CornerRadius="12" Background="{StaticResource BrushSurfaceBg}" BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.5" Width="260" Height="104" Margin="10" Padding="12" Cursor="Hand"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    local:DragDropBehavior.IsDragSource="True"
+                                    local:DragDropBehavior.IsDropTarget="True"
+                                    local:DragDropBehavior.DragGroup="Studies"
+                                    local:DragDropBehavior.DropCommand="{Binding DataContext.SyncStudiesCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    local:DragDropBehavior.ClickCommand="{Binding DataContext.OpenStudyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    local:DragDropBehavior.ClickCommandParameter="{Binding}">
                                 <!-- Hover & Click Triggers on the Card -->
                                 <Border.Style>
                                     <Style TargetType="Border">
@@ -76,14 +83,18 @@
                                                     </Setter.Value>
                                                 </Setter>
                                             </Trigger>
+                                            <Trigger Property="local:DragDropBehavior.IsDragOverItem" Value="True">
+                                                <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
+                                                <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
+                                                <Setter Property="RenderTransform">
+                                                    <Setter.Value>
+                                                        <ScaleTransform ScaleX="1.03" ScaleY="1.03"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
-                                <Border.InputBindings>
-                                    <MouseBinding Gesture="LeftClick" 
-                                                  Command="{Binding DataContext.OpenStudyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                                                  CommandParameter="{Binding}"/>
-                                </Border.InputBindings>
 
                                 <Grid>
                                     <Grid.ColumnDefinitions>

@@ -1,6 +1,14 @@
 {
   "studies": [
     {
+      "id": "6de758a6-c872-4a24-9bca-cbaf03dd1809",
+      "name": "teste",
+      "imagePath": null,
+      "createdAt": "2026-06-20T08:32:31.4062802-03:00",
+      "updatedAt": "2026-06-20T08:32:31.4062805-03:00",
+      "topics": []
+    },
+    {
       "id": "3c0f3105-2b55-40d0-a57c-fb17ff263909",
       "name": "Angular",
       "imagePath": "Data\\Images\\3c0f3105-2b55-40d0-a57c-fb17ff263909.jpg",
@@ -12,18 +20,31 @@
           "name": "1.1 Fundamentos da plataforma web",
           "themes": [
             {
-              "id": "cd708b7b-e937-4fda-a5c7-20dec2e25c91",
-              "name": "HTML sem\u00E2ntico",
-              "isCompleted": false,
-              "notes": "top",
-              "links": []
-            },
-            {
               "id": "232a9da6-0163-4708-8e6c-b30b9179cede",
               "name": "Formul\u00E1rios HTML",
               "isCompleted": false,
               "notes": "",
               "links": []
+            },
+            {
+              "id": "cd708b7b-e937-4fda-a5c7-20dec2e25c91",
+              "name": "HTML sem\u00E2ntico",
+              "isCompleted": false,
+              "notes": "top",
+              "links": [
+                {
+                  "id": "b3847aa2-113c-4736-bd5e-b3ff90cd6e07",
+                  "name": "teste",
+                  "url": "https://www.youtube.com/watch?v=BjQvU8H_DKY",
+                  "type": "Video"
+                },
+                {
+                  "id": "d1b4c2d0-93e7-49f7-813c-00ddb2b2d6f6",
+                  "name": "teste 2",
+                  "url": "https://www.youtube.com/watch?v=BjQvU8H_DKY",
+                  "type": "Video"
+                }
+              ]
             },
             {
               "id": "24e640d9-04d0-4953-80b7-b33d64eead6a",

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:StudyManager.ViewModels"
              xmlns:conv="clr-namespace:StudyManager.Views.Converters"
+             xmlns:local="clr-namespace:StudyManager.Views"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=vm:ThemeDetailsViewModel}">
@@ -81,7 +82,13 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <!-- Clickable Link Card -->
-                                    <Border BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.5" CornerRadius="8" Padding="14,12" Margin="0,0,0,10" Cursor="Hand" Background="Transparent">
+                                    <Border BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.5" CornerRadius="8" Padding="14,12" Margin="0,0,0,10" Cursor="Hand" Background="Transparent"
+                                            local:DragDropBehavior.IsDragSource="True"
+                                            local:DragDropBehavior.IsDropTarget="True"
+                                            local:DragDropBehavior.DragGroup="Links"
+                                            local:DragDropBehavior.DropCommand="{Binding DataContext.SaveDataCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            local:DragDropBehavior.ClickCommand="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            local:DragDropBehavior.ClickCommandParameter="{Binding}">
                                         <Border.Style>
                                             <Style TargetType="Border">
                                                 <Style.Triggers>
@@ -89,15 +96,13 @@
                                                         <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
                                                         <Setter Property="BorderBrush" Value="{StaticResource BrushBorderFocus}"/>
                                                     </Trigger>
+                                                    <Trigger Property="local:DragDropBehavior.IsDragOverItem" Value="True">
+                                                        <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
+                                                        <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
+                                                    </Trigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </Border.Style>
-                                        
-                                        <Border.InputBindings>
-                                            <MouseBinding Gesture="LeftClick" 
-                                                          Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                          CommandParameter="{Binding}"/>
-                                        </Border.InputBindings>
 
                                         <Grid>
                                             <Grid.ColumnDefinitions>
