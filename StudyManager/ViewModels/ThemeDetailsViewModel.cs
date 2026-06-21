@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using StudyManager.Models;
 using StudyManager.Views.Dialogs;
+using StudyManager.Services;
 
 namespace StudyManager.ViewModels
 {
@@ -19,6 +20,13 @@ namespace StudyManager.ViewModels
         private string _notes = string.Empty;
         private string _saveStatus = "Salvo";
         private bool _isNotesExpanded;
+        private bool _isConsultingGemini;
+
+        public bool IsConsultingGemini
+        {
+            get => _isConsultingGemini;
+            set => SetProperty(ref _isConsultingGemini, value);
+        }
 
         public string Notes
         {
@@ -52,6 +60,7 @@ namespace StudyManager.ViewModels
         public ICommand SaveDataCommand { get; }
         public ICommand ToggleNotesExpandedCommand { get; }
         public ICommand ToggleCompleteCommand { get; }
+        public ICommand ConsultGeminiCommand { get; }
 
         public ThemeDetailsViewModel(MainViewModel main, Study study, StudyTopic topic, StudyTheme theme)
         {
@@ -69,6 +78,7 @@ namespace StudyManager.ViewModels
             SaveDataCommand = new RelayCommand(() => _main.SaveData());
             ToggleNotesExpandedCommand = new RelayCommand(() => IsNotesExpanded = !IsNotesExpanded);
             ToggleCompleteCommand = new RelayCommand(ToggleComplete);
+            ConsultGeminiCommand = new RelayCommand(ConsultGemini, () => !IsConsultingGemini);
         }
 
         private void GoBack()
@@ -200,6 +210,51 @@ namespace StudyManager.ViewModels
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);
                 }
+            }
+        }
+
+        private async void ConsultGemini()
+        {
+            string apiKey = _main.AppData.GeminiApiKey;
+            if (string.IsNullOrWhiteSpace(apiKey))
+            {
+                MessageBox.Show(
+                    "Por favor, configure a chave de API do Gemini nas configurações da tela inicial antes de fazer uma consulta.",
+                    "Configuração Requerida",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return;
+            }
+
+            IsConsultingGemini = true;
+            SaveStatus = "Consultando IA...";
+
+            try
+            {
+                var service = new GeminiService();
+                string markdown = await service.ConsultThemeAsync(Study.Name, Topic.Name, Theme.Name, apiKey);
+                
+                // Append the response formatted as XAML FlowDocument
+                string updatedXaml = GeminiService.AppendMarkdownToXaml(Notes, markdown);
+                Notes = updatedXaml;
+                
+                // Force save the notes to theme
+                Theme.Notes = Notes;
+                _main.SaveData();
+                SaveStatus = "Salvo";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Erro ao consultar o Gemini:\n{ex.Message}",
+                    "Erro de Consulta",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                SaveStatus = "Erro na consulta";
+            }
+            finally
+            {
+                IsConsultingGemini = false;
             }
         }
     }

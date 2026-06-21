@@ -30,6 +30,9 @@
                 <TextBlock Text="Gerenciador de estudos" Style="{StaticResource TextHeader}" VerticalAlignment="Center"/>
                 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Content="⚙️" Command="{Binding OpenSettingsCommand}" 
+                            Style="{StaticResource IconButtonStyle}"
+                            Margin="0,0,10,0" Width="36" Height="36" FontSize="20" ToolTip="Configurações"/>
                     <Button Content="Importar CSV" Command="{Binding ImportCsvCommand}" 
                             Style="{StaticResource SecondaryButton}"
                             Margin="0,0,10,0" Width="130" Height="36"/>

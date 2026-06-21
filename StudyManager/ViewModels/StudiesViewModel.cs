@@ -21,6 +21,7 @@ namespace StudyManager.ViewModels
         public ICommand DeleteStudyCommand { get; }
         public ICommand SyncStudiesCommand { get; }
         public ICommand ImportCsvCommand { get; }
+        public ICommand OpenSettingsCommand { get; }
 
         public StudiesViewModel(MainViewModel main)
         {
@@ -34,6 +35,7 @@ namespace StudyManager.ViewModels
             DeleteStudyCommand = new RelayCommand(DeleteStudy);
             SyncStudiesCommand = new RelayCommand(SyncStudies);
             ImportCsvCommand = new RelayCommand(ImportCsv);
+            OpenSettingsCommand = new RelayCommand(OpenSettings);
         }
 
         private void AddStudy()
@@ -209,6 +211,21 @@ namespace StudyManager.ViewModels
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);
                 }
+            }
+        }
+
+        private void OpenSettings()
+        {
+            var dialog = new SettingsDialog(_main.AppData.GeminiApiKey);
+            if (Application.Current.MainWindow != null)
+            {
+                dialog.Owner = Application.Current.MainWindow;
+            }
+
+            if (dialog.ShowDialog() == true)
+            {
+                _main.AppData.GeminiApiKey = dialog.ResultApiKey;
+                _main.SaveData();
             }
         }
     }

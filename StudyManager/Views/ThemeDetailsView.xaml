@@ -369,19 +369,37 @@
                     <Grid Grid.Row="0" Margin="0,0,0,12">
                         <TextBlock Text="Anotações" Style="{StaticResource TextTitle}" VerticalAlignment="Center"/>
                         
-                        <!-- Toggle Notes Expanded Button -->
-                        <Button Command="{Binding ToggleNotesExpandedCommand}" Height="30" Padding="10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                            <Button.Style>
-                                <Style TargetType="Button" BasedOn="{StaticResource SecondaryButton}">
-                                    <Setter Property="Content" Value="Expandir Editor ↗"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsNotesExpanded}" Value="True">
-                                            <Setter Property="Content" Value="Recolher Editor ↙"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                        </Button>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <!-- Consultar Gemini Button -->
+                            <Button Command="{Binding ConsultGeminiCommand}" Height="30" Padding="10,0" Margin="0,0,8,0"
+                                    ToolTip="Consultar Inteligência Artificial sobre este tema">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource SecondaryButton}">
+                                        <Setter Property="Content" Value="✨ Consultar Gemini"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsConsultingGemini}" Value="True">
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                                <Setter Property="Content" Value="✨ Consultando..."/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            
+                            <!-- Toggle Notes Expanded Button -->
+                            <Button Command="{Binding ToggleNotesExpandedCommand}" Height="30" Padding="10,0">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource SecondaryButton}">
+                                        <Setter Property="Content" Value="Expandir Editor ↗"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsNotesExpanded}" Value="True">
+                                                <Setter Property="Content" Value="Recolher Editor ↙"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </StackPanel>
                     </Grid>
 
                     <Grid Grid.Row="1">
