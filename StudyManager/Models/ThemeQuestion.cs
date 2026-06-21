@@ -32,7 +32,19 @@ namespace StudyManager.Models
         public int? SelectedIndex
         {
             get => _selectedIndex;
-            set => SetProperty(ref _selectedIndex, value);
+            set
+            {
+                if (SetProperty(ref _selectedIndex, value))
+                {
+                    if (Options != null)
+                    {
+                        foreach (var opt in Options)
+                        {
+                            opt.NotifyStateChanged();
+                        }
+                    }
+                }
+            }
         }
     }
 }

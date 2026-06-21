@@ -81,19 +81,19 @@ Este planejamento descreve o design e as etapas de implementação para a reform
   - [x] Implementar comandos `AnswerQuestionCommand` e `ClearAnswersCommand` para controle do quiz.
 
 ### Etapa 4 — Interface Gráfica e Layout (Views)
-- [ ] Task 4.1 — Estrutura de Abas Modernas em `ThemeDetailsView.xaml`
-  - [ ] Criar controle de abas com duas seções: "Caderno de Estudos" e "Links e Exercícios".
-- [ ] Task 4.2 — Implementação da aba "Caderno de Estudos"
-  - [ ] Adicionar editor de anotações (esquerda) e visualizador da IA somente leitura (direita) com botão de cópia.
-  - [ ] Adicionar botões de expandir/recolher adaptativos para cada painel.
-- [ ] Task 4.3 — Implementação da aba "Links e Exercícios"
-  - [ ] Adicionar painel de links de apoio (esquerda) com botões CRUD e drag & drop.
-  - [ ] Adicionar painel do questionário (direita) renderizando as 5 perguntas geradas.
-  - [ ] Estilizar os cards de opção com mudança de cor (Verde para acerto, Vermelho para erro) e desabilitar cliques após seleção.
-  - [ ] Adicionar botão para resetar questionário ("Refazer Exercícios").
+- [x] Task 4.1 — Estrutura de Abas Modernas em `ThemeDetailsView.xaml`
+  - [x] Criar controle de abas com duas seções: "Caderno de Estudos" e "Links e Exercícios".
+- [x] Task 4.2 — Implementação da aba "Caderno de Estudos"
+  - [x] Adicionar editor de anotações (esquerda) e visualizador da IA somente leitura (direita) com botão de cópia.
+  - [x] Adicionar botões de expandir/recolher adaptativos para cada painel.
+- [x] Task 4.3 — Implementação da aba "Links e Exercícios"
+  - [x] Adicionar painel de links de apoio (esquerda) com botões CRUD e drag & drop.
+  - [x] Adicionar painel do questionário (direita) renderizando as 5 perguntas geradas.
+  - [x] Estilizar os cards de opção com mudança de cor (Verde para acerto, Vermelho para erro) e desabilitar cliques após seleção.
+  - [x] Adicionar botão para resetar questionário ("Refazer Exercícios").
 
 ### Etapa 5 — Verificação e Polimento
-- [ ] Task 5.1 — Validar fluxos de interação e UI
-  - [ ] Testar a resposta da IA e injeção automática de links e perguntas.
-  - [ ] Verificar persistência dos dados salvos no JSON (incluindo as respostas do usuário no quiz).
-  - [ ] Garantir que o design se mantenha responsivo e adaptado a temas escuros.
+- [x] Task 5.1 — Validar fluxos de interação e UI
+  - [x] Testar a resposta da IA e injeção automática de links e perguntas.
+  - [x] Verificar persistência dos dados salvos no JSON (incluindo as respostas do usuário no quiz).
+  - [x] Garantir que o design se mantenha responsivo e adaptado a temas escuros.
