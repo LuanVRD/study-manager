@@ -8,10 +8,18 @@
         xmlns:views="clr-namespace:StudyManager.Views"
         mc:Ignorable="d"
         Title="Gerenciador de Estudos" Height="650" Width="960"
-        WindowStartupLocation="CenterScreen" Background="#1e1e24"
+        WindowStartupLocation="CenterScreen" Background="{StaticResource BrushWindowBg}"
         Icon="pack://application:,,,/StudyManager;component/StudyManager.ico"
         Closing="Window_Closing">
-    
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="40" 
+                      ResizeBorderThickness="6" 
+                      GlassFrameThickness="1" 
+                      CornerRadius="0"
+                      UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
+
     <Window.Resources>
         <!-- ViewMappings -->
         <DataTemplate DataType="{x:Type vm:StudiesViewModel}">
@@ -25,7 +33,62 @@
         </DataTemplate>
     </Window.Resources>
     
-    <Grid>
-        <ContentControl Content="{Binding CurrentViewModel}" />
-    </Grid>
+    <Border x:Name="WindowBorder" BorderBrush="{StaticResource BrushBorder}" BorderThickness="1">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Margin" Value="0"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Margin" Value="8"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        
+        <Grid Background="{StaticResource BrushWindowBg}">
+            <Grid.RowDefinitions>
+                <!-- Custom Title Bar (Height: 40) -->
+                <RowDefinition Height="Auto"/>
+                <!-- Content Area -->
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Custom Title Bar -->
+            <Grid Grid.Row="0" Height="40" Background="{StaticResource BrushHeaderBg}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- Left Section: Icon and Title Text -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+                    <Image Source="pack://application:,,,/StudyManager;component/StudyManager.ico" Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Gerenciador de Estudos" Foreground="{StaticResource BrushTextSecondary}" FontSize="12.5" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                </StackPanel>
+                
+                <!-- Right Section: Minimize, Maximize/Restore, Close Buttons -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Stretch" WindowChrome.IsHitTestVisibleInChrome="True">
+                    <Button x:Name="BtnMinimize" Click="BtnMinimize_Click" Width="46" Style="{StaticResource WindowControlButtonStyle}" FontFamily="Segoe MDL2 Assets" FontSize="10" Content="&#xE921;" ToolTip="Minimizar"/>
+                    <Button x:Name="BtnMaximize" Click="BtnMaximize_Click" Width="46" FontFamily="Segoe MDL2 Assets" FontSize="10" ToolTip="Maximizar">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource WindowControlButtonStyle}">
+                                <Setter Property="Content" Value="&#xE922;"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
+                                        <Setter Property="Content" Value="&#xE923;"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button x:Name="BtnClose" Click="BtnClose_Click" Width="46" Style="{StaticResource WindowControlCloseButtonStyle}" FontFamily="Segoe MDL2 Assets" FontSize="10" Content="&#xE8BB;" ToolTip="Fechar"/>
+                </StackPanel>
+            </Grid>
+            
+            <!-- Main Application Content -->
+            <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}" />
+        </Grid>
+    </Border>
 </Window>
