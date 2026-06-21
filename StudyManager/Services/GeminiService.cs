@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows;
@@ -84,6 +86,128 @@ Sua resposta deve ser estruturada em Markdown, utilizando títulos com '#' (H1),
             }
 
             return textResult;
+        }
+
+        public async Task<StudyGuideResult> GenerateStudyGuideAsync(string studyName, string topicName, string themeName, string apiKey)
+        {
+            if (string.IsNullOrWhiteSpace(apiKey))
+            {
+                throw new ArgumentException("Chave da API do Gemini não configurada.");
+            }
+
+            string url = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={apiKey}";
+
+            string prompt = $@"
+Você é um especialista em tecnologia e desenvolvimento de software. Crie um guia de estudo completo e aprofundado sobre o tema '{themeName}', que faz parte do tópico '{topicName}' no contexto do estudo de '{studyName}'.
+
+Você DEVE retornar a resposta estritamente como um objeto JSON válido, sem qualquer tipo de formatação externa (como blocos de markdown ```json ... ```) e sem caracteres extras. O JSON gerado deve seguir exatamente a seguinte estrutura:
+
+{{
+  ""explanation"": ""Uma explicação detalhada e aprofundada sobre o tema, voltada para um desenvolvedor experiente. Use títulos com '#' (H1), '##' (H2), '###' (H3), listas e blocos de código com '```csharp' ou outra linguagem se aplicável. Use negrito para termos-chave."",
+  ""videoLink"": {{
+    ""name"": ""Título do vídeo relevante no YouTube (ex: 'Aprenda X na prática' ou tutorial oficial)"",
+    ""url"": ""Uma URL real e relevante do YouTube sobre o assunto (iniciando com http/https)""
+  }},
+  ""articleLink"": {{
+    ""name"": ""Título da documentação oficial ou artigo de extrema importância"",
+    ""url"": ""Uma URL real e funcional de documentação oficial, MDN, Microsoft Learn, ou artigo no Medium/dev.to (iniciando com http/https)""
+  }},
+  ""questions"": [
+    {{
+      ""questionText"": ""Pergunta direta de extrema importância para validar o entendimento do tema."",
+      ""options"": [
+        ""Opção A"",
+        ""Opção B"",
+        ""Opção C"",
+        ""Opção D"",
+        ""Opção E""
+      ],
+      ""correctIndex"": 0
+    }}
+  ]
+}}
+
+Importante:
+1. Retorne EXATAMENTE 5 perguntas objetivas no array de questions. Cada pergunta deve ter EXATAMENTE 5 opções (Opção A, B, C, D, E).
+2. O correctIndex deve ser o índice da opção correta (0 a 4).
+3. Todas as strings internas devem ter as aspas duplas devidamente escapadas com barra invertida (\u0022 ou \"") para manter o JSON válido.
+4. Tente prover links funcionais e reais de sites conhecidos.
+";
+
+            var requestBody = new JsonObject
+            {
+                ["contents"] = new JsonArray
+                {
+                    new JsonObject
+                    {
+                        ["parts"] = new JsonArray
+                        {
+                            new JsonObject
+                            {
+                                ["text"] = prompt
+                            }
+                        }
+                    }
+                },
+                ["generationConfig"] = new JsonObject
+                {
+                    ["responseMimeType"] = "application/json"
+                }
+            };
+
+            var content = new StringContent(requestBody.ToJsonString(), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = null!;
+            int maxRetries = 3;
+            int delayMs = 1500;
+
+            for (int attempt = 1; attempt <= maxRetries; attempt++)
+            {
+                response = await HttpClient.PostAsync(url, content);
+                
+                if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests || 
+                    response.StatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
+                {
+                    if (attempt == maxRetries) break;
+                    await Task.Delay(delayMs * attempt);
+                    continue;
+                }
+                
+                break;
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorMsg = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Erro na API do Gemini: {response.StatusCode} - {errorMsg}");
+            }
+
+            string responseString = await response.Content.ReadAsStringAsync();
+            JsonNode? jsonResponse = JsonNode.Parse(responseString);
+            string textResult = jsonResponse?["candidates"]?[0]?["content"]?["parts"]?[0]?["text"]?.ToString() ?? string.Empty;
+
+            if (string.IsNullOrWhiteSpace(textResult))
+            {
+                throw new Exception("Não foi possível obter resposta da IA.");
+            }
+
+            try
+            {
+                var result = JsonSerializer.Deserialize<StudyGuideResult>(textResult, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                if (result == null)
+                {
+                    throw new Exception("Falha ao desserializar o resultado do guia de estudos.");
+                }
+
+                return result;
+            }
+            catch (JsonException ex)
+            {
+                throw new Exception($"A resposta da IA não está em um formato JSON válido: {ex.Message}\nResposta crua:\n{textResult}");
+            }
         }
 
         public static string AppendMarkdownToXaml(string currentXaml, string markdownText)
@@ -358,5 +482,26 @@ Sua resposta deve ser estruturada em Markdown, utilizando títulos com '#' (H1),
             doc.Blocks.Add(p);
             return doc;
         }
+    }
+
+    public class StudyGuideResult
+    {
+        public string Explanation { get; set; } = string.Empty;
+        public LinkResult? VideoLink { get; set; }
+        public LinkResult? ArticleLink { get; set; }
+        public List<QuestionResult> Questions { get; set; } = new List<QuestionResult>();
+    }
+
+    public class LinkResult
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
+    }
+
+    public class QuestionResult
+    {
+        public string QuestionText { get; set; } = string.Empty;
+        public List<string> Options { get; set; } = new List<string>();
+        public int CorrectIndex { get; set; }
     }
 }

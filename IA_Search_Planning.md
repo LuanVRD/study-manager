@@ -66,11 +66,11 @@ Este planejamento descreve o design e as etapas de implementação para a reform
   - [x] Certificar que herda de `ViewModelBase`.
 
 ### Etapa 2 — Serviço da API do Gemini (Serviço de IA)
-- [ ] Task 2.1 — Implementar geração estruturada em `GeminiService.cs`
-  - [ ] Criar o método `GenerateStudyGuideAsync(string studyName, string topicName, string themeName, string apiKey)`.
-  - [ ] Escrever o prompt robusto exigindo saída JSON com chaves exatas.
-  - [ ] Configurar `responseMimeType` como `application/json` na chamada da API.
-  - [ ] Adicionar tratamento de erros e fallback para o caso de desserialização falhar.
+- [x] Task 2.1 — Implementar geração estruturada em `GeminiService.cs`
+  - [x] Criar o método `GenerateStudyGuideAsync(string studyName, string topicName, string themeName, string apiKey)`.
+  - [x] Escrever o prompt robusto exigindo saída JSON com chaves exatas.
+  - [x] Configurar `responseMimeType` como `application/json` na chamada da API.
+  - [x] Adicionar tratamento de erros e fallback para o caso de desserialização falhar.
 
 ### Etapa 3 — Integração com a ViewModel (`ThemeDetailsViewModel`)
 - [ ] Task 3.1 — Atualizar comandos e propriedades na ViewModel
