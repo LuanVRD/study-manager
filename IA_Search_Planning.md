@@ -73,12 +73,12 @@ Este planejamento descreve o design e as etapas de implementação para a reform
   - [x] Adicionar tratamento de erros e fallback para o caso de desserialização falhar.
 
 ### Etapa 3 — Integração com a ViewModel (`ThemeDetailsViewModel`)
-- [ ] Task 3.1 — Atualizar comandos e propriedades na ViewModel
-  - [ ] Substituir o comando antigo de consulta por `GenerateStudyGuideCommand` (antigo `ConsultGeminiCommand`).
-  - [ ] Lógica para salvar a explicação da IA, adicionar os dois links gerados à coleção `Theme.Links` e salvar o questionário em `Theme.Questions`.
-  - [ ] Expor comandos para controle de layout (ex. alternar abas, recolher/expandir painéis).
-  - [ ] Implementar comando `CopyAiExplanationCommand` para copiar texto limpo da IA.
-  - [ ] Implementar comandos `AnswerQuestionCommand` e `ClearAnswersCommand` para controle do quiz.
+- [x] Task 3.1 — Atualizar comandos e propriedades na ViewModel
+  - [x] Substituir o comando antigo de consulta por `GenerateStudyGuideCommand` (antigo `ConsultGeminiCommand`).
+  - [x] Lógica para salvar a explicação da IA, adicionar os dois links gerados à coleção `Theme.Links` e salvar o questionário em `Theme.Questions`.
+  - [x] Expor comandos para controle de layout (ex. alternar abas, recolher/expandir painéis).
+  - [x] Implementar comando `CopyAiExplanationCommand` para copiar texto limpo da IA.
+  - [x] Implementar comandos `AnswerQuestionCommand` e `ClearAnswersCommand` para controle do quiz.
 
 ### Etapa 4 — Interface Gráfica e Layout (Views)
 - [ ] Task 4.1 — Estrutura de Abas Modernas em `ThemeDetailsView.xaml`

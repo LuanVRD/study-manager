@@ -7,7 +7,7 @@ namespace StudyManager.Models
     public class ThemeQuestion : ViewModelBase
     {
         private string _questionText = string.Empty;
-        private ObservableCollection<string> _options = new ObservableCollection<string>();
+        private ObservableCollection<QuestionOption> _options = new ObservableCollection<QuestionOption>();
         private int _correctIndex;
         private int? _selectedIndex;
 
@@ -17,7 +17,7 @@ namespace StudyManager.Models
             set => SetProperty(ref _questionText, value);
         }
 
-        public ObservableCollection<string> Options
+        public ObservableCollection<QuestionOption> Options
         {
             get => _options;
             set => SetProperty(ref _options, value);

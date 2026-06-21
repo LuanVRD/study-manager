@@ -449,7 +449,7 @@ Importante:
             }
         }
 
-        private static FlowDocument XamlToFlowDocument(string xaml)
+        public static FlowDocument XamlToFlowDocument(string xaml)
         {
             if (string.IsNullOrWhiteSpace(xaml))
             {
