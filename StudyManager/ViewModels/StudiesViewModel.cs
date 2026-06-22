@@ -12,8 +12,22 @@ namespace StudyManager.ViewModels
     public class StudiesViewModel : ViewModelBase
     {
         private readonly MainViewModel _main;
+        private string _searchQuery = string.Empty;
 
         public ObservableCollection<Study> Studies { get; }
+        public ObservableCollection<SearchResultViewModel> SearchResults { get; } = new ObservableCollection<SearchResultViewModel>();
+
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                if (SetProperty(ref _searchQuery, value))
+                {
+                    ExecuteSearch();
+                }
+            }
+        }
 
         public ICommand AddStudyCommand { get; }
         public ICommand OpenStudyCommand { get; }
@@ -22,6 +36,8 @@ namespace StudyManager.ViewModels
         public ICommand SyncStudiesCommand { get; }
         public ICommand ImportCsvCommand { get; }
         public ICommand OpenSettingsCommand { get; }
+        public ICommand ClearSearchCommand { get; }
+        public ICommand NavigateToSearchResultCommand { get; }
 
         public StudiesViewModel(MainViewModel main)
         {
@@ -36,6 +52,8 @@ namespace StudyManager.ViewModels
             SyncStudiesCommand = new RelayCommand(SyncStudies);
             ImportCsvCommand = new RelayCommand(ImportCsv);
             OpenSettingsCommand = new RelayCommand(OpenSettings);
+            ClearSearchCommand = new RelayCommand(ClearSearch);
+            NavigateToSearchResultCommand = new RelayCommand(NavigateToSearchResult);
         }
 
         private void AddStudy()
@@ -227,6 +245,172 @@ namespace StudyManager.ViewModels
                 _main.AppData.GeminiApiKey = dialog.ResultApiKey;
                 _main.SaveData();
             }
+        }
+
+        private void ClearSearch()
+        {
+            SearchQuery = string.Empty;
+        }
+
+        private void NavigateToSearchResult(object? parameter)
+        {
+            if (parameter is SearchResultViewModel result)
+            {
+                // Clear search before navigating so when returning to the home screen it is clean
+                SearchQuery = string.Empty;
+
+                if (result.Type == "Study")
+                {
+                    _main.NavigateToStudyDetails(result.Study);
+                }
+                else if (result.Type == "Topic")
+                {
+                    _main.NavigateToStudyDetails(result.Study);
+                }
+                else if (result.Type == "Theme")
+                {
+                    if (result.Topic != null && result.Theme != null)
+                    {
+                        _main.NavigateToThemeDetails(result.Study, result.Topic, result.Theme);
+                    }
+                }
+                else if (result.Type == "Note")
+                {
+                    if (result.Topic != null && result.Theme != null)
+                    {
+                        _main.NavigateToThemeDetails(result.Study, result.Topic, result.Theme, "Notes");
+                    }
+                }
+                else if (result.Type == "AiExplanation")
+                {
+                    if (result.Topic != null && result.Theme != null)
+                    {
+                        _main.NavigateToThemeDetails(result.Study, result.Topic, result.Theme, "AiExplanation");
+                    }
+                }
+            }
+        }
+
+        private void ExecuteSearch()
+        {
+            SearchResults.Clear();
+            if (string.IsNullOrWhiteSpace(SearchQuery))
+            {
+                return;
+            }
+
+            string query = SearchQuery.Trim();
+
+            foreach (var study in _main.AppData.Studies)
+            {
+                // 1. Search Study Name
+                if (study.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    SearchResults.Add(new SearchResultViewModel
+                    {
+                        Type = "Study",
+                        DisplayTitle = study.Name,
+                        DisplayPath = "Estudo",
+                        Study = study
+                    });
+                }
+
+                foreach (var topic in study.Topics)
+                {
+                    // 2. Search Topic Name
+                    if (topic.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        SearchResults.Add(new SearchResultViewModel
+                        {
+                            Type = "Topic",
+                            DisplayTitle = topic.Name,
+                            DisplayPath = $"Estudo: {study.Name}",
+                            Study = study,
+                            Topic = topic
+                        });
+                    }
+
+                    foreach (var theme in topic.Themes)
+                    {
+                        // 3. Search Theme Name
+                        if (theme.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            SearchResults.Add(new SearchResultViewModel
+                            {
+                                Type = "Theme",
+                                DisplayTitle = theme.Name,
+                                DisplayPath = $"Estudo: {study.Name} › Tópico: {topic.Name}",
+                                Study = study,
+                                Topic = topic,
+                                Theme = theme
+                            });
+                        }
+
+                        // 4. Search Notes
+                        if (!string.IsNullOrEmpty(theme.Notes))
+                        {
+                            string plainNotes = StripXaml(theme.Notes);
+                            if (plainNotes.Contains(query, StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                SearchResults.Add(new SearchResultViewModel
+                                {
+                                    Type = "Note",
+                                    DisplayTitle = $"Anotações em: {theme.Name}",
+                                    DisplayPath = $"Estudo: {study.Name} › Tópico: {topic.Name} › Tema: {theme.Name}",
+                                    DisplaySnippet = ExtractSnippet(plainNotes, query),
+                                    Study = study,
+                                    Topic = topic,
+                                    Theme = theme
+                                });
+                            }
+                        }
+
+                        // 5. Search AI Explanation
+                        if (!string.IsNullOrEmpty(theme.AiExplanation))
+                        {
+                            string plainAi = StripXaml(theme.AiExplanation);
+                            if (plainAi.Contains(query, StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                SearchResults.Add(new SearchResultViewModel
+                                {
+                                    Type = "AiExplanation",
+                                    DisplayTitle = $"Explicação da IA em: {theme.Name}",
+                                    DisplayPath = $"Estudo: {study.Name} › Tópico: {topic.Name} › Tema: {theme.Name}",
+                                    DisplaySnippet = ExtractSnippet(plainAi, query),
+                                    Study = study,
+                                    Topic = topic,
+                                    Theme = theme
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private static string StripXaml(string xaml)
+        {
+            if (string.IsNullOrEmpty(xaml)) return string.Empty;
+            string plain = System.Text.RegularExpressions.Regex.Replace(xaml, "<[^>]*>", " ");
+            plain = System.Net.WebUtility.HtmlDecode(plain);
+            plain = System.Text.RegularExpressions.Regex.Replace(plain, @"\s+", " ").Trim();
+            return plain;
+        }
+
+        private static string ExtractSnippet(string text, string query)
+        {
+            if (string.IsNullOrEmpty(text)) return string.Empty;
+            int index = text.IndexOf(query, StringComparison.CurrentCultureIgnoreCase);
+            if (index < 0) return text.Length > 150 ? text.Substring(0, 150) + "..." : text;
+
+            int start = Math.Max(0, index - 60);
+            int length = Math.Min(text.Length - start, 150);
+            string snippet = text.Substring(start, length);
+
+            if (start > 0) snippet = "..." + snippet;
+            if (start + length < text.Length) snippet = snippet + "...";
+
+            return snippet;
         }
     }
 }

@@ -44,9 +44,18 @@ namespace StudyManager.ViewModels
             CurrentViewModel = new StudyDetailsViewModel(this, study);
         }
 
-        public void NavigateToThemeDetails(Study study, StudyTopic topic, StudyTheme theme)
+        public void NavigateToThemeDetails(Study study, StudyTopic topic, StudyTheme theme, string? sectionToExpand = null)
         {
-            CurrentViewModel = new ThemeDetailsViewModel(this, study, topic, theme);
+            var vm = new ThemeDetailsViewModel(this, study, topic, theme);
+            if (sectionToExpand == "Notes")
+            {
+                vm.IsNotesExpanded = true;
+            }
+            else if (sectionToExpand == "AiExplanation")
+            {
+                vm.IsAiExplanationExpanded = true;
+            }
+            CurrentViewModel = vm;
         }
 
         public void SaveData()
