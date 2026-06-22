@@ -184,7 +184,7 @@ Importante:
 
         private async Task<string> SendApiRequestWithFallbackAsync(string apiKey, JsonObject requestBody)
         {
-            string[] models = { "gemini-3.5-flash", "gemini-2.5-flash", "gemini-2.0-flash" };
+            string[] models = { "gemini-2.0-flash", "gemini-2.5-flash", "gemini-3.5-flash", "gemini-2.5-pro", "gemini-2.0-flash-lite" };
             Exception? lastException = null;
 
             foreach (var model in models)
@@ -198,15 +198,42 @@ Importante:
                     ex.Message.Contains("503") || ex.Message.Contains("ServiceUnavailable") || 
                     ex.Message.Contains("429") || ex.Message.Contains("TooManyRequests") || 
                     ex.Message.Contains("UNAVAILABLE") || ex.Message.Contains("404") || 
-                    ex.Message.Contains("NotFound") || ex.Message.Contains("NOT_FOUND")
+                    ex.Message.Contains("NotFound") || ex.Message.Contains("NOT_FOUND") ||
+                    ex.Message.Contains("400") || ex.Message.Contains("BadRequest")
                 )
                 {
                     lastException = ex;
                     System.Diagnostics.Debug.WriteLine($"Modelo {model} falhou com erro: {ex.Message}. Tentando modelo fallback...");
+
+                    // Se falhou por limite de requisições (429), aguarda 2 segundos antes de tentar o próximo modelo
+                    // para evitar estourar o limite de requisições por segundo (RPS) do gateway da API
+                    if (ex.Message.Contains("429") || ex.Message.Contains("TooManyRequests") || ex.Message.Contains("RESOURCE_EXHAUSTED"))
+                    {
+                        await Task.Delay(2000);
+                    }
                 }
             }
 
-            throw lastException ?? new Exception("Falha ao se comunicar com a API do Gemini em todos os modelos tentados.");
+            if (lastException != null)
+            {
+                string cleanMessage = lastException.Message;
+                if (lastException.Message.Contains("429") || lastException.Message.Contains("TooManyRequests") || lastException.Message.Contains("RESOURCE_EXHAUSTED"))
+                {
+                    cleanMessage = "Limite de cota de requisições excedido na API gratuita do Gemini. Por favor, aguarde cerca de 30 segundos antes de tentar novamente.";
+                }
+                else if (lastException.Message.Contains("404") || lastException.Message.Contains("NotFound"))
+                {
+                    cleanMessage = "Os modelos do Gemini configurados não foram encontrados ou estão indisponíveis temporariamente.";
+                }
+                else if (lastException.Message.Contains("400") || lastException.Message.Contains("BadRequest"))
+                {
+                    cleanMessage = "Requisição inválida enviada à API do Gemini. Por favor, certifique-se de que o tema ou os parâmetros de busca não contêm caracteres inválidos.";
+                }
+                
+                throw new Exception(cleanMessage, lastException);
+            }
+
+            throw new Exception("Falha ao se comunicar com a API do Gemini em todos os modelos tentados.");
         }
 
         private async Task<string> SendApiRequestAsync(string url, JsonObject requestBody)
