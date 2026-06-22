@@ -16,6 +16,7 @@
         <conv:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <conv:InitialsConverter x:Key="InitialsConverter" />
         <conv:LocalImagePathConverter x:Key="LocalImagePathConverter" />
+        <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
 
     <Grid Background="{StaticResource BrushWindowBg}">
@@ -27,9 +28,44 @@
         <!-- Header Bar -->
         <Border Grid.Row="0" Background="{StaticResource BrushHeaderBg}" BorderBrush="{StaticResource BrushBorder}" BorderThickness="0,0,0,1.5" Padding="20,0,20,0">
             <Grid>
-                <TextBlock Text="Gerenciador de estudos" Style="{StaticResource TextHeader}" VerticalAlignment="Center"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Title -->
+                <TextBlock Grid.Column="0" Text="Gerenciador de estudos" Style="{StaticResource TextHeader}" VerticalAlignment="Center"/>
                 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <!-- Search Bar -->
+                <Grid Grid.Column="1" HorizontalAlignment="Center" Width="350" Margin="20,0">
+                    <TextBox x:Name="SearchBox" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" 
+                             Padding="32,8,30,8" VerticalAlignment="Center" FontSize="13" />
+                    <!-- Placeholder Text -->
+                    <TextBlock IsHitTestVisible="False" Text="Pesquisar em estudos, anotações..." 
+                               VerticalAlignment="Center" HorizontalAlignment="Left" Margin="35,0,0,0" 
+                               Foreground="{StaticResource BrushTextMuted}" FontSize="13">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <!-- Search Icon (Left) -->
+                    <TextBlock Text="🔍" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0,0,0" IsHitTestVisible="False" Opacity="0.6"/>
+                    <!-- Clear Button (Right) -->
+                    <Button Content="✕" Style="{StaticResource IconButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,8,0"
+                            Command="{Binding ClearSearchCommand}" Width="20" Height="20" FontSize="10"
+                            Visibility="{Binding SearchQuery, Converter={StaticResource NullToVisibilityConverter}}"/>
+                </Grid>
+
+                <!-- Actions -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Button Content="⚙️" Command="{Binding OpenSettingsCommand}" 
                             Style="{StaticResource IconButtonStyle}"
                             Margin="0,0,10,0" Width="36" Height="36" FontSize="20" ToolTip="Configurações"/>
@@ -44,136 +80,235 @@
         </Border>
 
         <!-- Main Body -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="20">
-            <Grid>
-                <!-- Empty State Message -->
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,100,0,0"
-                            Visibility="{Binding Studies.Count, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
-                    <TextBlock Text="📚" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                    <TextBlock Text="Nenhum estudo cadastrado." Foreground="{StaticResource BrushTextSecondary}" FontSize="16" HorizontalAlignment="Center" FontWeight="SemiBold"/>
-                    <TextBlock Text="Clique em 'Adicionar estudo' no topo para começar!" Foreground="{StaticResource BrushTextMuted}" FontSize="13" HorizontalAlignment="Center" Margin="0,6,0,0"/>
-                </StackPanel>
+        <Grid Grid.Row="1">
+            
+            <!-- Dashboard View: Visible when SearchQuery is empty -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20"
+                          Visibility="{Binding SearchQuery, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
+                <Grid>
+                    <!-- Empty State Message -->
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,100,0,0"
+                                Visibility="{Binding Studies.Count, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
+                        <TextBlock Text="📚" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBlock Text="Nenhum estudo cadastrado." Foreground="{StaticResource BrushTextSecondary}" FontSize="16" HorizontalAlignment="Center" FontWeight="SemiBold"/>
+                        <TextBlock Text="Clique em 'Adicionar estudo' no topo para começar!" Foreground="{StaticResource BrushTextMuted}" FontSize="13" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                    </StackPanel>
 
-                <!-- Studies List Grid -->
-                <ItemsControl ItemsSource="{Binding Studies}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border CornerRadius="12" Background="{StaticResource BrushSurfaceBg}" BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.5" Width="260" Height="104" Margin="10" Padding="12" Cursor="Hand"
-                                    RenderTransformOrigin="0.5,0.5"
-                                    local:DragDropBehavior.IsDragSource="True"
-                                    local:DragDropBehavior.IsDropTarget="True"
-                                    local:DragDropBehavior.DragGroup="Studies"
-                                    local:DragDropBehavior.DropCommand="{Binding DataContext.SyncStudiesCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                    local:DragDropBehavior.ClickCommand="{Binding DataContext.OpenStudyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                    local:DragDropBehavior.ClickCommandParameter="{Binding}">
-                                <!-- Hover & Click Triggers on the Card -->
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Setter Property="Effect">
-                                            <Setter.Value>
-                                                <DropShadowEffect BlurRadius="8" Color="#000000" Opacity="0.3" ShadowDepth="1"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
-                                                <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
-                                                <Setter Property="Effect">
-                                                    <Setter.Value>
-                                                        <DropShadowEffect BlurRadius="12" Color="#6366f1" Opacity="0.15" ShadowDepth="2"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                            <Trigger Property="local:DragDropBehavior.IsDragOverItem" Value="True">
-                                                <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
-                                                <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
-                                                <Setter Property="RenderTransform">
-                                                    <Setter.Value>
-                                                        <ScaleTransform ScaleX="1.03" ScaleY="1.03"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
+                    <!-- Studies List Grid -->
+                    <ItemsControl ItemsSource="{Binding Studies}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="12" Background="{StaticResource BrushSurfaceBg}" BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.5" Width="260" Height="104" Margin="10" Padding="12" Cursor="Hand"
+                                        RenderTransformOrigin="0.5,0.5"
+                                        local:DragDropBehavior.IsDragSource="True"
+                                        local:DragDropBehavior.IsDropTarget="True"
+                                        local:DragDropBehavior.DragGroup="Studies"
+                                        local:DragDropBehavior.DropCommand="{Binding DataContext.SyncStudiesCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        local:DragDropBehavior.ClickCommand="{Binding DataContext.OpenStudyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        local:DragDropBehavior.ClickCommandParameter="{Binding}">
+                                    <!-- Hover & Click Triggers on the Card -->
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect BlurRadius="8" Color="#000000" Opacity="0.3" ShadowDepth="1"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
+                                                    <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
+                                                    <Setter Property="Effect">
+                                                        <Setter.Value>
+                                                            <DropShadowEffect BlurRadius="12" Color="#6366f1" Opacity="0.15" ShadowDepth="2"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                                <Trigger Property="local:DragDropBehavior.IsDragOverItem" Value="True">
+                                                    <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
+                                                    <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
+                                                    <Setter Property="RenderTransform">
+                                                        <Setter.Value>
+                                                            <ScaleTransform ScaleX="1.03" ScaleY="1.03"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
 
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="64"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="64"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <!-- Column 0: Image / Fallback Placeholder -->
-                                    <Border Grid.Column="0" Width="64" Height="64" Background="#11121a" CornerRadius="8" ClipToBounds="True" VerticalAlignment="Center">
-                                        <Grid>
-                                            <!-- Actual Image -->
-                                            <Image Source="{Binding ImagePath, Converter={StaticResource LocalImagePathConverter}}" 
-                                                   Stretch="UniformToFill"
-                                                   Visibility="{Binding ImagePath, Converter={StaticResource NullToVisibilityConverter}}"/>
-                                            <!-- Fallback Text Placeholder -->
-                                            <Grid Background="{StaticResource BrushAccent}" Visibility="{Binding ImagePath, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
-                                                <TextBlock Text="{Binding Name, Converter={StaticResource InitialsConverter}}" 
-                                                           Foreground="White" FontWeight="Bold" FontSize="20"
-                                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <!-- Column 0: Image / Fallback Placeholder -->
+                                        <Border Grid.Column="0" Width="64" Height="64" Background="#11121a" CornerRadius="8" ClipToBounds="True" VerticalAlignment="Center">
+                                            <Grid>
+                                                <!-- Actual Image -->
+                                                <Image Source="{Binding ImagePath, Converter={StaticResource LocalImagePathConverter}}" 
+                                                       Stretch="UniformToFill"
+                                                       Visibility="{Binding ImagePath, Converter={StaticResource NullToVisibilityConverter}}"/>
+                                                <!-- Fallback Text Placeholder -->
+                                                <Grid Background="{StaticResource BrushAccent}" Visibility="{Binding ImagePath, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
+                                                    <TextBlock Text="{Binding Name, Converter={StaticResource InitialsConverter}}" 
+                                                               Foreground="White" FontWeight="Bold" FontSize="20"
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Grid>
                                             </Grid>
-                                        </Grid>
-                                    </Border>
+                                        </Border>
 
-                                    <!-- Column 1: Info & Progress -->
-                                    <Grid Grid.Column="1" Margin="12,2,0,2">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
+                                        <!-- Column 1: Info & Progress -->
+                                        <Grid Grid.Column="1" Margin="12,2,0,2">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
 
-                                        <!-- Row 0: Study Name & Actions -->
-                                        <Grid Grid.Row="0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
+                                            <!-- Row 0: Study Name & Actions -->
+                                            <Grid Grid.Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
 
-                                            <TextBlock Text="{Binding Name}" Style="{StaticResource TextTitle}" 
-                                                       TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Left"
-                                                       MaxWidth="120" ToolTip="{Binding Name}"/>
+                                                <TextBlock Text="{Binding Name}" Style="{StaticResource TextTitle}" 
+                                                           TextTrimming="CharacterEllipsis" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                           MaxWidth="120" ToolTip="{Binding Name}"/>
 
-                                            <!-- Edit / Delete actions -->
-                                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                                                <Button Command="{Binding DataContext.EditStudyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="✏️" ToolTip="Editar" Style="{StaticResource IconButtonStyle}"/>
-                                                <Button Command="{Binding DataContext.DeleteStudyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="🗑️" ToolTip="Excluir" Style="{StaticResource IconButtonStyle}"/>
+                                                <!-- Edit / Delete actions -->
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <Button Command="{Binding DataContext.EditStudyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding}"
+                                                            Content="✏️" ToolTip="Editar" Style="{StaticResource IconButtonStyle}"/>
+                                                    <Button Command="{Binding DataContext.DeleteStudyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding}"
+                                                            Content="🗑️" ToolTip="Excluir" Style="{StaticResource IconButtonStyle}"/>
+                                                </StackPanel>
+                                            </Grid>
+
+                                            <!-- Row 1: Circular Progress -->
+                                            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Canvas Width="28" Height="28">
+                                                    <!-- Background ring -->
+                                                    <Ellipse Stroke="#15FFFFFF" StrokeThickness="2.5" Width="24" Height="24" Canvas.Left="2" Canvas.Top="2"/>
+                                                    <!-- Foreground Arc -->
+                                                    <Path Stroke="{StaticResource BrushPrimary}" StrokeThickness="2.5" 
+                                                          Data="{Binding ProgressPercentage, Converter={StaticResource PercentageToArcConverter}}"
+                                                          StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                                                </Canvas>
+                                                <TextBlock Text="{Binding ProgressPercentage, StringFormat={}{0}%}" FontSize="12" FontWeight="Bold"
+                                                           Foreground="{StaticResource BrushTextPrimary}" Margin="8,0,0,0" VerticalAlignment="Center"/>
                                             </StackPanel>
                                         </Grid>
-
-                                        <!-- Row 1: Circular Progress -->
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
-                                            <Canvas Width="28" Height="28">
-                                                <!-- Background ring -->
-                                                <Ellipse Stroke="#15FFFFFF" StrokeThickness="2.5" Width="24" Height="24" Canvas.Left="2" Canvas.Top="2"/>
-                                                <!-- Foreground Arc -->
-                                                <Path Stroke="{StaticResource BrushPrimary}" StrokeThickness="2.5" 
-                                                      Data="{Binding ProgressPercentage, Converter={StaticResource PercentageToArcConverter}}"
-                                                      StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-                                            </Canvas>
-                                            <TextBlock Text="{Binding ProgressPercentage, StringFormat={}{0}%}" FontSize="12" FontWeight="Bold"
-                                                       Foreground="{StaticResource BrushTextPrimary}" Margin="8,0,0,0" VerticalAlignment="Center"/>
-                                        </StackPanel>
                                     </Grid>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Grid>
-        </ScrollViewer>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </ScrollViewer>
+
+            <!-- Search Results View: Visible when SearchQuery is NOT empty -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20"
+                          Visibility="{Binding SearchQuery, Converter={StaticResource NullToVisibilityConverter}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Search Status Header -->
+                    <Grid Grid.Row="0" Margin="10,0,10,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Resultados da pesquisa para &quot;" Style="{StaticResource TextBody}" Foreground="{StaticResource BrushTextSecondary}" FontSize="15"/>
+                            <TextBlock Text="{Binding SearchQuery}" Style="{StaticResource TextTitle}" Foreground="{StaticResource BrushPrimary}" FontSize="15"/>
+                            <TextBlock Text="&quot;" Style="{StaticResource TextBody}" Foreground="{StaticResource BrushTextSecondary}" FontSize="15"/>
+                            <TextBlock Text="{Binding SearchResults.Count, StringFormat={} ({0})}" Style="{StaticResource TextBody}" Foreground="{StaticResource BrushTextMuted}" FontSize="15" Margin="5,0,0,0"/>
+                        </StackPanel>
+                        
+                        <Button Grid.Column="1" Content="Limpar Pesquisa" Command="{Binding ClearSearchCommand}" Style="{StaticResource SecondaryButton}" Height="28" Padding="12,0"/>
+                    </Grid>
+
+                    <!-- Empty Search Results State -->
+                    <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,80,0,0"
+                                Visibility="{Binding SearchResults.Count, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=inverse}">
+                        <TextBlock Text="🔍" FontSize="44" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBlock Text="Nenhum resultado encontrado." Foreground="{StaticResource BrushTextSecondary}" FontSize="16" HorizontalAlignment="Center" FontWeight="SemiBold"/>
+                        <TextBlock Text="Tente buscar por termos diferentes ou confira a ortografia." Foreground="{StaticResource BrushTextMuted}" FontSize="13" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                    </StackPanel>
+
+                    <!-- Search Results List -->
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding SearchResults}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="8" Background="{StaticResource BrushSurfaceBg}" BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.5" Margin="10,6" Padding="14,12" Cursor="Hand">
+                                    <Border.InputBindings>
+                                        <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.NavigateToSearchResultCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}"/>
+                                    </Border.InputBindings>
+                                    
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect BlurRadius="6" Color="#000000" Opacity="0.2" ShadowDepth="1"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource BrushSurfaceHoverBg}"/>
+                                                    <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary}"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Col 0: Type Badge/Icon -->
+                                        <Border Grid.Column="0" CornerRadius="6" Padding="8,4" VerticalAlignment="Top" Margin="0,0,14,0" Background="{Binding TypeBrush}" Width="95">
+                                            <TextBlock Text="{Binding TypeLabel}" Foreground="White" FontWeight="Bold" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+
+                                        <!-- Col 1: Details -->
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <!-- Row 0: Title of matched item -->
+                                            <TextBlock Grid.Row="0" Text="{Binding DisplayTitle}" Style="{StaticResource TextTitle}" FontSize="15" Margin="0,0,0,3" TextTrimming="CharacterEllipsis"/>
+
+                                            <!-- Row 1: Breadcrumb path -->
+                                            <TextBlock Grid.Row="1" Text="{Binding DisplayPath}" Style="{StaticResource TextBody}" FontSize="12.5" Foreground="{StaticResource BrushTextMuted}" Margin="0,0,0,6"/>
+
+                                            <!-- Row 2: Match snippet -->
+                                            <TextBlock Grid.Row="2" Text="{Binding DisplaySnippet}" Style="{StaticResource TextBody}" FontSize="13" Foreground="{StaticResource BrushTextSecondary}" Visibility="{Binding HasSnippet, Converter={StaticResource BooleanToVisibilityConverter}}" TextWrapping="Wrap" MaxHeight="60" TextTrimming="CharacterEllipsis"/>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>
