@@ -24,8 +24,6 @@ namespace StudyManager.Services
                 throw new ArgumentException("Chave da API do Gemini não configurada.");
             }
 
-            string url = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={apiKey}";
-
             string prompt = $@"
 Você é um especialista em tecnologia e desenvolvimento de software. Descreva detalhadamente o tema de estudo '{themeName}', que faz parte do tópico '{topicName}' no contexto do estudo de '{studyName}'.
 Forneça explicações aprofundadas, objetivos/funcionalidades do assunto e exemplos práticos de código se aplicável.
@@ -50,6 +48,169 @@ Sua resposta deve ser estruturada em Markdown, utilizando títulos com '#' (H1),
                 }
             };
 
+            return await SendApiRequestWithFallbackAsync(apiKey, requestBody);
+        }
+
+        public async Task<StudyGuideResult> GenerateStudyGuideAsync(string studyName, string topicName, string themeName, string apiKey)
+        {
+            if (string.IsNullOrWhiteSpace(apiKey))
+            {
+                throw new ArgumentException("Chave da API do Gemini não configurada.");
+            }
+
+            // Fase 1: Gerar a explicação teórica rica fundamentada na pesquisa do Google em tempo real (2026)
+            string explanationPrompt = $@"
+Você é um especialista em tecnologia e desenvolvimento de software. Crie uma explicação completa, detalhada e aprofundada sobre o tema '{themeName}', que faz parte do tópico '{topicName}' no contexto do estudo de '{studyName}'.
+Você DEVE utilizar a ferramenta de pesquisa do Google (Google Search Grounding) para embasar sua resposta nas práticas, versões e padrões tecnológicos mais recentes e vigentes de 2026.
+Foque em definições claras, boas práticas contemporâneas de desenvolvimento de software, casos de uso práticos e trechos de código limpos e bem estruturados.
+Como o leitor já é um desenvolvedor experiente, não explique conceitos básicos de programação.
+Sua resposta deve ser estruturada em Markdown, utilizando títulos com '#' (H1), '##' (H2), '###' (H3), listas com marcadores '*' ou '-' para pontos importantes, negrito com '**' para termos-chave e blocos de código com '```' (especificando a linguagem, como csharp, javascript, typescript, html, css, etc.) para os exemplos práticos.
+";
+
+            var explanationRequestBody = new JsonObject
+            {
+                ["contents"] = new JsonArray
+                {
+                    new JsonObject
+                    {
+                        ["parts"] = new JsonArray
+                        {
+                            new JsonObject
+                            {
+                                ["text"] = explanationPrompt
+                            }
+                        }
+                    }
+                },
+                ["tools"] = new JsonArray
+                {
+                    new JsonObject
+                    {
+                        ["google_search"] = new JsonObject()
+                    }
+                }
+            };
+
+            string explanationText = await SendApiRequestWithFallbackAsync(apiKey, explanationRequestBody);
+
+            // Fase 2: Gerar os links de busca e as 5 perguntas estruturadas em JSON baseando-se na explicação gerada na Fase 1
+            string guidePrompt = $@"
+Você é um especialista em tecnologia. Com base na explicação fornecida sobre o tema '{themeName}', gere os links de apoio de busca (vídeo e artigo) e 5 perguntas de fixação para validar o entendimento do assunto.
+
+Você DEVE retornar a resposta estritamente como um objeto JSON válido, sem qualquer tipo de formatação externa (como blocos de markdown ```json ... ```) e sem caracteres extras. O JSON gerado deve seguir exatamente a seguinte estrutura:
+
+{{
+  ""videoLink"": {{
+    ""name"": ""Título do vídeo relevante no YouTube (ex: 'Aprenda X na prática' ou tutorial oficial)"",
+    ""url"": ""Uma URL de busca dinâmica no YouTube baseada no tema (ex: 'https://www.youtube.com/results?search_query=csharp+linq+tutorial' usando '+' para separar as palavras na busca)""
+  }},
+  ""articleLink"": {{
+    ""name"": ""Título da documentação oficial ou artigo de extrema importância"",
+    ""url"": ""Uma URL de busca dinâmica no Google ou Microsoft Learn baseada no tema (ex: 'https://www.google.com/search?q=documentacao+oficial+csharp+linq' ou busca oficial do framework)""
+  }},
+  ""questions"": [
+    {{
+      ""questionText"": ""Pergunta direta de extrema importância baseada no tema para validar o entendimento."",
+      ""options"": [
+        ""Opção A"",
+        ""Opção B"",
+        ""Opção C"",
+        ""Opção D"",
+        ""Opção E""
+      ],
+      ""correctIndex"": 0
+    }}
+  ]
+}}
+
+Tema: {themeName}
+Explicação de Referência:
+{explanationText}
+
+Importante:
+1. Retorne EXATAMENTE 5 perguntas objetivas no array de questions. Cada pergunta deve ter EXATAMENTE 5 opções (Opção A, B, C, D, E).
+2. O correctIndex deve ser o índice da opção correta (0 a 4).
+3. Todas as strings internas devem ter as aspas duplas devidamente escapadas com barra invertida (\u0022 ou \"") para manter o JSON válido.
+4. Para os links (videoLink e articleLink), crie URLs de busca dinâmica focadas no tema '{themeName}' para garantir que o usuário acesse materiais sempre atualizados e relevantes.
+";
+
+            var guideRequestBody = new JsonObject
+            {
+                ["contents"] = new JsonArray
+                {
+                    new JsonObject
+                    {
+                        ["parts"] = new JsonArray
+                        {
+                            new JsonObject
+                            {
+                                ["text"] = guidePrompt
+                            }
+                        }
+                    }
+                },
+                ["generationConfig"] = new JsonObject
+                {
+                    ["responseMimeType"] = "application/json",
+                    ["temperature"] = 0.3,
+                    ["maxOutputTokens"] = 4096
+                }
+            };
+
+            string guideTextResult = await SendApiRequestWithFallbackAsync(apiKey, guideRequestBody);
+
+            try
+            {
+                var result = JsonSerializer.Deserialize<StudyGuideResult>(guideTextResult, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                if (result == null)
+                {
+                    throw new Exception("Falha ao desserializar o resultado do guia de estudos.");
+                }
+
+                // Injetamos a explicação grounded gerada na Fase 1
+                result.Explanation = explanationText;
+
+                return result;
+            }
+            catch (JsonException ex)
+            {
+                throw new Exception($"A resposta de links/perguntas da IA não está em um formato JSON válido: {ex.Message}\nResposta crua:\n{guideTextResult}");
+            }
+        }
+
+        private async Task<string> SendApiRequestWithFallbackAsync(string apiKey, JsonObject requestBody)
+        {
+            string[] models = { "gemini-3.5-flash", "gemini-2.5-flash", "gemini-2.0-flash" };
+            Exception? lastException = null;
+
+            foreach (var model in models)
+            {
+                string url = $"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={apiKey}";
+                try
+                {
+                    return await SendApiRequestAsync(url, requestBody);
+                }
+                catch (Exception ex) when (
+                    ex.Message.Contains("503") || ex.Message.Contains("ServiceUnavailable") || 
+                    ex.Message.Contains("429") || ex.Message.Contains("TooManyRequests") || 
+                    ex.Message.Contains("UNAVAILABLE") || ex.Message.Contains("404") || 
+                    ex.Message.Contains("NotFound") || ex.Message.Contains("NOT_FOUND")
+                )
+                {
+                    lastException = ex;
+                    System.Diagnostics.Debug.WriteLine($"Modelo {model} falhou com erro: {ex.Message}. Tentando modelo fallback...");
+                }
+            }
+
+            throw lastException ?? new Exception("Falha ao se comunicar com a API do Gemini em todos os modelos tentados.");
+        }
+
+        private async Task<string> SendApiRequestAsync(string url, JsonObject requestBody)
+        {
             var content = new StringContent(requestBody.ToJsonString(), Encoding.UTF8, "application/json");
             HttpResponseMessage response = null!;
             int maxRetries = 3;
@@ -58,15 +219,15 @@ Sua resposta deve ser estruturada em Markdown, utilizando títulos com '#' (H1),
             for (int attempt = 1; attempt <= maxRetries; attempt++)
             {
                 response = await HttpClient.PostAsync(url, content);
-                
-                if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests || 
+
+                if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests ||
                     response.StatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
                 {
                     if (attempt == maxRetries) break;
                     await Task.Delay(delayMs * attempt);
                     continue;
                 }
-                
+
                 break;
             }
 
@@ -86,128 +247,6 @@ Sua resposta deve ser estruturada em Markdown, utilizando títulos com '#' (H1),
             }
 
             return textResult;
-        }
-
-        public async Task<StudyGuideResult> GenerateStudyGuideAsync(string studyName, string topicName, string themeName, string apiKey)
-        {
-            if (string.IsNullOrWhiteSpace(apiKey))
-            {
-                throw new ArgumentException("Chave da API do Gemini não configurada.");
-            }
-
-            string url = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={apiKey}";
-
-            string prompt = $@"
-Você é um especialista em tecnologia e desenvolvimento de software. Crie um guia de estudo completo e aprofundado sobre o tema '{themeName}', que faz parte do tópico '{topicName}' no contexto do estudo de '{studyName}'.
-
-Você DEVE retornar a resposta estritamente como um objeto JSON válido, sem qualquer tipo de formatação externa (como blocos de markdown ```json ... ```) e sem caracteres extras. O JSON gerado deve seguir exatamente a seguinte estrutura:
-
-{{
-  ""explanation"": ""Uma explicação detalhada e aprofundada sobre o tema, voltada para um desenvolvedor experiente. Use títulos com '#' (H1), '##' (H2), '###' (H3), listas e blocos de código com '```csharp' ou outra linguagem se aplicável. Use negrito para termos-chave."",
-  ""videoLink"": {{
-    ""name"": ""Título do vídeo relevante no YouTube (ex: 'Aprenda X na prática' ou tutorial oficial)"",
-    ""url"": ""Uma URL real e relevante do YouTube sobre o assunto (iniciando com http/https)""
-  }},
-  ""articleLink"": {{
-    ""name"": ""Título da documentação oficial ou artigo de extrema importância"",
-    ""url"": ""Uma URL real e funcional de documentação oficial, MDN, Microsoft Learn, ou artigo no Medium/dev.to (iniciando com http/https)""
-  }},
-  ""questions"": [
-    {{
-      ""questionText"": ""Pergunta direta de extrema importância para validar o entendimento do tema."",
-      ""options"": [
-        ""Opção A"",
-        ""Opção B"",
-        ""Opção C"",
-        ""Opção D"",
-        ""Opção E""
-      ],
-      ""correctIndex"": 0
-    }}
-  ]
-}}
-
-Importante:
-1. Retorne EXATAMENTE 5 perguntas objetivas no array de questions. Cada pergunta deve ter EXATAMENTE 5 opções (Opção A, B, C, D, E).
-2. O correctIndex deve ser o índice da opção correta (0 a 4).
-3. Todas as strings internas devem ter as aspas duplas devidamente escapadas com barra invertida (\u0022 ou \"") para manter o JSON válido.
-4. Tente prover links funcionais e reais de sites conhecidos.
-";
-
-            var requestBody = new JsonObject
-            {
-                ["contents"] = new JsonArray
-                {
-                    new JsonObject
-                    {
-                        ["parts"] = new JsonArray
-                        {
-                            new JsonObject
-                            {
-                                ["text"] = prompt
-                            }
-                        }
-                    }
-                },
-                ["generationConfig"] = new JsonObject
-                {
-                    ["responseMimeType"] = "application/json"
-                }
-            };
-
-            var content = new StringContent(requestBody.ToJsonString(), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = null!;
-            int maxRetries = 3;
-            int delayMs = 1500;
-
-            for (int attempt = 1; attempt <= maxRetries; attempt++)
-            {
-                response = await HttpClient.PostAsync(url, content);
-                
-                if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests || 
-                    response.StatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
-                {
-                    if (attempt == maxRetries) break;
-                    await Task.Delay(delayMs * attempt);
-                    continue;
-                }
-                
-                break;
-            }
-
-            if (!response.IsSuccessStatusCode)
-            {
-                string errorMsg = await response.Content.ReadAsStringAsync();
-                throw new Exception($"Erro na API do Gemini: {response.StatusCode} - {errorMsg}");
-            }
-
-            string responseString = await response.Content.ReadAsStringAsync();
-            JsonNode? jsonResponse = JsonNode.Parse(responseString);
-            string textResult = jsonResponse?["candidates"]?[0]?["content"]?["parts"]?[0]?["text"]?.ToString() ?? string.Empty;
-
-            if (string.IsNullOrWhiteSpace(textResult))
-            {
-                throw new Exception("Não foi possível obter resposta da IA.");
-            }
-
-            try
-            {
-                var result = JsonSerializer.Deserialize<StudyGuideResult>(textResult, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-
-                if (result == null)
-                {
-                    throw new Exception("Falha ao desserializar o resultado do guia de estudos.");
-                }
-
-                return result;
-            }
-            catch (JsonException ex)
-            {
-                throw new Exception($"A resposta da IA não está em um formato JSON válido: {ex.Message}\nResposta crua:\n{textResult}");
-            }
         }
 
         public static string AppendMarkdownToXaml(string currentXaml, string markdownText)
