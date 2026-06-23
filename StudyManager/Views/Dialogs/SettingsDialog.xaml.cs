@@ -5,12 +5,14 @@ namespace StudyManager.Views.Dialogs
 {
     public partial class SettingsDialog : Window
     {
-        public string ResultApiKey { get; private set; } = string.Empty;
+        public string ResultGeminiApiKey { get; private set; } = string.Empty;
+        public string ResultGroqApiKey { get; private set; } = string.Empty;
 
-        public SettingsDialog(string currentApiKey)
+        public SettingsDialog(string currentGeminiApiKey, string currentGroqApiKey)
         {
             InitializeComponent();
-            ApiKeyTextBox.Text = currentApiKey;
+            ApiKeyTextBox.Text = currentGeminiApiKey;
+            GroqApiKeyTextBox.Text = currentGroqApiKey;
         }
 
         private void Header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -23,7 +25,8 @@ namespace StudyManager.Views.Dialogs
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            ResultApiKey = ApiKeyTextBox.Text.Trim();
+            ResultGeminiApiKey = ApiKeyTextBox.Text.Trim();
+            ResultGroqApiKey = GroqApiKeyTextBox.Text.Trim();
             DialogResult = true;
             Close();
         }

@@ -332,61 +332,36 @@ namespace StudyManager.ViewModels
             {
                 var service = new GeminiService();
                 var result = await service.GenerateStudyGuideAsync(Study.Name, Topic.Name, Theme.Name, apiKey);
-
-                // 1. Process explanation (convert markdown to FlowDocument XAML)
-                string xaml = GeminiService.AppendMarkdownToXaml(string.Empty, result.Explanation);
-                AiExplanation = xaml;
-
-                // 2. Add links to Theme.Links
-                if (result.VideoLink != null && !string.IsNullOrWhiteSpace(result.VideoLink.Url))
-                {
-                    Theme.Links.Add(new StudyLink
-                    {
-                        Name = result.VideoLink.Name,
-                        Url = result.VideoLink.Url,
-                        Type = LinkType.Video
-                    });
-                }
-                if (result.ArticleLink != null && !string.IsNullOrWhiteSpace(result.ArticleLink.Url))
-                {
-                    Theme.Links.Add(new StudyLink
-                    {
-                        Name = result.ArticleLink.Name,
-                        Url = result.ArticleLink.Url,
-                        Type = LinkType.Article
-                    });
-                }
-
-                // 3. Set questions in Theme.Questions
-                Theme.Questions.Clear();
-                if (result.Questions != null)
-                {
-                    foreach (var qResult in result.Questions)
-                    {
-                        var newQuestion = new ThemeQuestion
-                        {
-                            QuestionText = qResult.QuestionText,
-                            CorrectIndex = qResult.CorrectIndex,
-                            SelectedIndex = null
-                        };
-                        for (int i = 0; i < qResult.Options.Count; i++)
-                        {
-                            newQuestion.Options.Add(new QuestionOption
-                            {
-                                Question = newQuestion,
-                                Text = qResult.Options[i],
-                                Index = i
-                            });
-                        }
-                        Theme.Questions.Add(newQuestion);
-                    }
-                }
-
-                _main.SaveData();
-                SaveStatus = "Salvo";
+                PopulateStudyGuideResult(result);
             }
             catch (Exception ex)
             {
+                // Verifica se foi erro de cota do Gemini e se o Groq está configurado
+                string groqKey = _main.AppData.GroqApiKey;
+                if ((ex.Message.Contains("cota") || ex.Message.Contains("limite") || ex.Message.Contains("429") || ex.Message.Contains("TooManyRequests")) && 
+                    !string.IsNullOrWhiteSpace(groqKey))
+                {
+                    System.Diagnostics.Debug.WriteLine($"Gemini falhou por limite de cota. Tentando Groq fallback...");
+                    SaveStatus = "Gemini sem cota. Tentando Groq...";
+                    try
+                    {
+                        var groqService = new GroqService();
+                        var result = await groqService.GenerateStudyGuideAsync(Study.Name, Topic.Name, Theme.Name, groqKey);
+                        PopulateStudyGuideResult(result);
+                        return;
+                    }
+                    catch (Exception groqEx)
+                    {
+                        MessageBox.Show(
+                            $"Erro de cota no Gemini, e o Groq (fallback) também falhou:\n{groqEx.Message}",
+                            "Erro de IA (Fallback Falhou)",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                        SaveStatus = "Erro na geração";
+                        return;
+                    }
+                }
+
                 MessageBox.Show(
                     $"Erro ao gerar o guia de estudos:\n{ex.Message}",
                     "Erro de IA",
@@ -398,6 +373,61 @@ namespace StudyManager.ViewModels
             {
                 IsConsultingGemini = false;
             }
+        }
+
+        private void PopulateStudyGuideResult(StudyGuideResult result)
+        {
+            // 1. Process explanation (convert markdown to FlowDocument XAML)
+            string xaml = GeminiService.AppendMarkdownToXaml(string.Empty, result.Explanation);
+            AiExplanation = xaml;
+
+            // 2. Add links to Theme.Links
+            if (result.VideoLink != null && !string.IsNullOrWhiteSpace(result.VideoLink.Url))
+            {
+                Theme.Links.Add(new StudyLink
+                {
+                    Name = result.VideoLink.Name,
+                    Url = result.VideoLink.Url,
+                    Type = LinkType.Video
+                });
+            }
+            if (result.ArticleLink != null && !string.IsNullOrWhiteSpace(result.ArticleLink.Url))
+            {
+                Theme.Links.Add(new StudyLink
+                {
+                    Name = result.ArticleLink.Name,
+                    Url = result.ArticleLink.Url,
+                    Type = LinkType.Article
+                });
+            }
+
+            // 3. Set questions in Theme.Questions
+            Theme.Questions.Clear();
+            if (result.Questions != null)
+            {
+                foreach (var qResult in result.Questions)
+                {
+                    var newQuestion = new ThemeQuestion
+                    {
+                        QuestionText = qResult.QuestionText,
+                        CorrectIndex = qResult.CorrectIndex,
+                        SelectedIndex = null
+                    };
+                    for (int i = 0; i < qResult.Options.Count; i++)
+                    {
+                        newQuestion.Options.Add(new QuestionOption
+                        {
+                            Question = newQuestion,
+                            Text = qResult.Options[i],
+                            Index = i
+                        });
+                    }
+                    Theme.Questions.Add(newQuestion);
+                }
+            }
+
+            _main.SaveData();
+            SaveStatus = "Salvo";
         }
 
         private void AnswerQuestion(object? parameter)

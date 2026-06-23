@@ -234,7 +234,7 @@ namespace StudyManager.ViewModels
 
         private void OpenSettings()
         {
-            var dialog = new SettingsDialog(_main.AppData.GeminiApiKey);
+            var dialog = new SettingsDialog(_main.AppData.GeminiApiKey, _main.AppData.GroqApiKey);
             if (Application.Current.MainWindow != null)
             {
                 dialog.Owner = Application.Current.MainWindow;
@@ -242,7 +242,8 @@ namespace StudyManager.ViewModels
 
             if (dialog.ShowDialog() == true)
             {
-                _main.AppData.GeminiApiKey = dialog.ResultApiKey;
+                _main.AppData.GeminiApiKey = dialog.ResultGeminiApiKey;
+                _main.AppData.GroqApiKey = dialog.ResultGroqApiKey;
                 _main.SaveData();
             }
         }
